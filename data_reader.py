@@ -8,10 +8,11 @@ import logging
 class Config():
     n_channel = 1
     n_class = 3
-    X_shape = [10001, 1, n_channel]
-    Y_shape = [10001, 1, n_class]
+    X_shape = [12001, 1, n_channel]
+    Y_shape = [12001, 1, n_class]
+    mask_window = int(X_shape[0]/100) # number of points for generating the distribution porobabilies of label 
     dt = 0.000025 # time derivatives
-    tol = 0.001 # acceptable uncertainty while testing
+    tol = dt*mask_window/3 # acceptable uncertainty while testing
    
 class DataReader(keras.utils.Sequence):
     def __init__(self,
@@ -30,8 +31,7 @@ class DataReader(keras.utils.Sequence):
         self.n_class = config.n_class
         self.X_shape = config.X_shape
         self.Y_shape = config.Y_shape
-        mask_window_tmp = int(1.25 * config.tol/config.dt)
-        self.mask_window = mask_window_tmp + mask_window_tmp%2
+        self.mask_window = config.mask_window + config.mask_window%2
         self.distribution_prob = np.exp(-(np.arange(-self.mask_window//2,self.mask_window//2))**2/(2*(self.mask_window//4)**2))
         self.buffer = {}
     def normalize(self, data):
