@@ -8,8 +8,8 @@ import random
 import logging
 
 class Config():
-    file_type = '.semv' # Format of raw data files
-    data_size = 12001 # chose a output size for data that will be used for training, test or prediction.
+    file_type = '.txt' # Format of raw data files
+    data_size = 2001 # chose a output size for data that will be used for training, test or prediction.
     noise_level = [0.01,0.04] # Minimum and maximum of noise levels while doing data augmentation.
     expand_dim = 3 # Increase the size of train set (or test set) with a factor of expand_dim while training (or testing) on each batch.
 
@@ -28,15 +28,13 @@ def convert_to_npz(args,out_dir):
         logging.info("mode must be train, test or pred")
         exit()
     list_data = np.sort(fnmatch.filter(os.listdir(args.data_dir), '*{}'.format(config.file_type))).tolist()
-    try:
-        df = pd.read_csv(args.label_list)
-        itp = df['itp'].to_numpy()
-        its = df['its'].to_numpy()
-        itray = df['itray'].to_numpy()
-    except:
-        if not label:
-            pass
-        else:
+    if label:
+        try:
+            df = pd.read_csv(args.label_list)
+            itp = df['itp'].to_numpy()
+            its = df['its'].to_numpy()
+            itray = df['itray'].to_numpy()
+        except:
             logging.info("Unlabeled data! Train or test mode need a labeled data.")
             exit()
     
