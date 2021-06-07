@@ -8,8 +8,8 @@ import random
 import logging
 
 class Config():
-    file_type = '.txt' # Format of raw data files
-    data_size = 2001 # chose a output size for data that will be used for training, test or prediction.
+    file_type = '.semv' # Format of raw data files
+    data_size = 12001 # chose a output size for data that will be used for training, test or prediction.
     noise_level = [0.01,0.04] # Minimum and maximum of noise levels while doing data augmentation.
     expand_dim = 3 # Increase the size of train set (or test set) with a factor of expand_dim while training (or testing) on each batch.
 
@@ -42,6 +42,7 @@ def convert_to_npz(args,out_dir):
     itp_list = []
     its_list = []
     itray_list = []
+    n = 0
     for i,filename in enumerate(list_data):
         # Load data from text file
         seismo = np.loadtxt(os.path.join(args.data_dir,filename))

@@ -12,8 +12,23 @@ virtualenv .venv -p python3.8
 source .venv/bin/activate
 pip install -r requirements.txt
 ```
-## 1. Data pre-processing
+## 1. Data preprocessing
+Go to the `dataset` directory, the raw data is stored in `raw`.
+
+- For generating labeled data (for train and test):
+```
+conda activate venv
+python run.py --mode=mode --data_augmentation --data_dir=raw/data --label_list=raw/label_time.csv
+```
+where `mode` is either `train` (for generating a train test), or `test` (for generating test set). The action `--data_augmentation` used in order to increase the size of train or test set. We can further add the action `--plot_figure` and the parameter `--plot_rate` in order to verify the data preprocessing results.
+
+- For generating unlabeled data (for prediction):
+```
+conda activate venv
+python run.py --mode=pred --data_dir=raw/data
+```
 ## 2. Training
+Now, go back to the main directory.
 ### Training from scratch:
 
 - Train by splitting data into train and valid set: 
@@ -48,6 +63,8 @@ python prediction_model.py --test --model_dir=model/210520-204441 --data_dir=dat
 conda activate venv
 python prediction_model.py --model_dir=model/210520-204441 --data_dir=dataset/pred/data --data_list=dataset/pred/fname.csv --batch_size=100 --save_result --plot_figure
 ```
-Note:
+Notes:
+
+- In the data preprocessing, the arrival times in `dataset/raw/label_time.csv` must be sorted in ascending alphabetical order of the file name in the `dataset/raw/data`.
 
 - For predicting and testing, the shape of data in train (or test) directory and that of the model shown in `config.log` must have the same dimension.
