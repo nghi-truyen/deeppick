@@ -20,7 +20,7 @@ Go to the `dataset` directory, the raw data is stored in `raw`.
 conda activate venv
 python run.py --mode=mode --data_augmentation --data_dir=raw/data --label_list=raw/label_time.csv
 ```
-where `mode` is either `train` (for generating a train test), or `test` (for generating test set). The action `--data_augmentation` used in order to increase the size of train or test set. We can further add the action `--plot_figure` and the parameter `--plot_rate` in order to verify the data preprocessing results.
+where `mode` is either `train` (for generating train test), or `test` (for generating test set). The action `--data_augmentation` used in order to increase the size of train or test set. We can further add the action `--plot_figure` and set a value for the parameter `--plot_rate` in order to verify the data preprocessing results.
 
 - For generating unlabeled data (for prediction):
 ```
@@ -65,6 +65,6 @@ python prediction_model.py --model_dir=model/210520-204441 --data_dir=dataset/pr
 ```
 Notes:
 
-- In the data preprocessing, the arrival times in `dataset/raw/label_time.csv` must be sorted in ascending alphabetical order of the file name in the `dataset/raw/data`.
+- In the data preprocessing, the arrival times in `dataset/raw/label_time.csv` must be sorted in ascending alphabetical order of the file name in the `dataset/raw/data` directory.
 
 - For predicting and testing, the shape of data in train (or test) directory and that of the model shown in `config.log` must have the same dimension.
