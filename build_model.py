@@ -26,10 +26,6 @@ class Model:
         self.Y_shape = config.Y_shape
         self.n_channel = config.n_channel
         self.n_class = config.n_class
-        self.batch_size = config.batch_size
-        self.loss_type = config.loss_type
-        self.optimizer = config.optimizer
-        self.learning_rate = config.learning_rate
         self.drop_rate = config.drop_rate
 
     def get_model(self):
