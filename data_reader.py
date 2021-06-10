@@ -8,8 +8,8 @@ import logging
 class Config():
     n_channel = 1
     n_class = 3
-    X_shape = [12001, 1, n_channel]
-    Y_shape = [12001, 1, n_class]
+    X_shape = [10001, 1, n_channel]
+    Y_shape = [10001, 1, n_class]
     mask_window = int(X_shape[0]/100) # number of points for generating the distribution porobabilies of label 
     dt = 0.000025 # time derivatives
     tol = dt*mask_window/3 # acceptable uncertainty while testing

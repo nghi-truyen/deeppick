@@ -3,7 +3,7 @@ from tensorflow import keras
 from tensorflow.keras import layers
 import logging
 
-def crop_and_concat(net1, net2): ### Revoir si on ajoute l'onde de Rayleigh (augmente n_class)
+def crop_and_concat(net1, net2):
     """
     the size(net1) <= size(net2)
     """

@@ -8,7 +8,7 @@ kernel_size: [7, 1]
 pool_size: [4, 1]
 dilation_rate: [1, 1]
 batch_size: 200
-loss_type: cross_entropy
-optimizer: adam
+loss_type: categorical_crossentropy
+optimizer: Adam
 learning_rate: 0.01
 drop_rate: 0

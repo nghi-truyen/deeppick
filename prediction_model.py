@@ -1,6 +1,3 @@
-from __future__ import division
-import matplotlib
-matplotlib.use('agg')
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
@@ -15,6 +12,7 @@ from data_reader import Config, DataReader
 from util import *
 import pandas as pd
 import random
+import json
 
 def read_args():
 
@@ -125,23 +123,39 @@ def prediction(args):
     df = pd.read_csv(args.data_list, header=0)
     logging.info("{} size: {}".format(mode,len(df)))
     
+    # restore the model
+    ## (This code allows to rebuild the model that fit the shape of prediction or test data by loading separately weights and rebuild the graph instead of loading graph and weights at the same time by using keras.models.load_model).
+    try: # read parameters to rebuild the graph of model
+        with open(os.path.join(os.path.split(args.model_dir)[0],'config.log')) as f_config:
+            lines = f_config.readlines()
+    except:
+        try:
+            with open(os.path.join(args.model_dir,'config.log')) as f_config:
+                lines = f_config.readlines()
+        except:
+            logging.info("config file not found!")
+            exit()
+    keys = ['depths','filters_root','kernel_size','pool_size','dilation_rate','drop_rate'] # list of parameters to rebuild the model that fit the shape of the prediction (or test) data
+    for key in keys:
+        setattr(config, key, json.loads([string for string in lines if key in string][0][len(key)+2:]))
     try: # Free up RAM in case the model definition cells were run multiple times
         keras.backend.clear_session()
     except:
         pass
-    logging.info("restoring model ...")
-    
-    try: # restore the model
-        model = keras.models.load_model(args.model_dir)
+    logging.info("restoring model ...")    
+    model = Model(config).get_model()  # build model with new graph  
+    try: # load weights
+        model.load_weights(args.model_dir)
     except:
         try:
-            model = keras.models.load_model(os.path.join(args.model_dir,'model.h5'))
+            model.load_weights(os.path.join(args.model_dir,'model.h5'))
         except:
             logging.info("please set a right path for model_dir!")
             exit()
-    data = DataReader(mode=mode,data_dir=args.data_dir,df_list=df,batch_size=args.batch_size)
-    
+        
     # evaluate and predict
+    model.compile(loss=[string for string in lines if 'loss_type' in string][0][len(key)+2:].rstrip())
+    data = DataReader(mode=mode,data_dir=args.data_dir,df_list=df,batch_size=args.batch_size)
     if args.test: # evaluating only in test mode
         logging.info("evaluating loss:")
         evaluate = model.evaluate(data)

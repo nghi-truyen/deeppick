@@ -66,5 +66,3 @@ python prediction_model.py --model_dir=model/210520-204441 --data_dir=dataset/pr
 Notes:
 
 - In the data preprocessing, the arrival times in `dataset/raw/label_time.csv` must be sorted in ascending alphabetical order of the file name in the `dataset/raw/data` directory.
-
-- For predicting and testing, the shape of data in train (or test) directory and that of the model shown in `config.log` must have the same dimension.
