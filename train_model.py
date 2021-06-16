@@ -136,8 +136,8 @@ def ind_layers(args,n_layers): # return index of layers for loading and freezing
         # ind_freeze = list(range(start_freeze,end_freeze)) # freezing some deep layers
         
         ## TO IMPLEMENT ##
-        ind_load = list(range(0,41))  # loading weights only from input and encoder layers
-        ind_freeze = list(range(0,41)) # freezing input and encoder layers
+        ind_load = list(range(0,n_layers)) # load weights from all layers of pretrained model
+        ind_freeze = list(range(37,51)) # freezing two deepest encoder-decoder layers
         ##              ##
         
     return ind_load,ind_freeze,n_layers

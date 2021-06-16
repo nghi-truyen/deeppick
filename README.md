@@ -65,4 +65,4 @@ python prediction_model.py --model_dir=model/210520-204441 --data_dir=dataset/pr
 ```
 Notes:
 
-- In the data preprocessing, the arrival times in `dataset/raw/label_time.csv` must be sorted in ascending alphabetical order of the file name in the `dataset/raw/data` directory.
+- The csv file `dataset/raw/label_time.csv` must contain three columns: `itp`, `its`, `itray` and its arrival times must be sorted in ascending alphabetical order of the file name in the `dataset/raw/data` directory.
