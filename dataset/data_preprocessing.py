@@ -9,7 +9,7 @@ import logging
 
 class Config():
     file_type = '.semv' # Format of raw data files
-    data_size = 12001 # chose a output size for data that will be used for training, test or prediction.
+    data_size = 15001 # chose a output size for data that will be used for training, test or prediction.
     noise_level = [0.01,0.04] # Minimum and maximum of noise levels while doing data augmentation.
     expand_dim = 3 # Increase the size of train set (or test set) with a factor of expand_dim while training (or testing) on each batch.
 
@@ -67,8 +67,8 @@ def convert_to_npz(args,out_dir):
                         shift = 0
                         coef = -1 
                     else:
-                        if max(0,its[i]-config.data_size+int(config.data_size/10)) < itp[i]-int(config.data_size/100):
-                            shift = random.randint(max(0,its[i]-config.data_size+int(config.data_size/10)), itp[i]-int(config.data_size/100))
+                        if max(0,its[i]-config.data_size+int(config.data_size/10)) < min(itp[i]-int(config.data_size/100),n-config.data_size):
+                            shift = random.randint(max(0,its[i]-config.data_size+int(config.data_size/10)), min(itp[i]-int(config.data_size/100),n-config.data_size))
                             coef = (-1)**(random.random()>0.5)
                         else:
                             logging.info("Can not generate file {} because of small output data size (please increase the value of data_size if you want to create a completed database)".format(filename_npz))                       
