@@ -35,7 +35,7 @@ def convert_to_npz(args,out_dir):
             its = df['its'].to_numpy()
             itray = df['itray'].to_numpy()
         except:
-            logging.info("Unlabeled data! Train or test mode need a labeled data.")
+            logging.info("Can not read label file for train (or test) mode.")
             exit()
     
     fname_list = []
