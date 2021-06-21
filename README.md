@@ -61,8 +61,8 @@ python train_model.py --valid --data_dir=dataset/train/data --data_list=dataset/
 ```
 Note:
 
-- While using transfer learning, make sure that you are loading weights into the layers of the new model that have the same dimension with these of the pretrained model.
--  
+- While using transfer learning, make sure that you are loading weights into layers of the new model that have the same dimension with those of the pretrained model.
+
 ## 3. Test
 ```
 conda activate venv
