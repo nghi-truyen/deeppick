@@ -72,7 +72,7 @@ def database(args):
                     try:
                         plt.axvline(data['itp'],c='red',label='P',linewidth=0.5)
                         plt.axvline(data['its'],c='green',label='S',linewidth=0.5)
-                        plt.axvline(data['itray'],c='blue',label='Rayleigh',linewidth=0.5)
+#                        plt.axvline(data['itray'],c='blue',label='Rayleigh',linewidth=0.5)
                     except:
                         pass
                     plt.legend(loc='upper right', fontsize='small')

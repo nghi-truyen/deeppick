@@ -1,3 +1,5 @@
+This code is a Keras implementation of [PhaseNet](https://github.com/wayneweiqiang/PhaseNet) and dedicated to automatic arrival time picking for seismic inversion. This version allows to deal with the new dataset having the different size and number of channels, especially, to implement Transfer Learning using the pretrained model from Northern California Earthquake Data Center ([NCEDC](https://ncedc.org/)).
+
 ## 0. Installing packages
 ### Using anaconda (recommend):
 ```
@@ -27,6 +29,10 @@ where `mode` is either `train` (for generating train test), or `test` (for gener
 conda activate venv
 python run.py --mode=pred --data_dir=raw/data
 ```
+Notes:
+
+- The csv file `dataset/raw/label_time.csv` must contain three columns: `itp`, `its` and its arrival times must be sorted in ascending alphabetical order of the file name in the `dataset/raw/data` directory.
+- The data files in `dataset/raw/data` must contain 2 columns (the one with the time and the other with the amplitude of the signal).
 ## 2. Training
 Now, go back to the main directory.
 ### Training from scratch:
@@ -56,13 +62,10 @@ python train_model.py --valid --data_dir=dataset/train/data --data_list=dataset/
 ## 3. Test
 ```
 conda activate venv
-python prediction_model.py --test --model_dir=model/210520-204441 --data_dir=dataset/test/data --data_list=dataset/test/fname.csv --batch_size=100 --save_result --plot_figure
+python prediction_model.py --test --model_dir=model/210617-152213 --data_dir=dataset/test/data --data_list=dataset/test/fname.csv --batch_size=100 --save_result --plot_figure
 ```
 ## 4. Prediction
 ```
 conda activate venv
-python prediction_model.py --model_dir=model/210520-204441 --data_dir=dataset/pred/data --data_list=dataset/pred/fname.csv --batch_size=100 --save_result --plot_figure
+python prediction_model.py --model_dir=model/210617-152213 --data_dir=dataset/pred/data --data_list=dataset/pred/fname.csv --batch_size=100 --save_result --plot_figure
 ```
-Notes:
-
-- The csv file `dataset/raw/label_time.csv` must contain three columns: `itp`, `its`, `itray` and its arrival times must be sorted in ascending alphabetical order of the file name in the `dataset/raw/data` directory.
