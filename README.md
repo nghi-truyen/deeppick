@@ -31,7 +31,7 @@ python run.py --mode=pred --data_dir=raw/data
 ```
 Notes:
 
-- The csv file `dataset/raw/label_time.csv` must contain three columns: `itp`, `its` and its arrival times must be sorted in ascending alphabetical order of the file name in the `dataset/raw/data` directory.
+- The csv file `dataset/raw/label_time.csv` must contain 2 columns: `itp`, `its` and its arrival times must be sorted in ascending alphabetical order of the file name in the `dataset/raw/data` directory.
 - The data files in `dataset/raw/data` must contain 2 columns (the one with the time and the other with the amplitude of the signal).
 ## 2. Training
 Now, go back to the main directory.
