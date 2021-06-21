@@ -1,4 +1,4 @@
-This code is a Keras implementation of [PhaseNet](https://github.com/wayneweiqiang/PhaseNet) and dedicated to automatic arrival time picking for seismic inversion. This version allows to deal with the new dataset having the different size and number of channels, especially, to implement Transfer Learning using the pretrained model from Northern California Earthquake Data Center ([NCEDC](https://ncedc.org/)).
+This code is a Keras implementation of [PhaseNet](https://github.com/wayneweiqiang/PhaseNet), dedicated to automatic arrival time picking for seismic inversion. This version allows to deal with the new dataset having the different size and number of channels, especially, to implement Transfer Learning using the pretrained model from Northern California Earthquake Data Center ([NCEDC](https://ncedc.org/)).
 
 ## 0. Installing packages
 ### Using anaconda (recommend):
@@ -59,6 +59,10 @@ python train_model.py --valid --data_dir=dataset/train/data --data_list=dataset/
 conda activate venv
 python train_model.py --valid --data_dir=dataset/train/data --data_list=dataset/train/fname.csv --batch_size=100 --epochs=50 --model_dir=model/pretrained_from_NCEDC --tune_transfer_learning
 ```
+Note:
+
+- While using transfer learning, make sure that you are loading weights into the layers of the new model that have the same dimension with these of the pretrained model.
+-  
 ## 3. Test
 ```
 conda activate venv
