@@ -74,7 +74,7 @@ def convert_to_npz(args,out_dir):
                             logging.info("Can not generate file {} because of small output data size (please increase the value of data_size if you want to create a completed database)".format(filename_npz))                       
                             break
                     [SNR_max,SNR_min] = 1/np.array(config.noise_level)
-                    SNR = random.randint(SNR_min, SNR_max)
+                    SNR = random.randint(int(SNR_min), int(SNR_max))
                     data_ = data[shift:shift+config.data_size]*coef
                     data_[:,0] = adding_noise(data_[:,0],SNR)
                     itp_ = itp[i]-shift
