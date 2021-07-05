@@ -51,14 +51,14 @@ def convert_to_npz(args,out_dir):
         # Write and save to .npz file
         data = freq.reshape(n,1)
         if not label:
-            filename_npz = os.path.join(out_dir,'data',filename.rstrip(file_type))
+            filename_npz = os.path.join(out_dir,'data',os.path.splitext(filename)[0])
             np.savez_compressed(filename_npz,data=data[:config.data_size])
-            fname_list += [filename.rstrip(file_type)+'.npz']
+            fname_list += [os.path.splitext(filename)[0]+'.npz']
         else:
             # create a database for training or testing
             expand_dim = config.expand_dim*args.data_augmentation + 1*(not args.data_augmentation)
             for j in range(expand_dim):
-                filename_npz = os.path.join(out_dir,'data',filename.rstrip(file_type)+'_{}'.format(j))
+                filename_npz = os.path.join(out_dir,'data',os.path.splitext(filename)[0]+'_{}'.format(j))
                 if random.random() > 0.05 or its[i]+int(config.data_size/10) > n-config.data_size:
                     if j == 0:
                         shift = 0
@@ -94,7 +94,7 @@ def convert_to_npz(args,out_dir):
 #                    itray_ = []
 #                np.savez_compressed(filename_npz,data=data_,itp=itp_,its=its_,itray=itray_)
                 np.savez_compressed(filename_npz,data=data_,itp=itp_,its=its_)
-                fname_list += [filename.rstrip(file_type)+'_{}{}'.format(j,'.npz')]
+                fname_list += [os.path.splitext(filename)[0]+'_{}{}'.format(j,'.npz')]
                 itp_list += [itp_]
                 its_list += [its_]
 #                itray_list += [itray_]
