@@ -18,8 +18,9 @@ def read_args():
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--valid",
-                        action="store_true",
-                        help="Split into train and valid set")
+                        default=0,
+                        type=float,
+                        help="Valid set ratio for splitting into train and valid set")
                         
     parser.add_argument("--epochs",
                         default=60,
@@ -142,7 +143,7 @@ def ind_layers(args,n_layers): # return index of layers for loading and freezing
         
     return ind_load,ind_freeze,n_layers
 
-def train_fn(args, train_ratio=0.9):
+def train_fn(args):
     current_time = time.strftime("%y%m%d-%H%M%S")
     model_path = os.path.join('model', current_time)
     logging.info("Training: {}".format(model_path))
@@ -207,11 +208,11 @@ def train_fn(args, train_ratio=0.9):
     	
     # Compile model	
     model.compile(loss=args.loss_type, optimizer=opt)
-    callbacks = [keras.callbacks.ModelCheckpoint("{}/model.h5".format(model_path), save_best_only=args.valid)]
+    callbacks = [keras.callbacks.ModelCheckpoint("{}/model.h5".format(model_path), save_best_only=(args.valid!=0))]
     epoch_list = range(1,args.epochs+1)
     
     # Split into train and valid set or not
-    if not args.valid:
+    if args.valid == 0:
         logging.info("Training on the whole train set ... ")
         data_train = DataReader(mode='train',data_dir=args.data_dir,df_list=df,batch_size=args.batch_size)
         history = model.fit(data_train, epochs=args.epochs, callbacks=callbacks)
@@ -219,10 +220,11 @@ def train_fn(args, train_ratio=0.9):
         df_loss = pd.DataFrame({'epoch':epoch_list,'train_loss':train_loss})
         df_loss.to_csv("{}/loss.csv".format(model_path),index=False)
         logging.warning("Stored lastest checkpoint in {}/model.h5 (best model can be saved only in validation mode)".format(model_path))
-    else:
+    elif args.valid < 1 and args.valid > 0:
         logging.info("Split into train and valid set ... ")
         ind_drop_train = []
         ind_drop_valid = []
+        train_ratio = 1 - args.valid
         for i in range(len(df)):
             if random.uniform(0,1) < train_ratio:
                 ind_drop_valid += [i]
@@ -240,6 +242,9 @@ def train_fn(args, train_ratio=0.9):
         df_loss = pd.DataFrame({'epoch':epoch_list,'train_loss':train_loss,'val_loss':val_loss})
         df_loss.to_csv("{}/loss.csv".format(model_path),index=False)
         logging.info("Stored best model in {}/model.h5".format(model_path))
+    else:
+        logging.info("The value of --valid must be between 0 and 1")
+        exit()
 
     return 0
 
