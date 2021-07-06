@@ -49,15 +49,15 @@ python train_model.py --data_dir=dataset/train/data --data_list=dataset/train/fn
 ```
 ### Transfer learning:
 
-- Training with the validation set and using transfer learning (initializing weights from a pretrained model). By default, the process will load weights from all layers of pretrained model and fine-tune weights in all of these layers: 
+- Initializing weights from a pretrained model. By default, the process will load weights from all layers of pretrained model and fine-tune weights in all of these layers: 
 ```
 conda activate venv
-python train_model.py --valid --data_dir=dataset/train/data --data_list=dataset/train/fname.csv --batch_size=100 --epochs=50 --model_dir=model/pretrained_from_NCEDC
+python train_model.py --valid=0.2 --data_dir=dataset/train/data --data_list=dataset/train/fname.csv --batch_size=100 --epochs=50 --model_dir=model/pretrained_from_NCEDC
 ```
 - For more options of this process, you can see the function `ind_layers()` in `train_model.py` as well as the summary file of pretrained model in order to chose the index of layers for loading and freezing weights when using transfer learning. In this scenario, you need to modify the `TO IMPLEMENT` part in this function and set the action `--tune_transfer_learning` as the command below:
 ```
 conda activate venv
-python train_model.py --valid --data_dir=dataset/train/data --data_list=dataset/train/fname.csv --batch_size=100 --epochs=50 --model_dir=model/pretrained_from_NCEDC --tune_transfer_learning
+python train_model.py --valid=0.2 --data_dir=dataset/train/data --data_list=dataset/train/fname.csv --batch_size=100 --epochs=50 --model_dir=model/pretrained_from_NCEDC --tune_transfer_learning
 ```
 Note:
 
