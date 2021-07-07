@@ -77,3 +77,6 @@ python prediction_model.py --test --model_dir=model/210706-105857 --data_dir=dat
 conda activate venv
 python prediction_model.py --model_dir=model/210706-105857 --data_dir=dataset/pred/data --data_list=dataset/pred/fname.csv --batch_size=100 --save_result --plot_figure
 ```
+## 5. Correcting picks
+
+In order to correct picks after predicting, go to the `correct_label` directory.
