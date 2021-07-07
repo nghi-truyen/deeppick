@@ -86,20 +86,23 @@ def interpo_time_by_receiver(r,list_p,r_s,list_s):
     return (a,b,c),(m,n)
 
 def interpo_and_detect_anomalies(r_p,list_p,r_s,list_s,flip,std_coef):
-    (a,b,c),(m,n) = interpo_time_by_receiver(r_p,list_p,r_s,list_s)
     if flip:
+        (a,b,c),(m,n) = interpo_time_by_receiver(r_p,list_p[::-1],r_s,list_s)
         model_p = np.flip(np.copy(a*np.log(np.array(r_p))**2+b*np.log(np.array(r_p))+c))
     else:
+        (a,b,c),(m,n) = interpo_time_by_receiver(r_p,list_p,r_s,list_s)
         model_p = np.copy(a*np.log(np.array(r_p))**2+b*np.log(np.array(r_p))+c)
     model_s = np.copy(m*np.array(r_s)+n)
-    r_p_ = [r_p[i] for i in range(len(r_p)) if list_p[i]>model_p[i]-np.std(list_p)*std_coef and list_p[i]<model_p[i]+np.std(list_p)*std_coef]
-    r_s_ = [r_s[i] for i in range(len(r_s)) if list_s[i]>model_s[i]-np.std(list_s)*std_coef and list_s[i]<model_s[i]+np.std(list_s)*std_coef]
-    list_p_ = [list_p[i] for i in range(len(r_p)) if list_p[i]>model_p[i]-np.std(list_p)*std_coef and list_p[i]<model_p[i]+np.std(list_p)*std_coef]
-    list_s_ = [list_s[i] for i in range(len(r_s)) if list_s[i]>model_s[i]-np.std(list_s)*std_coef and list_s[i]<model_s[i]+np.std(list_s)*std_coef]
+    std_p = np.std(list_p)*std_coef
+    std_s = np.std(list_s)*std_coef
+    r_p_ = [r_p[i] for i in range(len(r_p)) if list_p[i]>model_p[i]-std_p and list_p[i]<model_p[i]+std_p]
+    r_s_ = [r_s[i] for i in range(len(r_s)) if list_s[i]>model_s[i]-std_s and list_s[i]<model_s[i]+std_s]
+    list_p_ = [list_p[i] for i in range(len(r_p)) if list_p[i]>model_p[i]-std_p and list_p[i]<model_p[i]+std_p]
+    list_s_ = [list_s[i] for i in range(len(r_s)) if list_s[i]>model_s[i]-std_s and list_s[i]<model_s[i]+std_s]
     if flip:
-        return interpo_time_by_receiver(r_p_,list_p_[::-1],r_s_,list_s_)
+        return interpo_time_by_receiver(r_p_,list_p_[::-1],r_s_,list_s_), ((a,b,c),(m,n)), (std_p,std_s)
     else:
-        return interpo_time_by_receiver(r_p_,list_p_,r_s_,list_s_)
+        return interpo_time_by_receiver(r_p_,list_p_,r_s_,list_s_), ((a,b,c),(m,n)), (std_p,std_s)
 
 def correct_label(args):
     
@@ -139,18 +142,32 @@ def correct_label(args):
         list_s = list_s_left + list_s_right
         y_p = np.zeros(num_receiver)
         y_s = np.zeros(num_receiver)
+        upper_P = np.zeros(num_receiver)
+        upper_S = np.zeros(num_receiver)
+        lower_P = np.zeros(num_receiver)
+        lower_S = np.zeros(num_receiver)
 
         if source<points_min_to_interpo:
-            (a,b,c),(m,n) = interpo_and_detect_anomalies(r_p_right,list_p_right,r_s_right,list_s_right,False,std_coef)
+            ((a,b,c),(m,n)),((a0,b0,c0),(m0,n0)), (std_p,std_s) = interpo_and_detect_anomalies(r_p_right,list_p_right,r_s_right,list_s_right,False,std_coef)
             x = np.linspace(source,num_receiver,num_receiver-source+1)
+            
             y_p[i:] = np.copy(a*np.log(x)**2+b*np.log(x)+c)
             y_s[i:] = np.copy(m*x+n)
             y_p[:i] = np.flip(np.copy(y_p[i:2*i]))
             y_s[:i] = np.flip(np.copy(y_s[i:2*i]))
+            
+            upper_P[i:] = np.copy(a0*np.log(x)**2+b0*np.log(x)+c0)+std_p
+            upper_S[i:] = np.copy(m0*x+n0)+std_s
+            upper_P[:i] = np.flip(np.copy(upper_P[i:2*i]))+std_p
+            upper_S[:i] = np.flip(np.copy(upper_S[i:2*i]))+std_s
+            lower_P[i:] = np.copy(a0*np.log(x)**2+b0*np.log(x)+c0)-std_p
+            lower_S[i:] = np.copy(m0*x+n0)-std_s
+            lower_P[:i] = np.flip(np.copy(lower_P[i:2*i]))-std_p
+            lower_S[:i] = np.flip(np.copy(lower_S[i:2*i]))-std_s
 
         elif source<=num_receiver-points_min_to_interpo:
-            (a1,b1,c1),(m1,n1) = interpo_and_detect_anomalies(r_p_left,list_p_left,r_s_left,list_s_left,True,std_coef)
-            (a2,b2,c2),(m2,n2) = interpo_and_detect_anomalies(r_p_left[-1:]+r_p_right,list_p_left[-1:]+list_p_right,r_s_left[-1:]+r_s_right,list_s_left[-1:]+list_s_right,False,std_coef)
+            ((a1,b1,c1),(m1,n1)),((a01,b01,c01),(m01,n01)), (std_p1,std_s1) = interpo_and_detect_anomalies(r_p_left,list_p_left,r_s_left,list_s_left,True,std_coef)
+            ((a2,b2,c2),(m2,n2)),((a02,b02,c02),(m02,n02)), (std_p2,std_s2) = interpo_and_detect_anomalies(r_p_left[-1:]+r_p_right,list_p_left[-1:]+list_p_right,r_s_left[-1:]+r_s_right,list_s_left[-1:]+list_s_right,False,std_coef)
             x_right = np.linspace(source,num_receiver,num_receiver-source+1)
             x_left = np.linspace(1,source-1,source-1)
 
@@ -158,15 +175,34 @@ def correct_label(args):
             y_p[:i] = np.flip(np.copy(a1*np.log(x_left)**2+b1*np.log(x_left)+c1))
             y_s[i:] = np.copy(m2*x_right+n2)
             y_s[:i] = np.copy(m1*x_left+n1)
+            
+            upper_P[i:] = np.copy(a02*np.log(x_right)**2+b02*np.log(x_right)+c02)+std_p2
+            upper_P[:i] = np.flip(np.copy(a01*np.log(x_left)**2+b01*np.log(x_left)+c01))+std_p1
+            upper_S[i:] = np.copy(m02*x_right+n02)+std_s2
+            upper_S[:i] = np.copy(m01*x_left+n01)+std_s1
+            lower_P[i:] = np.copy(a02*np.log(x_right)**2+b02*np.log(x_right)+c02)-std_p2
+            lower_P[:i] = np.flip(np.copy(a01*np.log(x_left)**2+b01*np.log(x_left)+c01))-std_p1
+            lower_S[i:] = np.copy(m02*x_right+n02)-std_s2
+            lower_S[:i] = np.copy(m01*x_left+n01)-std_s1
 
         else:
-            (a,b,c),(m,n) = interpo_and_detect_anomalies(r_p_left,list_p_left,r_s_left,list_s_left,True,std_coef)
+            ((a,b,c),(m,n)),((a0,b0,c0),(m0,n0)), (std_p,std_s) = interpo_and_detect_anomalies(r_p_left,list_p_left,r_s_left,list_s_left,True,std_coef)
             x = np.linspace(1,source,source)
 
             y_p[:i+1] = np.flip(np.copy(a*np.log(x)**2+b*np.log(x)+c))
             y_s[:i+1] = np.copy(m*x+n)
             y_p[i+1:] = np.flip(np.copy(y_p[2*i-num_receiver+1:i]))
             y_s[i+1:] = np.flip(np.copy(y_s[2*i-num_receiver+1:i]))  
+            
+            lower_P[:i+1] = np.flip(np.copy(a0*np.log(x)**2+b0*np.log(x)+c0))-std_p
+            lower_S[:i+1] = np.copy(m0*x+n0)-std_s
+            lower_P[i+1:] = np.flip(np.copy(lower_P[2*i-num_receiver+1:i]))-std_p
+            lower_S[i+1:] = np.flip(np.copy(lower_S[2*i-num_receiver+1:i]))-std_s
+            
+            upper_P[:i+1] = np.flip(np.copy(a0*np.log(x)**2+b0*np.log(x)+c0))+std_p
+            upper_S[:i+1] = np.copy(m0*x+n0)+std_s
+            upper_P[i+1:] = np.flip(np.copy(upper_P[2*i-num_receiver+1:i]))+std_p
+            upper_S[i+1:] = np.flip(np.copy(upper_S[2*i-num_receiver+1:i]))+std_s
 
         if plot:
             x=np.linspace(1,num_receiver,num_receiver)
@@ -176,6 +212,7 @@ def correct_label(args):
             plt.ylabel('Arrival time')
             plt.plot(r_p,list_p,label='P picks')
             plt.plot(x,y_p,label='P corrected picks')
+            plt.fill_between(x,lower_P,upper_P,label='Interpolation zone',alpha=0.2)
             plt.legend()
             plt.savefig('./figures/Source {}_P'.format(source))
             plt.close(i)
@@ -183,6 +220,7 @@ def correct_label(args):
             plt.subplot(111)
             plt.plot(r_s,list_s,label='S picks')
             plt.plot(x,y_s,label='S corrected picks')
+            plt.fill_between(x,lower_S,upper_S,label='Interpolation zone',alpha=0.2)
             plt.legend()
             plt.savefig('./figures/Source {}_S'.format(source))
             plt.close(i)
@@ -193,7 +231,7 @@ def correct_label(args):
         list_s_int += s_int
         
     if plot:
-        logging.info('Figures stored in {}'.format('./figures')) 
+        logging.info('Figures stored in {}'.format('figures')) 
     dataframe = pd.DataFrame({'itp':list_p_int,'its':list_s_int})
     dataframe.to_csv(outname,index=False)
     logging.info('Label times are saved in {}'.format(outname))
