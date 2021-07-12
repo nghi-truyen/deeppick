@@ -25,9 +25,8 @@ def convert_to_npz(args,out_dir):
         label = False
     else:
         logging.info("mode must be train, test or pred")
-        exit()
-    file_type = os.path.splitext(os.listdir(args.data_dir)[0])[1]           
-    list_data = np.sort(fnmatch.filter(os.listdir(args.data_dir), '*{}'.format(file_type))).tolist()
+        exit()          
+    list_data = sorted(filter(lambda x: os.path.isfile(os.path.join(args.data_dir, x)),os.listdir(args.data_dir)))
     if label:
         try:
             df = pd.read_csv(args.label_list)

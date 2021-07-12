@@ -5,7 +5,7 @@ This code is a Keras implementation of [PhaseNet](https://github.com/wayneweiqia
 ```
 conda create --name venv python=3.8
 conda activate venv
-conda install tensorflow=2.5 matplotlib scipy pandas
+conda install scikit-learn=0.24 tensorflow=2.5 matplotlib pandas
 ```
 ### Using virtualenv:
 ```

@@ -127,8 +127,9 @@ def correct_label(args):
             
     list_p_int = []
     list_s_int = []
-    
-    for source in range(1,num_source+1):
+    list_source = range(1,num_source+1)  #list_source = [1,2,50,51,52,92,93]
+    logging.info('Correcting picks ...')
+    for source in list_source:
         i=source-1
         labeltime = pd.read_csv(label_file)
         tp = np.copy(labeltime['itp_pred'][num_receiver*i:num_receiver*i+num_receiver])

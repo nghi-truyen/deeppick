@@ -11,7 +11,7 @@ class Config():
     X_shape = [1501, 1, n_channel]
     Y_shape = [1501, 1, n_class]
     mask_window = int(X_shape[0]/100) # number of points for generating the distribution porobabilies of label 
-    dt = 0.0005 # time derivatives
+    dt = 0.0005 # time step
     tol = dt*mask_window/3 # acceptable uncertainty while testing
    
 class DataReader(keras.utils.Sequence):
