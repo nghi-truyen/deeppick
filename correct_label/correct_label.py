@@ -8,6 +8,8 @@ import argparse
 import logging
 from sklearn.linear_model import HuberRegressor
 
+from sklearn.svm import SVR
+
 def read_args():
     parser = argparse.ArgumentParser()
                   
@@ -63,16 +65,23 @@ def read_args():
                         type=float,
                         help="The parameter controls the number of samples that should be classified as outliers for S while using Huber Regression. The smaller the epsilon, the more robust it is to outliers.")
     
+    parser.add_argument("--CP",
+                        default=1,
+                        type=float,
+                        help="Regularization parameter for P while using SVR. The strength of the regularization is inversely proportional to CP.")
+    
+    parser.add_argument("--CS",
+                        default=1,
+                        type=float,
+                        help="Regularization parameter for S while using SVR. The strength of the regularization is inversely proportional to CS.")
+    
     parser.add_argument("--points_min_to_interpo",
-                        default=6,
+                        default=8,
                         type=int,
                         help="Minumum of points considered to interpo")
                       
     args = parser.parse_args()
     return args
-
-def log_poly_2(x,coef):
-    return coef[0]*np.log(x)**2+coef[1]*np.log(x)+coef[2]
 
 def pick_time(t,r_start,pick_min,pick_max):
     it = [json.loads(t[i]) for i in range(len(t))]
@@ -87,24 +96,56 @@ def pick_time(t,r_start,pick_min,pick_max):
             pass
     return np.array(r),np.array(list_t)
     
-def model_p(X,y,eps,degree=2,flip=False): #logistic regression
-    HR = HuberRegressor(epsilon=eps)
-    reg = HR.fit(np.log(X).reshape(-1,1),y)
-    mask = HR.outliers_  # detecting anomalies
+def model(wave,X,y,source,eps,C,a,b): 
     
-    w = np.ones(len(y))
-    w[mask] = 0
-    coef = np.polyfit(np.log(X),y,degree,w=w)
-    if flip:
-        return coef, np.flip(mask)
+    if source < a-b:
+        found = False
+        i = source
+        while not found and i <= a:
+            try:
+                ind = np.where(X==i)[0][0]
+                found = True
+            except:
+                i+=1
+        HR = HuberRegressor(epsilon=eps)
+        if wave=='P':
+            HR.fit(np.log(X[ind:]).reshape(-1,1),y[ind:])
+        elif wave=='S':
+            HR.fit(X[ind:].reshape(-1,1),y[ind:])
+        mask = HR.outliers_
+        r = True
     else:
-        return coef, mask
-    
-def model_s(X,y,eps): # linear regression 
-    HR = HuberRegressor(epsilon=eps)
-    reg = HR.fit(X.reshape(-1,1),y)
-    mask = HR.outliers_ # detecting anomalies
-    return reg, mask
+        r = False
+    if source > b:
+        found_ = False
+        i_ = source
+        while not found_ and i_ > 0:
+            try:
+                ind_ = np.where(X==i_)[0][0]
+                found_ = True
+            except:
+                i_-=1
+        HR_ = HuberRegressor(epsilon=eps)
+        if wave=='P':
+            HR_.fit(np.log(X[:ind_+1]).reshape(-1,1),np.flip(y[:ind_+1]))
+            mask_ = np.flip(HR_.outliers_)
+        elif wave=='S':
+            HR_.fit(X[:ind_+1].reshape(-1,1),y[:ind_+1])
+            mask_ = HR_.outliers_
+        l = True
+        if i_ == source:
+            mask_ = mask_[:-1]
+    else:
+        l = False
+    if r==False:
+        mask = np.array([2]*(len(X)-len(mask_)))
+    if l==False:
+        mask_ = np.array([2]*(len(X)-len(mask)))
+        
+    mask = np.append(mask_,mask)
+    reg = SVR(kernel='rbf', C=C).fit(X[mask==False].reshape(-1,1),y[mask==False])
+      
+    return reg,mask,l,r
 
 def correct_label(args):
     
@@ -120,15 +161,19 @@ def correct_label(args):
     s_pick_max = args.s_pick_max
     epsP = args.epsP
     epsS = args.epsS
+    CP = args.CP
+    CS = args.CS
     
     if plot:
         if not os.path.exists('./figures'):
             os.makedirs('./figures')
+        logging.info('Correcting picks and plotting...')
+    else:
+        logging.info('Correcting picks ...')
             
     list_p_int = []
     list_s_int = []
     list_source = range(1,num_source+1)  #list_source = [1,2,50,51,52,92,93]
-    logging.info('Correcting picks ...')
     for source in list_source:
         i=source-1
         labeltime = pd.read_csv(label_file)
@@ -147,77 +192,39 @@ def correct_label(args):
         
         y_p = np.zeros(num_receiver)
         y_s = np.zeros(num_receiver)
-    
-        if source<points_min_to_interpo:
         
-            coef, mask_p = model_p(r_p_right, list_p_right, epsP)
-            mask_p = np.array([False]*len(r_p_left)+list(mask_p))
-            
-            reg_s, mask_s = model_s(r_s_right, list_s_right,epsS)
-            mask_s = np.array([False]*len(r_s_left)+list(mask_s))
-            
-            x = np.linspace(source,num_receiver,num_receiver-source+1)
-            
-            y_p[i:] = log_poly_2(x,coef)#reg_p.predict(np.log(x).reshape(-1,1))#
-            y_s[i:] = reg_s.predict(x.reshape(-1,1))
+        reg_p, mask_p, lp, rp = model('P',r_p, list_p, source,epsP,CP,num_receiver,points_min_to_interpo)
+        reg_s, mask_s, ls, rs = model('S',r_s, list_s,source,epsS,CS,num_receiver,points_min_to_interpo)
+        
+        x = np.linspace(1,num_receiver,num_receiver)
+  
+        if lp and rp:
+            y_p = reg_p.predict(x.reshape(-1,1)) #log_poly_2(x,coef)#reg_p.predict(np.log(x).reshape(-1,1))#
+        elif not lp:
+            y_p[i:] = reg_p.predict(x[i:].reshape(-1,1))
             y_p[:i] = np.flip(np.copy(y_p[i+1:2*i+1]))
-            y_s[:i] = np.flip(np.copy(y_s[i+1:2*i+1]))
-            
-            untreated_xp = r_p_left
-            untreated_xs = r_s_left
-            untreated_p = list_p_left
-            untreated_s = list_s_left
-            
-        elif source<=num_receiver-points_min_to_interpo:
-           
-            coef1, mask_p1 = model_p(np.append(r_p_left,r_p_right[:1]), np.flip(np.append(list_p_left,list_p_right[:1])), epsP, flip=True)
-            coef2, mask_p2 = model_p(r_p_right,list_p_right, epsP)
-            
-            reg_s1, mask_s1 = model_s(np.append(r_s_left,r_s_right[:1]), np.append(list_s_left,list_s_right[:1]),epsS)
-            reg_s2, mask_s2 = model_s(r_s_right,list_s_right,epsS)
-            
-            mask_p = np.append(mask_p1[:-1],mask_p2)
-            mask_s = np.append(mask_s1[:-1],mask_s2)
-            
-            x_right = np.linspace(source,num_receiver,num_receiver-source+1)
-            x_left = np.linspace(1,source-1,source-1)
-
-            y_p[i:] = log_poly_2(x_right,coef2) #reg_p1.predict(np.log(x_right).reshape(-1,1))#
-            y_p[:i] = np.flip(log_poly_2(x_left,coef1)) #np.flip(reg_p2.predict(np.log(x_left).reshape(-1,1)))#
-            y_s[i:] = reg_s2.predict(x_right.reshape(-1,1))
-            y_s[:i] = reg_s1.predict(x_left.reshape(-1,1))
-            
-        else:
-            coef, mask_p = model_p(r_p_left, np.flip(list_p_left), epsP, flip=True)
-            mask_p = np.array(list(mask_p)+[False]*len(r_p_right))
-            
-            reg_s, mask_s = model_s(r_s_left, list_s_left,epsS)
-            mask_s = np.array(list(mask_s)+[False]*len(r_s_right))
-            
-            x = np.linspace(1,source,source)
-
-            y_p[:i+1] = np.flip(log_poly_2(x,coef)) #np.flip(reg_p.predict(np.log(x).reshape(-1,1)))#
-            y_s[:i+1] = reg_s.predict(x.reshape(-1,1))
+        elif not rp:
+            y_p[:i+1] = reg_p.predict(x[:i+1].reshape(-1,1)) 
             y_p[i+1:] = np.flip(np.copy(y_p[2*i-num_receiver:i-1]))
-            y_s[i+1:] = np.flip(np.copy(y_s[2*i-num_receiver:i-1]))  
-   
-            
-            untreated_xp = r_p_right
-            untreated_xs = r_s_right
-            untreated_p = list_p_right
-            untreated_s = list_s_right
+        if ls and rs:
+            y_s = reg_s.predict(x.reshape(-1,1))
+        elif not ls:
+            y_s[i:] = reg_s.predict(x[i:].reshape(-1,1))
+            y_s[:i] = np.flip(np.copy(y_s[i+1:2*i+1]))
+        elif not rs:
+            y_s[:i+1] = reg_s.predict(x[:i+1].reshape(-1,1)) 
+            y_s[i+1:] = np.flip(np.copy(y_s[2*i-num_receiver:i-1]))
                 
         if plot:
-            x=np.linspace(1,num_receiver,num_receiver)
             plt.figure(i)
             plt.subplot(111)
             plt.xlabel('Receiver')
             plt.ylabel('Arrival time')
             plt.scatter(r_p,list_p,s=15)
-            if (source>1 and source<points_min_to_interpo) or (source<96 and source>num_receiver-points_min_to_interpo):
-                plt.scatter(untreated_xp,untreated_p,c='orange',label='Untreated points',s=15)
-            plt.scatter(np.array(r_p)[mask_p],np.array(list_p)[mask_p],c='red',label='Outliers, epsP={}'.format(epsP),s=15)       
-            plt.plot(x,y_p,label='P corrected picks',c='green')
+            if (source>1 and source<points_min_to_interpo) or (source<num_receiver and source>num_receiver-points_min_to_interpo):
+                plt.scatter(np.array(r_p)[mask_p==2],np.array(list_p)[mask_p==2],c='orange',label='Untreated points',s=15)
+            plt.scatter(np.array(r_p)[mask_p==True],np.array(list_p)[mask_p==True],c='red',label='Outliers, epsP={}'.format(epsP),s=15)       
+            plt.plot(x,y_p,label='P corrected picks, CP={}'.format(CP),c='green')
             plt.legend()
             plt.savefig('./figures/Source {}_P'.format(source))
             plt.close(i)
@@ -226,10 +233,10 @@ def correct_label(args):
             plt.xlabel('Receiver')
             plt.ylabel('Arrival time')
             plt.scatter(r_s,list_s,s=15)
-            if (source>1 and source<points_min_to_interpo) or (source<96 and source>num_receiver-points_min_to_interpo):
-                plt.scatter(untreated_xs,untreated_s,c='orange',label='Untreated points',s=15)
-            plt.scatter(np.array(r_s)[mask_s],np.array(list_s)[mask_s],c='r',label='Outliers, epsS={}'.format(epsS),s=15)     
-            plt.plot(x,y_s,label='S corrected picks',c='green')
+            if (source>1 and source<points_min_to_interpo) or (source<num_receiver and source>num_receiver-points_min_to_interpo):
+                plt.scatter(np.array(r_s)[mask_s==2],np.array(list_s)[mask_s==2],c='orange',label='Untreated points',s=15)
+            plt.scatter(np.array(r_s)[mask_s==True],np.array(list_s)[mask_s==True],c='r',label='Outliers, epsS={}'.format(epsS),s=15)     
+            plt.plot(x,y_s,label='S corrected picks, CS={}'.format(CS),c='green')
             plt.legend()
             plt.savefig('./figures/Source {}_S'.format(source))
             plt.close(i)
