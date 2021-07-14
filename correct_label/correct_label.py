@@ -96,12 +96,12 @@ def pick_time(t,r_start,pick_min,pick_max):
             pass
     return np.array(r),np.array(list_t)
     
-def model(wave,X,y,source,eps,C,a,b): 
+def model(wave,X,y,source,eps,C,num_recei,min_point_to_interpo): 
     
-    if source < a-b:
+    if source < num_recei-min_point_to_interpo:
         found = False
         i = source
-        while not found and i <= a:
+        while not found and i <= num_recei:
             try:
                 ind = np.where(X==i)[0][0]
                 found = True
@@ -116,7 +116,7 @@ def model(wave,X,y,source,eps,C,a,b):
         r = True
     else:
         r = False
-    if source > b:
+    if source > min_point_to_interpo:
         found_ = False
         i_ = source
         while not found_ and i_ > 0:
@@ -180,15 +180,8 @@ def correct_label(args):
         tp = np.copy(labeltime['itp_pred'][num_receiver*i:num_receiver*i+num_receiver])
         ts = np.copy(labeltime['its_pred'][num_receiver*i:num_receiver*i+num_receiver])
 
-        r_p_left,list_p_left = pick_time(tp[:i],1,p_pick_min,p_pick_max)
-        r_s_left,list_s_left = pick_time(ts[:i],1,s_pick_min,s_pick_max)
-        r_p_right,list_p_right = pick_time(tp[i:],source,p_pick_min,p_pick_max)
-        r_s_right,list_s_right = pick_time(ts[i:],source,s_pick_min,s_pick_max)
-
-        r_p = np.append(r_p_left,r_p_right)
-        r_s = np.append(r_s_left,r_s_right)
-        list_p = np.append(list_p_left,list_p_right)
-        list_s = np.append(list_s_left,list_s_right)
+        r_p,list_p = pick_time(tp,1,p_pick_min,p_pick_max)
+        r_s,list_s = pick_time(ts,1,s_pick_min,s_pick_max)
         
         y_p = np.zeros(num_receiver)
         y_s = np.zeros(num_receiver)
@@ -199,7 +192,7 @@ def correct_label(args):
         x = np.linspace(1,num_receiver,num_receiver)
   
         if lp and rp:
-            y_p = reg_p.predict(x.reshape(-1,1)) #log_poly_2(x,coef)#reg_p.predict(np.log(x).reshape(-1,1))#
+            y_p = reg_p.predict(x.reshape(-1,1))
         elif not lp:
             y_p[i:] = reg_p.predict(x[i:].reshape(-1,1))
             y_p[:i] = np.flip(np.copy(y_p[i+1:2*i+1]))
