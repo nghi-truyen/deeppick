@@ -32,12 +32,12 @@ def read_args():
                         help="Checkpoint directory (default: None)")
     
     parser.add_argument("--tp_prob",
-                        default=0.5,
+                        default=0.3,
                         type=float,
                         help="Probability threshold for P pick")
     
     parser.add_argument("--ts_prob",
-                        default=0.5,
+                        default=0.3,
                         type=float,
                         help="Probability threshold for S pick")
     
