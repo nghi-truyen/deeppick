@@ -1,19 +1,17 @@
-This code is a Keras implementation of [PhaseNet](https://github.com/wayneweiqiang/PhaseNet), dedicated to "Automatic arrival time picking for seismic inversion". This version allows to deal with the new dataset having the different size and number of channels, especially, to implement transfer learning using the pretrained model from the [NCEDC](https://ncedc.org/) data (Northern California Earthquake Data Center) and then, to correct picks using robust linear regression methods and SVR (Support Vector Regression) after predicting. The model stored in `model/210706-105857` has been trained with 27,648 seismograms after expanding 3 times the size of dataset by using data augmentation. The data in `dataset/raw/data` is an extract from 9,216 seismograms of the dataset.
+# Automatic arrival time picking for seismic inversion
+
+This code is a Keras implementation of [PhaseNet](https://github.com/wayneweiqiang/PhaseNet), dedicated to "Automatic arrival time picking for seismic inversion". This version allows to deal with the new dataset having the different size and number of channels, especially, to implement transfer learning using the pretrained model from the [NCEDC](https://ncedc.org/) data (Northern California Earthquake Data Center) and then, to correct picks using robust linear regression methods and SVR (Support Vector Regression) after predicting.
+
+The model stored in `model/210706-105857` has been trained with 27,648 seismograms after expanding 3 times the size of dataset by using data augmentation. The data in `dataset/raw/data` is an extract from 9,216 seismograms of the dataset.
 
 ## 0. Installing packages
-### Using anaconda (recommend):
+Setting up a virtual environment using Anaconda:
 ```
 conda create --name venv python=3.8
 conda activate venv
-conda install scikit-learn=0.24 tensorflow=2.5 matplotlib pandas
+conda install scikit-learn=0.24 tensorflow=2.5 pandas=1.3 matplotlib=3.4
 ```
-### Using virtualenv:
-```
-pip install virtualenv
-virtualenv .venv -p python3.8
-source .venv/bin/activate
-pip install -r requirements.txt
-```
+
 ## 1. Data preprocessing
 Go to the `dataset` directory, the raw data is stored in `raw`.
 
