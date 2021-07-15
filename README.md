@@ -33,6 +33,8 @@ Notes:
 
 - The csv file `dataset/raw/label_time.csv` must contain 2 columns: `itp`, `its`. Its arrival times must be sorted in ascending alphabetical order of the file name in the `dataset/raw/data` directory.
 - The data files in `dataset/raw/data` must contain 2 columns (the one with the time and the other with the amplitude of the signal).
+- If you want to preprocess a new raw data, you can modify some parameters of the `Config()` class in `dataset/data preprocessing.py` (for example: `X Shape`, `Y Shape`, etc.) for adapting to this new data.
+
 ## 2. Training
 Now, go back to the main directory.
 ### Training from scratch:
@@ -59,9 +61,10 @@ python train_model.py --valid=0.2 --data_dir=dataset/train/data --data_list=data
 conda activate venv
 python train_model.py --valid=0.2 --data_dir=dataset/train/data --data_list=dataset/train/fname.csv --batch_size=100 --epochs=50 --model_dir=model/pretrained_from_NCEDC --tune_transfer_learning
 ```
-Note:
+Notes:
 
 - While using transfer learning, make sure that you load weights into layers of the new model that have the same dimension with those of the pretrained model.
+- For training with a new data, you can modify some parameters of the `Config()` class in `data_reader.py`.
 
 ## 3. Test
 
