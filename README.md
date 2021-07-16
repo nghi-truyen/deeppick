@@ -1,8 +1,8 @@
 # Automatic arrival time picking for seismic inversion
 
-This code is a Keras implementation of [PhaseNet](https://github.com/wayneweiqiang/PhaseNet), dedicated to "Automatic arrival time picking for seismic inversion". This version allows to deal with the new dataset having the different size and number of channels, especially, to implement transfer learning using the pretrained model from the [NCEDC](https://ncedc.org/) data (Northern California Earthquake Data Center) and then, to correct picks using robust linear regression methods and SVR (Support Vector Regression) after predicting.
+This code is a Keras implementation of [PhaseNet](https://github.com/wayneweiqiang/PhaseNet), dedicated to *"Automatic arrival time picking for seismic inversion"*. This version allows to deal with the new dataset having the different size and number of channels, especially, to implement transfer learning using the pretrained model from the [NCEDC](https://ncedc.org/) data (Northern California Earthquake Data Center) and deal with small labeled datasets or unlabeled datasets using semi-supervised learning. The robust linear regression methods and SVR (Support Vector Regression) are used to correct labels after pseudo-labelling process (see in `correct_label` directory) that help improve significantly the quality of pseudo labels.
 
-The model stored in `model/210706-105857` has been trained with 27,648 seismograms after expanding 3 times the size of dataset by using data augmentation. The data in `dataset/raw/data` is an extract from 9,216 seismograms of the dataset.
+The model stored in `model/210706-105857` has been trained with 36,864 seismograms from 4 labeled datasets (that contain: non-filtered set, filtered sets at 50Hz, 110Hz and 200Hz) using transfer learning with the pretrained model from NCEDC. The data in `dataset/raw/data` is an extract from the dataset filtered at 50Hz.
 
 ## 0. Installing packages
 Setting up a virtual environment using Anaconda:
@@ -31,7 +31,7 @@ Notes:
 
 - The csv file `dataset/raw/label_time.csv` must contain 2 columns: `itp`, `its`. Its arrival times must be sorted in ascending alphabetical order of the file name in the `dataset/raw/data` directory.
 - The data files in `dataset/raw/data` must contain 2 columns (the one with the time and the other with the amplitude of the signal).
-- If you want to preprocess a new raw data, you can modify some parameters of the `Config()` class in `dataset/data preprocessing.py` (for example: `X Shape`, `Y Shape`, etc.) for adapting to this new data.
+- If you want to preprocess a new raw data, you can modify some parameters of the `Config()` class in `dataset/data preprocessing.py` (for example: `X_shape`, `Y_shape`, etc.) for adapting to this new data.
 
 ## 2. Training
 Now, go back to the main directory.
