@@ -2,7 +2,7 @@
 
 This code is a Keras implementation of [PhaseNet](https://github.com/wayneweiqiang/PhaseNet), dedicated to *"Automatic arrival time picking for seismic inversion"*. This version allows to deal with the new dataset having the different size and number of channels, especially, to implement transfer learning using the pretrained model from [NCEDC](https://ncedc.org/) data (Northern California Earthquake Data Center) and deal with small labeled datasets or unlabeled datasets using semi-supervised learning. The robust linear regression methods and SVR (Support Vector Regression) are used to correct labels after pseudo-labelling process (see in `correct_label` directory) that help improve significantly the quality of pseudo labels.
 
-The model stored in `model/210716-150459` has been trained with 36,864 seismograms from 4 labeled datasets (that contain: non-filtered set, filtered sets at 50Hz, 110Hz and 200Hz) using transfer learning with the pretrained model from NCEDC. The data in `dataset/raw/data` is an extract from the dataset filtered at 50Hz.
+The model stored in `model/210716-150459` has been trained with 36,864 seismograms from 4 labeled datasets (non-filtered set, filtered sets at 50Hz, 110Hz and 200Hz) using transfer learning with the pretrained model from NCEDC. The data in `dataset/raw/data` is an extract from the dataset filtered at 50Hz.
 
 ## 0. Installing packages
 Setting up a virtual environment using Anaconda:
@@ -29,9 +29,9 @@ python run.py --mode=pred --data_dir=raw/data
 ```
 Notes:
 
-- The csv file `dataset/raw/label_time.csv` must contain 2 columns: `itp`, `its`. Its arrival times must be sorted in ascending alphabetical order of the file name in the `dataset/raw/data` directory.
-- The data files in `dataset/raw/data` must contain 2 columns (the one with the time and the other with the amplitude of the signal).
-- If you want to preprocess a new raw data, you can modify some parameters of the `Config()` class in `dataset/data preprocessing.py`.
+- The csv file `dataset/raw/label_time.csv` should be contained 2 columns: `itp`, `its`. Its arrival times should be sorted in ascending alphabetical order of the file name in the `dataset/raw/data` directory.
+- The data files in `dataset/raw/data` should be contained 2 columns (the one with the time and the other with the amplitude of the signal).
+- If you want to preprocess a new raw data, you can modify some parameters of the `Config()` class in `dataset/data_preprocessing.py`.
 
 ## 2. Training
 Now, go back to the main directory.
@@ -49,12 +49,12 @@ python train_model.py --data_dir=dataset/train/data --data_list=dataset/train/fn
 ```
 ### Transfer learning:
 
-- Initializing weights from a pretrained model. By default, the process will load weights from all layers of pretrained model and fine-tune weights in all of these layers: 
+- Initializing weights from a pretrained model. By default, the process will load weights from all layers of pretrained model and select all layers of new model for fine-tuning: 
 ```
 conda activate venv
 python train_model.py --valid=0.2 --data_dir=dataset/train/data --data_list=dataset/train/fname.csv --batch_size=100 --epochs=50 --model_dir=model/pretrained_from_NCEDC
 ```
-- For more options of this process, you can see the function `ind_layers()` in `train_model.py` as well as the summary file of pretrained model in order to chose the index of layers for loading and freezing weights when using transfer learning. In this scenario, you need to modify the `TO IMPLEMENT` part in this function and set the action `--tune_transfer_learning` as the command below:
+- For more options of this process, you can see the function `ind_layers()` in `train_model.py` along with the summary file of pretrained model in order to select the index of layers for loading and freezing weights when using transfer learning. In this scenario, you can modify the `TO IMPLEMENT` part in this function and set the action `--tune_transfer_learning` as the command below:
 ```
 conda activate venv
 python train_model.py --valid=0.2 --data_dir=dataset/train/data --data_list=dataset/train/fname.csv --batch_size=100 --epochs=50 --model_dir=model/pretrained_from_NCEDC --tune_transfer_learning
@@ -66,18 +66,18 @@ Notes:
 
 ## 3. Test
 
-- Testing the performance of the model stored in `model/210716-150459` on the test set `dataset/test`:
+- Testing the performance of the model on the test set:
 ```
 conda activate venv
 python prediction_model.py --test --model_dir=model/210716-150459 --data_dir=dataset/test/data --data_list=dataset/test/fname.csv --batch_size=100 --save_result --plot_figure
 ```
 ## 4. Prediction
 
-- Predicting arrival times for the prediction set `dataset/pred` by using the model in `model/210716-150459`:
+- Predicting arrival times for the prediction set using a trained model:
 ```
 conda activate venv
 python prediction_model.py --model_dir=model/210716-150459 --data_dir=dataset/pred/data --data_list=dataset/pred/fname.csv --batch_size=100 --save_result --plot_figure
 ```
-## 5. Correcting picks
+## 5. Correcting picks (optional)
 
-In order to correct picks after predicting, go to the `correct_label` directory.
+This part allows to improve the quality of pseudo labels for semi-supervised learning. In order to correct picks after predicting, go to the `correct_label` directory.
