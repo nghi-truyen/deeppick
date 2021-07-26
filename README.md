@@ -13,8 +13,10 @@ conda install scikit-learn=0.24 tensorflow=2.5 pandas=1.3 matplotlib=3.4
 ```
 
 ## 1. Data preprocessing
-Go to the `dataset` directory, the raw data is stored in `raw`.
-
+In the terminal command, go to the `dataset` directory:
+```
+cd dataset
+```
 - For generating labeled data (for train and test):
 ```
 conda activate venv
@@ -34,7 +36,10 @@ Notes:
 - If you want to preprocess a new raw data, you can modify some parameters of the `Config()` class in `dataset/data_preprocessing.py`.
 
 ## 2. Training
-Now, go back to the main directory.
+Now, go back to the main directory:
+```
+cd ..
+```
 ### Training from scratch:
 
 - Training by splitting data into train and valid set with 0.8 of training and 0.2 of validation: 
