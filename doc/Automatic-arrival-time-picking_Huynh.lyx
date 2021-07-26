@@ -8,6 +8,8 @@
 \begin_preamble
 \usepackage{indentfirst}
 \usepackage[useregional]{datetime2}
+\usepackage{filecontents}
+\usepackage{hyperref}
 
 \author{Ngo Nghi Truyen Huynh}
 \end_preamble
@@ -113,7 +115,7 @@
 
 
 \begin_inset Graphics
-	filename /home/nnthuynh/Desktop/stage_5A/realisation/compte-rendu/figs/logo-GET.png
+	filename figs/logo-GET.png
 	lyxscale 15
 	height 1.75cm
 
@@ -278,17 +280,33 @@ vskip 4cm
 \end_layout
 
 \begin_layout Standard
-\align block
+\align center
 
 \shape smallcaps
 Institut National des Sciences Appliquées de Toulouse
 \end_layout
 
 \begin_layout Standard
-\align block
+\align center
 
 \shape smallcaps
 Département Génie Mathématique et Modélisation
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+thispagestyle{empty}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -300,15 +318,67 @@ Département Génie Mathématique et Modélisation
 \end_layout
 
 \begin_layout Abstract
-dadas
+sfcsfsa
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+thispagestyle{empty}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Part*
 \begin_inset Newpage clearpage
 \end_inset
 
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+thispagestyle{empty}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
 Acknowledgment
 \begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+setcounter{page}{3}
+\end_layout
+
 \end_inset
 
 
@@ -334,6 +404,25 @@ LatexCommand tableofcontents
 
 \begin_layout Part
 Introduction
+\end_layout
+
+\begin_layout Standard
+This work is related to a GitHub code available on:
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/nghitruyen/PhaseNet_keras_version
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -385,7 +474,7 @@ literal "false"
 .
  They follow ray paths bent by varying density and modulus (stiffness) of
  the Earth's interior that are affected by composition, phase and temperature.
- There are two main kinds of body waves that are detected by a seismograph:
+ There are two main kinds of body waves that are detected by a seismogram:
 \end_layout
 
 \begin_layout Itemize
@@ -450,7 +539,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Body waves on seismograph
+Body waves on a seismogram
 \end_layout
 
 \end_inset
@@ -536,7 +625,7 @@ Source:
 \shape default
  
 \begin_inset Flex URL
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -551,6 +640,10 @@ https://www.mathsisfun.com/physics/waves-seismic.html
 \end_inset
 
 
+\end_layout
+
+\begin_layout Subsection
+Data collection
 \end_layout
 
 \begin_layout Subsection
@@ -1409,7 +1502,7 @@ Finally, we define the loss function by using cross entropy between the
 \end_layout
 
 \begin_layout Section
-?????
+Data pre-processing and time picking conversion
 \end_layout
 
 \begin_layout Subsection
@@ -1534,7 +1627,7 @@ status open
 \noindent
 \align center
 \begin_inset Graphics
-	filename /home/nnthuynh/Desktop/stage_5A/realisation/compte-rendu/figs/input_label_noise=1.png
+	filename figs/input_label_noise=1.png
 	scale 60
 
 \end_inset
@@ -1597,7 +1690,7 @@ status open
 \noindent
 \align center
 \begin_inset Graphics
-	filename /home/nnthuynh/Desktop/stage_5A/realisation/compte-rendu/figs/P-S-noise.png
+	filename figs/P-S-noise.png
 	scale 60
 
 \end_inset
@@ -1675,7 +1768,7 @@ status open
 \noindent
 \align center
 \begin_inset Graphics
-	filename /home/nnthuynh/Desktop/stage_5A/realisation/compte-rendu/figs/all_peaks.png
+	filename figs/all_peaks.png
 	scale 60
 
 \end_inset
@@ -1785,7 +1878,7 @@ status open
 \noindent
 \align center
 \begin_inset Graphics
-	filename /home/nnthuynh/Desktop/stage_5A/realisation/compte-rendu/figs/mph.png
+	filename figs/mph.png
 	scale 60
 
 \end_inset
@@ -1829,7 +1922,7 @@ status open
 \noindent
 \align center
 \begin_inset Graphics
-	filename /home/nnthuynh/Desktop/stage_5A/realisation/compte-rendu/figs/mpd.png
+	filename figs/mpd.png
 	scale 60
 
 \end_inset
@@ -1873,7 +1966,7 @@ status open
 \noindent
 \align center
 \begin_inset Graphics
-	filename /home/nnthuynh/Desktop/stage_5A/realisation/compte-rendu/figs/threshold.png
+	filename figs/threshold.png
 	scale 60
 
 \end_inset
@@ -2098,7 +2191,6 @@ Concretely, we tape the command below:
 \end_layout
 
 \begin_layout Verbatim
-
 $ python run.py --mode=pred --model_dir=model/model_name --data_dir=waveform_pred
 \end_layout
 
@@ -2187,6 +2279,2173 @@ y that we can observe the P-wave and minus the probability that we can observe
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+\align block
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part
+Application to the simulated data
+\end_layout
+
+\begin_layout Section
+Why should we not apply directly PhaseNet to our real data set?
+\end_layout
+
+\begin_layout Section
+Generating a simulated database
+\end_layout
+
+\begin_layout Subsection
+SPECFEM2D: A numerical simulation tool for forward and adjoint seismic wave
+ propagation
+\end_layout
+
+\begin_layout Standard
+(add more info for SPECFEM)
+\end_layout
+
+\begin_layout Standard
+SPECFEM2D 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "specfem2d"
+literal "false"
+
+\end_inset
+
+ is a computational software for 2D and 2.5D (i.e., axisymmetric) simulations
+ of acoustic, elastic, viscoelastic, and poroelastic seismic wave propagation
+ as well as full waveform imaging (FWI) or adjoint tomography.
+ By using this software, we attempt to simulate the seismic waveforms with
+ 2 channels (2 components, here is X and Z) that are hopefully similar enough
+ to our real data and thus create a training database for our model.
+\end_layout
+
+\begin_layout Standard
+Some specific model parameters can be varied in order to achieve a diverse
+ data for our training database.
+ For instance, we can simulate with a range of natural states of the material
+ depending on their densities, their absorbing elements, the number of layers
+ and thickness between them, the phase speed at each layer as well as the
+ nature of layer (acoustic or elastic), etc..
+ The simulation can be confirmed to work well by verifying the spectrogram
+ results, the forward wave field and also the seismogram output (Figure
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "simulation_specfem2d"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename figs/simulation_example.png
+	scale 65
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+A seismic waveform example simulated by SPECFEM2D
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "simulation_specfem2d"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Data augmentation
+\end_layout
+
+\begin_layout Standard
+In order to increase the size of our database, we use SPECFEM2D to simulate
+ the seismograms with the series of 24,001 time points and then randomly
+ extract the parts of 10,001 time points for each original sample.
+ We can chose the length of the time series we want to extract (here is
+ 10,001), the number of extracted version from the original sample (for
+ example, if we want to randomly selected 10 seismograms from each original
+ seismogram, so the database size will increase 10 times) and the rate coefficie
+nt 
+\begin_inset Formula $\alpha\in[0,1]$
+\end_inset
+
+.
+ With this rate, we have 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ chance of extracting the essential part containing the arrival times and
+ 
+\begin_inset Formula $1-\alpha$
+\end_inset
+
+ chance of extracting the part which does not contain these arrival times.
+ In addition, we can reverse the waveform by multiplying the signal with
+ 
+\begin_inset Formula $-1$
+\end_inset
+
+.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "data_aug"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shows some extraction cases from a original seismogram.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename figs/data_aug.png
+	scale 65
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Different seismograms randomly selected from the original.
+ Both seismograms at the top are selected from the essential part, the one
+ at the bottom left are selected from the part which does not contain the
+ arrival times, and the one at the bottom right is selected from the essential
+ part which is however reversed
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "data_aug"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Adding noises
+\end_layout
+
+\begin_layout Standard
+Once we have created a database using data simulation and data augmentation,
+ we can further alter the original signal samples with noises of varying
+ signal to noise ratios and evaluate the performance of the model under
+ these noisy conditions.
+ We focus on the way using 
+\begin_inset Quotes eld
+\end_inset
+
+Additive White Gaussian Noise
+\begin_inset Quotes erd
+\end_inset
+
+ (AWGN).
+ This kind of noise is easier to generate and to model for analytical analyzes.
+ In AWGN, the noises are randomly sampled from a Gaussian distribution with
+ mean value of zero and its standard deviation can vary depending on a so-called
+ 
+\begin_inset Quotes eld
+\end_inset
+
+Signal to Noise Ratio
+\begin_inset Quotes erd
+\end_inset
+
+ (SNR).
+\end_layout
+
+\begin_layout Standard
+Considering a signal 
+\begin_inset Formula $S=(s_{1},s_{2},...s_{n})$
+\end_inset
+
+, we recall that the root mean square (RMS) and the standard deviation (STD)
+ of 
+\begin_inset Formula $S$
+\end_inset
+
+ are:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $RMS_{S}=\sqrt{\frac{\sum_{i=1}^{n}s_{i}^{2}}{n}}$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $STD_{S}=\sqrt{\frac{\sum_{i=1}^{n}(s_{i}-\mu_{S})^{2}}{n}}$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Standard
+\noindent
+where 
+\begin_inset Formula $\mu_{S}=\frac{1}{n}\sum_{i=1}^{n}s_{i}$
+\end_inset
+
+ is the mean value of signal 
+\begin_inset Formula $S$
+\end_inset
+
+.
+ Now we define SNR as follows:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $SNR=10\log\left(\frac{RMS_{S}^{2}}{RMS_{noise}^{2}}\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\noindent
+Hence, the required RMS of the noise that we generate is:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $RMS_{noise}=\sqrt{\frac{RMS_{S}^{2}}{10^{\frac{SNR}{10}}}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\noindent
+As the mean value of noise is zero, so we must have 
+\begin_inset Formula $STD_{noise}=RMS_{noise}$
+\end_inset
+
+.
+ Finally, the noise that we generate by AWGN method is:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $noise=(noise_{1},noise_{2},...nosie_{n})\sim\mathcal{N}_{n}(0,\sqrt{\frac{RMS_{S}^{2}}{10^{\frac{SNR}{10}}}}I_{n})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Using transfer learning to develop a deep neural network based on PhaseNet
+\end_layout
+
+\begin_layout Subsection
+Why do we use transfer learning?
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:transfer_learning"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Nowadays, many deep learning algorithms work well only under a common assumption
+ even if their models achieved a significant precision with their data set.
+ If we want to apply these methods for a newly collected training data that
+ is drawn from another feature space and another distribution, then the
+ models need to be rebuilt from scratch to learn about all features of the
+ new data.
+ For instance, PhaseNet used the data based on 
+\shape italic
+Northern California Earthquake Data Center Catalog
+\shape default
+ (NCEDC 2014) that has a lot of different assumptions with our data set
+ as: collected locations, collected methods and measurement conditions,
+ etc., thus we can not just apply the model trained on the NCEDC data to
+ predict for our data.
+ Either we retrain the model on our own data, or we have to look for a technique
+ which allow us to reuse the features the model has learnt in the past.
+ In reality, it is much expensive to recollect the needed training data
+ in order to rebuild the model.
+ The so-called 
+\begin_inset Quotes eld
+\end_inset
+
+transfer learning
+\begin_inset Quotes erd
+\end_inset
+
+ is a method where a model trained on one task is repurposed on a second
+ related task in order to improve performance on this second task.
+ 
+\end_layout
+
+\begin_layout Standard
+In some cases, the transfer learning help the training to have a higher
+ start and so, improve the learning performance.
+ On the other hand, if the tasks are too dissimilar, the fact that we use
+ transfer learning may hinder performance of the training.
+ In the experiments shown in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Rosenstein05totransfer"
+literal "false"
+
+\end_inset
+
+, they compared performances of the training in three cases (Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "transfer_or_not"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+):
+\end_layout
+
+\begin_layout Enumerate
+No transfer training (B-only): they train a prediction model only with the
+ data set B;
+\end_layout
+
+\begin_layout Enumerate
+Similar transfer training: they train the model on data B using the transfer
+ learning with the pre-trained model on data A (similar with B).
+\end_layout
+
+\begin_layout Enumerate
+Dissimilar transfer training: the pre-trained model on the dissimilar data
+ A is used to transfer the prediction model on data B.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename figs/transfer_or_not.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Effects of transfer learning in three cases
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "transfer_or_not"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+
+\shape italic
+Taken from 
+\shape default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Rosenstein05totransfer"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+How does it work?
+\end_layout
+
+\begin_layout Subsubsection
+Notations and definitions
+\end_layout
+
+\begin_layout Standard
+Before surveying mathematical definition of transfer learning, we first
+ define the following notations:
+\end_layout
+
+\begin_layout Itemize
+A 
+\shape italic
+domain 
+\begin_inset Formula $\mathcal{D=}\{\mathcal{X},P(X)\}$
+\end_inset
+
+ 
+\shape default
+consists of 2 components: a feature space 
+\shape italic
+
+\begin_inset Formula $\mathcal{X}$
+\end_inset
+
+ 
+\shape default
+and a marginal probability distribution 
+\begin_inset Formula $P(X)$
+\end_inset
+
+ where 
+\begin_inset Formula $X=\{x_{1},...,x_{n}\}\in\mathcal{X}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+A 
+\shape italic
+task 
+\begin_inset Formula $\mathcal{T=}\{\mathcal{Y},f(.)\}$
+\end_inset
+
+
+\shape default
+ linked to domain 
+\shape italic
+
+\begin_inset Formula $\mathcal{D}$
+\end_inset
+
+
+\shape default
+ consists of 2 components: a label space 
+\begin_inset Formula $\mathcal{Y}$
+\end_inset
+
+ and an objective predictive function 
+\begin_inset Formula $f(.)$
+\end_inset
+
+, which can be learnt from the training data and consists of the data instance
+ 
+\begin_inset Formula $x_{i}\in\mathcal{X}$
+\end_inset
+
+ and the corresponding output 
+\begin_inset Formula $y_{i}\in\mathcal{Y}$
+\end_inset
+
+.
+ Probabilistically, we can write 
+\begin_inset Formula $f(x)$
+\end_inset
+
+ as 
+\begin_inset Formula $P(y|x)$
+\end_inset
+
+ where 
+\begin_inset Formula $x$
+\end_inset
+
+ is a new instance we want to predict and 
+\begin_inset Formula $y$
+\end_inset
+
+ is the corresponding prediction.
+ 
+\end_layout
+
+\begin_layout Standard
+Transfer learning in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "pan_yang_transfer_learning"
+literal "false"
+
+\end_inset
+
+ is defined as below:
+\end_layout
+
+\begin_layout Quote
+\begin_inset Quotes eld
+\end_inset
+
+
+\shape italic
+Given a source domain 
+\begin_inset Formula $\mathcal{D}_{S}$
+\end_inset
+
+ and learning task 
+\begin_inset Formula $T_{S}$
+\end_inset
+
+, a target domain 
+\begin_inset Formula $\mathcal{D}_{T}$
+\end_inset
+
+ and learning task 
+\begin_inset Formula $\mathcal{T}_{T}$
+\end_inset
+
+, transfer learning aims to help improve the learning of the target predictive
+ function 
+\begin_inset Formula $f_{T}(·)$
+\end_inset
+
+ in 
+\begin_inset Formula $\mathcal{D}_{T}$
+\end_inset
+
+ using the knowledge in 
+\begin_inset Formula $\mathcal{D}_{S}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathcal{T}_{S}$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathcal{D}_{S}\neq\mathcal{D}_{T}$
+\end_inset
+
+, or 
+\begin_inset Formula $\mathcal{T}_{S}\neq\mathcal{T}_{T}$
+\end_inset
+
+.
+\shape default
+
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Based on this definition, we can categorize transfer learning under three
+ settings (see in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Categories"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) depending on different situations between 
+\shape italic
+
+\begin_inset Formula $\mathcal{D}_{S}$
+\end_inset
+
+
+\shape default
+ and
+\shape italic
+ 
+\begin_inset Formula $\mathcal{D}_{T}$
+\end_inset
+
+, 
+\shape default
+and between
+\shape italic
+ 
+\begin_inset Formula $\mathcal{T}_{S}$
+\end_inset
+
+
+\shape default
+ and
+\shape italic
+ 
+\begin_inset Formula $\mathcal{T}_{T}$
+\end_inset
+
+
+\shape default
+.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Categorization
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Categories"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We categorize transfer learning based on different situations between the
+ source and target domains and tasks as:
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Inductive transfer learning
+\shape default
+: the target and source tasks are different from each other 
+\shape italic
+
+\begin_inset Formula $\mathcal{T}_{S}\neq\mathcal{T}_{T}$
+\end_inset
+
+
+\shape default
+.
+ For example, in the case that we hope to predict for another output parameter
+ instead of three parameters (S-waves, P-waves and noises) in PhaseNet.
+ In this case, the algorithms try to utilize the inductive biases of the
+ source domain 
+\shape italic
+
+\begin_inset Formula $\mathcal{D}_{S}$
+\end_inset
+
+ 
+\shape default
+in order to help to induce an objective predictive model 
+\shape italic
+
+\begin_inset Formula $f_{T}(·)$
+\end_inset
+
+
+\shape default
+.
+ Depending upon different situations of labeled and unlabeled data in the
+ source domain, this can be further divided into two subcategories.
+ Either a lot of labeled data in the source domain are available (similar
+ to multitask learning first proposed in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "MTL_Caruana"
+literal "false"
+
+\end_inset
+
+, yet the network in multitask learning tries to learn the target and source
+ task simultaneously instead of learning the target task by transferring
+ knowledge from the source task), or no labeled data in the source domain
+ are available (similar to self-taught learning first proposed in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "STL_raina"
+literal "false"
+
+\end_inset
+
+, where the label spaces between the source and target domains may be different).
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Transductive transfer learning
+\shape default
+: the source and target domains are different 
+\shape italic
+
+\begin_inset Formula $\mathcal{D}_{S}\neq\mathcal{D}_{T}$
+\end_inset
+
+,
+\shape default
+ but the source and target tasks are the same 
+\shape italic
+
+\begin_inset Formula $\mathcal{T}_{S}\approx\mathcal{T}_{T}$
+\end_inset
+
+.
+ 
+\shape default
+The condition 
+\shape italic
+
+\begin_inset Formula $\mathcal{D}_{S}\neq\mathcal{D}_{T}$
+\end_inset
+
+
+\shape default
+ implies that either 
+\begin_inset Formula $\mathcal{X}_{S}\neq\mathcal{X}_{T}$
+\end_inset
+
+, or 
+\begin_inset Formula $P(X_{S})\neq P(X_{T})$
+\end_inset
+
+.
+ In the first case, the feature spaces between the source and target domains
+ are different (
+\begin_inset Formula $\mathcal{X}_{S}\neq\mathcal{X}_{T}$
+\end_inset
+
+).
+ For example, if the seismograms in our new data are based on components
+ which are totally different from those in PhaseNet.
+ The later case assumes that the feature spaces between domains are the
+ same but the marginal probability distributions of the input data are different
+ 
+\begin_inset Formula $P(X_{S})\neq P(X_{T})$
+\end_inset
+
+.
+ For example, if out data is collected with the same components but from
+ different criteria and conditions.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Unsupervised transfer learning
+\shape default
+: similar to inductive transfer learning, the target and source tasks are
+ different but related to each other.
+ Nevertheless, unsupervised transfer learning focus on solving unsupervised
+ learning tasks in the target domain.
+\end_layout
+
+\begin_layout Subsection
+Implementation
+\end_layout
+
+\begin_layout Subsubsection
+Loading weights from pretrained model
+\end_layout
+
+\begin_layout Standard
+Once we have created a data set with the simulation tool, we consider a
+ training-validation set with the size of 3890 and a test set with the size
+ of 480.
+ We consider this time the neural network taking only one channel, that
+ means we apply only one filter for a single channel in the input layer
+ instead of three for three channels.
+ Therefore, when loading weights from the pretrained model into the input
+ layer of our new model, we have to reshape the size of filter and also
+ remove the weights based on two channels that we do not use.
+\end_layout
+
+\begin_layout Standard
+Now we want to compare the performance of the network on the data test by
+ learning features from the training data in different approaches.
+ We will compare the neural network trained from scratch according to out
+ data (Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "from_scratch"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) with the network using transfer learning in the different ways (Figure
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "load_all_tune"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "freeze"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "load_down_up_freeze"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename figs/train_from_scratch.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Training all layers from scratch (initializing random weights) 
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "from_scratch"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the scenario of Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "load_all_tune"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, we load weights from the whole pretrained model into our new model and
+ fine-tune all of these weights.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename figs/load_all_layer.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Initializing weights from all layers of pretrained model and fine-tune all
+ layers
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "load_all_tune"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "freeze"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, we do the same thing but the weights of two deepest layers are frozen.
+ Namely, the weights in frozen layers are not updated during the training.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename figs/load_all_freeze_2_deepest.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Initializing weights from all layers of pretrained model and freezing two
+ deepest layers
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "freeze"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the following configuration shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "load_down_up_freeze"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, we load weights only from downsampling and upsampling layers (i.e., the
+ weights of input and output layers will be randomly initialized) and freeze
+ weights of two deepest layers.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename figs/load_down_up_freeze_2_deepest.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Initializing weights from only encoder-decoder layers of pretrained model
+ and freezing two deepest layers
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "load_down_up_freeze"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename figs/load and freeze input and encoder layers.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Initializing weights from only input and encoder layers of pretrained model
+ and freezing these layers
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "load_freeze_input_encoder"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename figs/load_all_freeze_some_layers.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Initializing weights from the entire of pretrained model and freezing some
+ encoder and decoder layers
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "load_all_freeze_some"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Training and validation loss
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "train"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "train_valid"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shows the training and validation loss in the different cases.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename figs/compare_train.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Comparison of training loss in different cases
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "train"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename figs/compare_train_valid.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Training and validation loss in different cases
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "train_valid"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Scoring metrics
+\end_layout
+
+\begin_layout Standard
+As the outputs of the network are the probability distributions, so by using
+ the 
+\begin_inset Quotes eld
+\end_inset
+
+detecting peaks
+\begin_inset Quotes erd
+\end_inset
+
+ functions, we can pick some peak probabilities for each phase (P and S)
+ for each test sample, we call 
+\begin_inset Quotes eld
+\end_inset
+
+the picked peaks
+\begin_inset Quotes erd
+\end_inset
+
+.
+ These 
+\begin_inset Quotes eld
+\end_inset
+
+detecting peaks
+\begin_inset Quotes erd
+\end_inset
+
+ functions allow to pick the arrival time based on some criteria (see in
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Detecting-arrival-times"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ For instance, we can consider 
+\begin_inset Quotes eld
+\end_inset
+
+a picked peak
+\begin_inset Quotes erd
+\end_inset
+
+ as the peak which is the maximum and greater than 0.5.
+ We recall that, for each phase, a prediction is:
+\end_layout
+
+\begin_layout Itemize
+a true positive if there is a peak detected and its residual with the true
+ label is less than a tolerance,
+\end_layout
+
+\begin_layout Itemize
+a true negative if the true label does not exist and there is no peak detected
+ (for example, in the case that we have a seismogram with the noises and
+ the model predicts that there is no arrival time detected),
+\end_layout
+
+\begin_layout Itemize
+a false positive if there is a peak detected and:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+its residual with the true label is greater than a tolerance or, 
+\end_layout
+
+\begin_layout Itemize
+the true label does not exist,
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+a false negative if the true label exist but there is no peak detected.
+\end_layout
+
+\begin_layout Standard
+Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "score"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shows the scoring metrics in the 4 different cases.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="13" columns="5">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Precision
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Recall
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+F1-score
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Training from scratch
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+P-phase
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.694
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.612
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.65
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="4" alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-phase
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.965
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.98
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.973
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Loading and fine-tuning all layers
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+P-phase
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.595
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.535
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.564
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="4" alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-phase
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.983
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.987
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.985
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Loading all layers and freezing 2 deepest layers
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+P-phase
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.636
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.548
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.589
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="4" alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-phase
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.983
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.991
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Loading only down-upsampling layers and freezing 2 deepest layers
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+P-phase
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.562
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.518
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.539
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="4" alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-phase
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.967
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.963
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.965
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Loading and freezing input and encoder layers
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+P-phase
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.54
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.414
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.469
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="4" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-phase
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.98
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.985
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.982
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Loading all layers and freezing some encoder-decoder layers
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+P-phase
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.64
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.557
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.596
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="4" alignment="center" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S-phase
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.998
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.98
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.989
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Scoring metrics for different cases
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "score"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Database improvement by adding the topography to the simulation
+\end_layout
+
+\begin_layout Standard
+\align block
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part
+Application to the real data set
+\end_layout
+
+\begin_layout Section
+Application of semi-supervised learning to unlabeled data
+\end_layout
+
+\begin_layout Subsection
+Unlabeled data issue and an approach by semi-supervised learning
+\end_layout
+
+\begin_layout Subsection
+Pseudo-labelling 
+\end_layout
+
+\begin_layout Subsubsection
+Anomaly detection using robust regression methods
+\end_layout
+
+\begin_layout Subsubsection
+Correcting pseudo labels using Support Vector Machine
+\end_layout
+
+\begin_layout Section
+Results
+\end_layout
+
+\begin_layout Standard
+\align block
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part
+Conclusion and perspectives
+\end_layout
+
+\begin_layout Standard
+\align block
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addcontentsline{toc}{part}{References}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
