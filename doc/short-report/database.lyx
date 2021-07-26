@@ -1,0 +1,555 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\usepackage{indentfirst}
+\usepackage[useregional]{datetime2}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family rmdefault
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement !tph
+\paperfontsize 11
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Database and data collection
+\end_layout
+
+\begin_layout Section
+Seismic waveform simulation
+\end_layout
+
+\begin_layout Standard
+SPECFEM2D 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "specfem2d"
+literal "false"
+
+\end_inset
+
+ is a computational software for 2D and 2.5D (i.e., axisymmetric) simulations
+ of acoustic, elastic, viscoelastic, and poroelastic seismic wave propagation
+ as well as full waveform imaging (FWI) or adjoint tomography.
+ By using this software, we attempt to simulate the seismic waveforms with
+ 2 channels (2 components, here is X and Z) that are hopefully similar enough
+ to our real data and thus create a training database for our model.
+\end_layout
+
+\begin_layout Standard
+Some specific model parameters can be varied in order to achieve a diverse
+ data for our training database.
+ For instance, we can simulate with a range of natural states of the material
+ depending on their densities, their absorbing elements, the number of layers
+ and thickness between them, the phase speed at each layer as well as the
+ nature of layer (acoustic or elastic), etc..
+ The simulation can be confirmed to work well by verifying the spectrogram
+ results, the forward wave field and also the seismogram output (Figure
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "simulation_specfem2d"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename figs/simulation_example.png
+	scale 65
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+A seismic waveform example simulated by SPECFEM2D
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "simulation_specfem2d"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Data labeling
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+them vao lam ran de label cho S voi rayleigh (dung vs vp,...)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+After generating a database for our training, we need to add the arrival
+ times for each sample.
+ We can use PhaseNet to give some indications for the picking time and correct
+ it by some physical criteria.
+ As PhaseNet takes 3 channels into the network, so we set the channel Y
+ as a zero vector and hope that the model can give a higher precision prediction
+ for our simulation data (this time, we have two channels instead of one
+ as the real data).
+ 
+\end_layout
+
+\begin_layout Standard
+For each simulation, we get 96 seismograms corresponding to 96 receivers
+ (the source is placed near to the first receiver).
+ The ideal is that, we create a window moving from left to right on the
+ series.
+ Each position of the window determines the interval on which the arrival
+ times of the seismogram recorded by a receiver is observed.
+ And so, in order to pick those times for each receiver, we pick the ones
+ that have the highest probabilities predicted by PhaseNet at their windows.
+ Finally, we correct the picked times by eliminating outliers, using polynomial
+ interpolation (Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "label_interpolation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) and verifying results (Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "labeled_seismogram"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename figs/interpolation_label.png
+	scale 65
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+An interpolation degree 3 of the arrival time for P-wave after detecting
+ anomalies from the prediction results of PhaseNet
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "label_interpolation"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename figs/example_labeled_data.png
+	scale 65
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+A seismogram labeled with P, S and Rayleigh wave using PhaseNet prediction
+ and polynomial interpolation
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "labeled_seismogram"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Data augmentation
+\end_layout
+
+\begin_layout Standard
+In order to increase the size of our database, we use SPECFEM2D to simulate
+ the seismograms with the series of 24,001 time points and then randomly
+ extract the parts of 10,001 time points for each original sample.
+ We can chose the length of the time series we want to extract (here is
+ 10,001), the number of extracted version from the original sample (for
+ example, if we want to randomly selected 10 seismograms from each original
+ seismogram, so the database size will increase 10 times) and the rate coefficie
+nt 
+\begin_inset Formula $\alpha\in[0,1]$
+\end_inset
+
+.
+ With this rate, we have 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ chance of extracting the essential part containing the arrival times and
+ 
+\begin_inset Formula $1-\alpha$
+\end_inset
+
+ chance of extracting the part which does not contain these arrival times.
+ In addition, we can reverse the waveform by multiplying the signal with
+ 
+\begin_inset Formula $-1$
+\end_inset
+
+.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "data_aug"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shows some extraction cases from a original seismogram.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename figs/data_aug.png
+	scale 65
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Different seismograms randomly selected from the original.
+ Both seismograms at the top are selected from the essential part, the one
+ at the bottom left are selected from the part which does not contain the
+ arrival times, and the one at the bottom right is selected from the essential
+ part which is however reversed
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "data_aug"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Adding noises
+\end_layout
+
+\begin_layout Standard
+Once we have created a database using data simulation and data augmentation,
+ we can further alter the original signal samples with noises of varying
+ signal to noise ratios and evaluate the performance of the model under
+ these noisy conditions.
+ We focus on the way using 
+\begin_inset Quotes eld
+\end_inset
+
+Additive White Gaussian Noise
+\begin_inset Quotes erd
+\end_inset
+
+ (AWGN).
+ This kind of noise is easier to generate and to model for analytical analyzes.
+ In AWGN, the noises are randomly sampled from a Gaussian distribution with
+ mean value of zero and its standard deviation can vary depending on a so-called
+ 
+\begin_inset Quotes eld
+\end_inset
+
+Signal to Noise Ratio
+\begin_inset Quotes erd
+\end_inset
+
+ (SNR).
+\end_layout
+
+\begin_layout Standard
+Considering a signal 
+\begin_inset Formula $S=(s_{1},s_{2},...s_{n})$
+\end_inset
+
+, we recall that the root mean square (RMS) and the standard deviation (STD)
+ of 
+\begin_inset Formula $S$
+\end_inset
+
+ are:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $RMS_{S}=\sqrt{\frac{\sum_{i=1}^{n}s_{i}^{2}}{n}}$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $STD_{S}=\sqrt{\frac{\sum_{i=1}^{n}(s_{i}-\mu_{S})^{2}}{n}}$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Standard
+\noindent
+where 
+\begin_inset Formula $\mu_{S}=\frac{1}{n}\sum_{i=1}^{n}s_{i}$
+\end_inset
+
+ is the mean value of signal 
+\begin_inset Formula $S$
+\end_inset
+
+.
+ Now we define SNR as follows:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $SNR=10\log\left(\frac{RMS_{S}^{2}}{RMS_{noise}^{2}}\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\noindent
+Hence, the required RMS of the noise that we generate is:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $RMS_{noise}=\sqrt{\frac{RMS_{S}^{2}}{10^{\frac{SNR}{10}}}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\noindent
+As the mean value of noise is zero, so we must have 
+\begin_inset Formula $STD_{noise}=RMS_{noise}$
+\end_inset
+
+.
+ Finally, the noise that we generate by AWGN method is:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $noise=(noise_{1},noise_{2},...nosie_{n})\sim\mathcal{N}_{n}(0,\sqrt{\frac{RMS_{S}^{2}}{10^{\frac{SNR}{10}}}}I_{n})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+btprint "btPrintCited"
+bibfiles "references"
+options "siam"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

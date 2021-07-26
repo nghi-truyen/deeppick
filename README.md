@@ -80,4 +80,4 @@ python prediction_model.py --model_dir=model/210716-150459 --data_dir=dataset/pr
 ```
 ## 5. Correcting picks (optional)
 
-This part allows to improve the quality of pseudo labels for semi-supervised learning. In order to correct picks after predicting, go to the `correct_label` directory.
+This part allows to improve the quality of pseudo labels for semi-supervised learning. In order to correct picks after predicting, go to the [`correct_label`](https://github.com/nghitruyen/PhaseNet_keras_version/tree/main/correct_label) directory.
