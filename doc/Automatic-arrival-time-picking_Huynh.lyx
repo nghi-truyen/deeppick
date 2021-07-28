@@ -173,7 +173,7 @@
 \begin_inset VSpace 1.2cm
 \end_inset
 
- ——— WORK PLACEMENT REPORT ———
+ ———— WORK PLACEMENT REPORT ————
 \lang english
  
 \begin_inset ERT
@@ -233,7 +233,7 @@ vskip 1cm
 \begin_layout Date
 
 \shape italic
-September 2021
+August 2021
 \end_layout
 
 \begin_layout Standard
@@ -442,7 +442,19 @@ Monitoring of basement structures and water-saturated ground
 \end_layout
 
 \begin_layout Section
-Seismic inversion problem by arrival time picking
+Seismic inversion problem 
+\end_layout
+
+\begin_layout Standard
+Research bib for inversion problem .................
+\end_layout
+
+\begin_layout Section
+Approaching by arrival time picking method
+\end_layout
+
+\begin_layout Standard
+Explain how arrival time picking can help to solve inversion problem????????????
 \end_layout
 
 \begin_layout Subsection
@@ -647,11 +659,16 @@ Data collection
 \end_layout
 
 \begin_layout Subsection
-Classical seismic arrival time picking methods
+Automatic arrival time picking by deep learning
 \end_layout
 
-\begin_layout Section
-Automatic arrival time picking by deep learning
+\begin_layout Standard
+Research bib for classical arrival time picking in order to compare with
+ deep learning method............
+\end_layout
+
+\begin_layout Standard
+Research more about time picking methods by deep learning.............
 \end_layout
 
 \begin_layout Standard
@@ -759,8 +776,8 @@ literal "false"
 \end_inset
 
 .
- But how does this work exactly? Let's take a look at what does a normal
- convolution do.
+ But how does this work exactly? Let's take a look at what a normal convolution
+ do.
 \end_layout
 
 \begin_layout Standard
@@ -1031,23 +1048,15 @@ name "skip connections-steup"
 
 \begin_layout Standard
 To understand how does the skip connection work, we first go back to understand
- a little bit of the principal of 
-\begin_inset Quotes eld
-\end_inset
-
-backpropagation algorithm
-\begin_inset Quotes erd
-\end_inset
-
-.
+ a little bit of backpropagation algorithm.
  As we know, neural networks can learn their weights and biases using the
  gradient descent algorithm in order to optimize these parameters with respect
  to the loss function.
- The backpropagation algorithm provides us with a way to calculating the
- gradient of the loss function by computing the partial derivatives.
+ The backpropagation algorithm provides us a way to calculate the gradient
+ of the loss function by computing the partial derivatives.
  However, in some cases, we can see that the loss function stop decreasing
  but it is still far way from the desired result at a certain step of updating
- parameters during the training step.
+ parameters during the training.
  The so-called 
 \begin_inset Quotes eld
 \end_inset
@@ -1517,18 +1526,29 @@ name "sec:Data-extraction"
 \end_layout
 
 \begin_layout Standard
-For training on a data set, PhaseNet takes the seismograms having shape
- of 9000 while the network takes an input size 3001.
- It comes to the fact that we want the network to learn the essential informatio
-n of our data and also learn to detect noises.
- Concretely, for each seismogram, the data prepossessing step will randomly
- extract 3001 points which is around the labels (the true arrival times)
- with a chance of 0.95 (this threshold can be calibrated of course).
- In this case, each seismogram of size 3001 is labeled with a list of arrival
- times of P and S-wave.
- On the contrary, with a chance of 0.05, we randomly extract a part of size
- 3001 which only contains the noises (a part in which the arrival times
- are not observed) and then these seismograms are labeled with empty lists.
+The raw data used for training in PhaseNet are the seismograms with 9000
+ timesteps but after pre-processing, the network takes the inputs with only
+ 3000 timesteps.
+ It comes to the fact that they want the network to learn the essential
+ information of their data and also learn to detect noises.
+ Concretely, each seismogram entering the network is an extract of 3000
+ points from the original one with a chance of 0.95 (this threshold can be
+ calibrated of course).
+ In this case, the labels (the arrival times of P and S-wave) have to be
+ included in these 3000 timesteps.
+ On the contrary, with a chance of 0.05, the random extract part contains
+ only the noises (a part in which the arrival times are not observed) and
+ then its labels are considered as an empty list.
+\end_layout
+
+\begin_layout Standard
+For example, we consider an orginal raw sample with 9000 timesteps, its
+ label are ?? and ??? for P and S wave respectively.
+ So, ......
+\end_layout
+
+\begin_layout Standard
+add fig................
 \end_layout
 
 \begin_layout Subsection
@@ -1890,7 +1910,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Detecting peaks in the data with the mph criteria
+Detecting peaks in the data with mph criteria
 \end_layout
 
 \end_inset
@@ -1934,7 +1954,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Detecting all peaks in the data with the mpd criteria
+Detecting all peaks in the data with mpd criteria
 \end_layout
 
 \end_inset
@@ -1978,7 +1998,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Detecting all peaks in the data with the threshold criteria
+Detecting all peaks in the data with threshold criteria
 \end_layout
 
 \end_inset
@@ -1996,6 +2016,168 @@ name "threshold"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+Code execution
+\end_layout
+
+\begin_layout Standard
+The PhaseNet model is trained on the available data set that contains more
+ than 0.7 million seismograms from natural earthquake and consists of weights
+ and importance information of model while training.
+ If we want the model to be adapted to a new data set, we have to retrain
+ it, either from scratch, or from a pre-trained model (see 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Training-on-new-phasenet"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ Now, assuming that we want to use this pre-trained model to predict the
+ arrival time of the waves and noise for some samples of a prediction set.
+ Each sample consists of three seismograms corresponding to three-component
+ signals (Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "input_signals"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename figs/three-component.png
+	scale 55
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Three-component signals of a sample
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "input_signals"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Then, the outputs are the probability distributions of noise, P-wave and
+ S-wave (Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "proba_output"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename figs/ouput.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Probability distributions of noise, P-wave and S-wave obtained by prediction
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "proba_output"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+We can further interpret that, at time 
+\begin_inset Formula $t$
+\end_inset
+
+, the probability that we can observe noise is equal to one minus the probabilit
+y that we can observe the P-wave and minus the probability that we can observe
+ the S-wave (as we have used the soft-max normalized exponential function
+ in the last layer):
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $\mathbb{P}(noise=t)=1-\mathbb{P}(\text{P-wave}=t)-\mathbb{P}(\text{S-wave}=t)$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Section
@@ -2088,197 +2270,10 @@ In some cases, we can get a very high precision but a very low recall.
 
 \begin_layout Standard
 Actually, F1 scores evaluating the performance of PhaseNet model on their
- own test data (with 154 samples) achieved 0.937 for P-waves and 0.853 for
- S-waves, that shows a glorious improvement comparing with results obtained
+ own test data (with 78,592 samples) achieved 0.896 for P-waves and 0.801
+ for S-waves, that shows a glorious improvement comparing with results obtained
  by classical methods.
  
-\end_layout
-
-\begin_layout Section
-Code execution
-\end_layout
-
-\begin_layout Standard
-The PhaseNet model is trained on the available data set that contains more
- than 0.7 million seismograms from natural earthquake and stored in directory
- 
-\family sans
-/model
-\family default
- (weights and importance information of model were saved after finishing
- the training).
- If we want the model to be adapted to a new data set, we have to retrain
- it, either from scratch, or from a pre-trained model (see 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "subsec:Training-on-new-phasenet"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-).
- Now, assuming that we want to use this pre-trained model to predict the
- arrival time of the waves and noise for the signals stored in directory
- 
-\family sans
-waveform_pred
-\family default
-.
- This directory consists of many samples.
- Each sample consists of three seismograms corresponding to three-component
- signals (Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "input_signals"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-).
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\noindent
-\align center
-\begin_inset Graphics
-	filename figs/three-component.png
-	scale 55
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Three-component signals of a sample
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset label
-LatexCommand label
-name "input_signals"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\noindent
-Concretely, we tape the command below:
-\end_layout
-
-\begin_layout Verbatim
-$ python run.py --mode=pred --model_dir=model/model_name --data_dir=waveform_pred
-\end_layout
-
-\begin_layout Standard
-\noindent
-where 
-\family sans
-model_name
-\family default
- is the pre-trained model.
- The outputs are the probability distributions of noise, P-wave and S-wave
- (Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "proba_output"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-).
- 
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\noindent
-\align center
-\begin_inset Graphics
-	filename figs/ouput.png
-	scale 60
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Probability distributions of noise, P-wave and S-wave obtained by prediction
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset label
-LatexCommand label
-name "proba_output"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\noindent
-We can further interpret that, at time 
-\begin_inset Formula $t$
-\end_inset
-
-, the probability that we can observe noise is equal to one minus the probabilit
-y that we can observe the P-wave and minus the probability that we can observe
- the S-wave (as we have used the soft-max normalized exponential function
- in the last layer):
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Formula $\mathbb{P}(noise=t)=1-\mathbb{P}(\text{P-wave}=t)-\mathbb{P}(\text{S-wave}=t)$
-\end_inset
-
-.
 \end_layout
 
 \begin_layout Standard
@@ -2304,10 +2299,6 @@ Generating a simulated database
 \begin_layout Subsection
 SPECFEM2D: A numerical simulation tool for forward and adjoint seismic wave
  propagation
-\end_layout
-
-\begin_layout Standard
-(add more info for SPECFEM)
 \end_layout
 
 \begin_layout Standard
@@ -2492,10 +2483,10 @@ Adding noises
 \end_layout
 
 \begin_layout Standard
-Once we have created a database using data simulation and data augmentation,
- we can further alter the original signal samples with noises of varying
- signal to noise ratios and evaluate the performance of the model under
- these noisy conditions.
+Once we have created a simulated database with data augmentation, we can
+ further alter the original signal samples with noises of varying signal
+ to noise ratios and evaluate the performance of the model under these noisy
+ conditions.
  We focus on the way using 
 \begin_inset Quotes eld
 \end_inset
@@ -2634,8 +2625,8 @@ Northern California Earthquake Data Center Catalog
 \shape default
  (NCEDC 2014) that has a lot of different assumptions with our data set
  as: collected locations, collected methods and measurement conditions,
- etc., thus we can not just apply the model trained on the NCEDC data to
- predict for our data.
+ etc., thus we can not just apply the model pre-trained with the NCEDC data
+ to our real data.
  Either we retrain the model on our own data, or we have to look for a technique
  which allow us to reuse the features the model has learnt in the past.
  In reality, it is much expensive to recollect the needed training data
@@ -2756,223 +2747,10 @@ literal "false"
 \end_layout
 
 \begin_layout Subsection
-How does it work?
-\end_layout
-
-\begin_layout Subsubsection
-Notations and definitions
-\end_layout
-
-\begin_layout Standard
-Before surveying mathematical definition of transfer learning, we first
- define the following notations:
-\end_layout
-
-\begin_layout Itemize
-A 
-\shape italic
-domain 
-\begin_inset Formula $\mathcal{D=}\{\mathcal{X},P(X)\}$
-\end_inset
-
- 
-\shape default
-consists of 2 components: a feature space 
-\shape italic
-
-\begin_inset Formula $\mathcal{X}$
-\end_inset
-
- 
-\shape default
-and a marginal probability distribution 
-\begin_inset Formula $P(X)$
-\end_inset
-
- where 
-\begin_inset Formula $X=\{x_{1},...,x_{n}\}\in\mathcal{X}$
-\end_inset
-
-.
- 
-\end_layout
-
-\begin_layout Itemize
-A 
-\shape italic
-task 
-\begin_inset Formula $\mathcal{T=}\{\mathcal{Y},f(.)\}$
-\end_inset
-
-
-\shape default
- linked to domain 
-\shape italic
-
-\begin_inset Formula $\mathcal{D}$
-\end_inset
-
-
-\shape default
- consists of 2 components: a label space 
-\begin_inset Formula $\mathcal{Y}$
-\end_inset
-
- and an objective predictive function 
-\begin_inset Formula $f(.)$
-\end_inset
-
-, which can be learnt from the training data and consists of the data instance
- 
-\begin_inset Formula $x_{i}\in\mathcal{X}$
-\end_inset
-
- and the corresponding output 
-\begin_inset Formula $y_{i}\in\mathcal{Y}$
-\end_inset
-
-.
- Probabilistically, we can write 
-\begin_inset Formula $f(x)$
-\end_inset
-
- as 
-\begin_inset Formula $P(y|x)$
-\end_inset
-
- where 
-\begin_inset Formula $x$
-\end_inset
-
- is a new instance we want to predict and 
-\begin_inset Formula $y$
-\end_inset
-
- is the corresponding prediction.
- 
-\end_layout
-
-\begin_layout Standard
-Transfer learning in 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "pan_yang_transfer_learning"
-literal "false"
-
-\end_inset
-
- is defined as below:
-\end_layout
-
-\begin_layout Quote
-\begin_inset Quotes eld
-\end_inset
-
-
-\shape italic
-Given a source domain 
-\begin_inset Formula $\mathcal{D}_{S}$
-\end_inset
-
- and learning task 
-\begin_inset Formula $T_{S}$
-\end_inset
-
-, a target domain 
-\begin_inset Formula $\mathcal{D}_{T}$
-\end_inset
-
- and learning task 
-\begin_inset Formula $\mathcal{T}_{T}$
-\end_inset
-
-, transfer learning aims to help improve the learning of the target predictive
- function 
-\begin_inset Formula $f_{T}(·)$
-\end_inset
-
- in 
-\begin_inset Formula $\mathcal{D}_{T}$
-\end_inset
-
- using the knowledge in 
-\begin_inset Formula $\mathcal{D}_{S}$
-\end_inset
-
- and 
-\begin_inset Formula $\mathcal{T}_{S}$
-\end_inset
-
-, where 
-\begin_inset Formula $\mathcal{D}_{S}\neq\mathcal{D}_{T}$
-\end_inset
-
-, or 
-\begin_inset Formula $\mathcal{T}_{S}\neq\mathcal{T}_{T}$
-\end_inset
-
-.
-\shape default
-
-\begin_inset Quotes erd
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Based on this definition, we can categorize transfer learning under three
- settings (see in 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "subsec:Categories"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-) depending on different situations between 
-\shape italic
-
-\begin_inset Formula $\mathcal{D}_{S}$
-\end_inset
-
-
-\shape default
- and
-\shape italic
- 
-\begin_inset Formula $\mathcal{D}_{T}$
-\end_inset
-
-, 
-\shape default
-and between
-\shape italic
- 
-\begin_inset Formula $\mathcal{T}_{S}$
-\end_inset
-
-
-\shape default
- and
-\shape italic
- 
-\begin_inset Formula $\mathcal{T}_{T}$
-\end_inset
-
-
-\shape default
-.
- 
-\end_layout
-
-\begin_layout Subsubsection
-Categorization
+Implementation
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Categories"
+name "subsec:Training-on-new-phasenet"
 
 \end_inset
 
@@ -2980,145 +2758,29 @@ name "subsec:Categories"
 \end_layout
 
 \begin_layout Standard
-We categorize transfer learning based on different situations between the
- source and target domains and tasks as:
-\end_layout
-
-\begin_layout Itemize
-
-\shape italic
-Inductive transfer learning
-\shape default
-: the target and source tasks are different from each other 
-\shape italic
-
-\begin_inset Formula $\mathcal{T}_{S}\neq\mathcal{T}_{T}$
-\end_inset
-
-
-\shape default
-.
- For example, in the case that we hope to predict for another output parameter
- instead of three parameters (S-waves, P-waves and noises) in PhaseNet.
- In this case, the algorithms try to utilize the inductive biases of the
- source domain 
-\shape italic
-
-\begin_inset Formula $\mathcal{D}_{S}$
-\end_inset
-
- 
-\shape default
-in order to help to induce an objective predictive model 
-\shape italic
-
-\begin_inset Formula $f_{T}(·)$
-\end_inset
-
-
-\shape default
-.
- Depending upon different situations of labeled and unlabeled data in the
- source domain, this can be further divided into two subcategories.
- Either a lot of labeled data in the source domain are available (similar
- to multitask learning first proposed in 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "MTL_Caruana"
-literal "false"
-
-\end_inset
-
-, yet the network in multitask learning tries to learn the target and source
- task simultaneously instead of learning the target task by transferring
- knowledge from the source task), or no labeled data in the source domain
- are available (similar to self-taught learning first proposed in 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "STL_raina"
-literal "false"
-
-\end_inset
-
-, where the label spaces between the source and target domains may be different).
-\end_layout
-
-\begin_layout Itemize
-
-\shape italic
-Transductive transfer learning
-\shape default
-: the source and target domains are different 
-\shape italic
-
-\begin_inset Formula $\mathcal{D}_{S}\neq\mathcal{D}_{T}$
-\end_inset
-
-,
-\shape default
- but the source and target tasks are the same 
-\shape italic
-
-\begin_inset Formula $\mathcal{T}_{S}\approx\mathcal{T}_{T}$
-\end_inset
-
-.
- 
-\shape default
-The condition 
-\shape italic
-
-\begin_inset Formula $\mathcal{D}_{S}\neq\mathcal{D}_{T}$
-\end_inset
-
-
-\shape default
- implies that either 
-\begin_inset Formula $\mathcal{X}_{S}\neq\mathcal{X}_{T}$
-\end_inset
-
-, or 
-\begin_inset Formula $P(X_{S})\neq P(X_{T})$
-\end_inset
-
-.
- In the first case, the feature spaces between the source and target domains
- are different (
-\begin_inset Formula $\mathcal{X}_{S}\neq\mathcal{X}_{T}$
-\end_inset
-
-).
- For example, if the seismograms in our new data are based on components
- which are totally different from those in PhaseNet.
- The later case assumes that the feature spaces between domains are the
- same but the marginal probability distributions of the input data are different
- 
-\begin_inset Formula $P(X_{S})\neq P(X_{T})$
-\end_inset
-
-.
- For example, if out data is collected with the same components but from
- different criteria and conditions.
- 
-\end_layout
-
-\begin_layout Itemize
-
-\shape italic
-Unsupervised transfer learning
-\shape default
-: similar to inductive transfer learning, the target and source tasks are
- different but related to each other.
- Nevertheless, unsupervised transfer learning focus on solving unsupervised
- learning tasks in the target domain.
-\end_layout
-
-\begin_layout Subsection
-Implementation
+Primarily, we need to convert all of the PhaseNet code from 
+\family sans
+tensorflow 
+\family default
+to
+\family sans
+ keras
+\family default
+ that provides a convenient way in order to implement transfer learning.
+ Once we train the model with a new data set using transfer learning, 
+\family sans
+keras
+\family default
+ first loads all required model weights from a pre-trained model.
+ Subsequently, the network tries to learn new features of the new data using
+ the knowledge of pre-trained model instead of initializing the model with
+ random weights.
+ Finally, the new model can be improved and adapt to the new data set using
+ the knowledge in the past.
 \end_layout
 
 \begin_layout Subsubsection
-Loading weights from pretrained model
+Loading weights from pre-trained model
 \end_layout
 
 \begin_layout Standard
@@ -3128,7 +2790,7 @@ Once we have created a data set with the simulation tool, we consider a
  We consider this time the neural network taking only one channel, that
  means we apply only one filter for a single channel in the input layer
  instead of three for three channels.
- Therefore, when loading weights from the pretrained model into the input
+ Therefore, when loading weights from the pre-trained model into the input
  layer of our new model, we have to reshape the size of filter and also
  remove the weights based on two channels that we do not use.
 \end_layout
@@ -3236,7 +2898,7 @@ noprefix "false"
 
 \end_inset
 
-, we load weights from the whole pretrained model into our new model and
+, we load weights from the whole pre-trained model into our new model and
  fine-tune all of these weights.
 \end_layout
 
@@ -3264,8 +2926,8 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Initializing weights from all layers of pretrained model and fine-tune all
- layers
+Initializing weights from all layers of pre-trained model and fine-tune
+ all layers
 \end_layout
 
 \end_inset
@@ -3324,7 +2986,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Initializing weights from all layers of pretrained model and freezing two
+Initializing weights from all layers of pre-trained model and freezing two
  deepest layers
 \end_layout
 
@@ -3385,7 +3047,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Initializing weights from only encoder-decoder layers of pretrained model
+Initializing weights from only encoder-decoder layers of pre-trained model
  and freezing two deepest layers
 \end_layout
 
@@ -3430,7 +3092,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Initializing weights from only input and encoder layers of pretrained model
+Initializing weights from only input and encoder layers of pre-trained model
  and freezing these layers
 \end_layout
 
@@ -3475,7 +3137,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Initializing weights from the entire of pretrained model and freezing some
+Initializing weights from the entire of pre-trained model and freezing some
  encoder and decoder layers
 \end_layout
 
@@ -3818,6 +3480,9 @@ P-phase
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\series bold
+\color green
 0.65
 \end_layout
 
@@ -4053,6 +3718,9 @@ S-phase
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\series bold
+\color green
 0.991
 \end_layout
 
@@ -4370,6 +4038,18 @@ name "score"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Interpret the score??? Explain why we chose 
+\begin_inset Quotes eld
+\end_inset
+
+Loading all layers and freezing 2 deepest layers
+\begin_inset Quotes erd
+\end_inset
+
+?????????????????????????
 \end_layout
 
 \begin_layout Section
