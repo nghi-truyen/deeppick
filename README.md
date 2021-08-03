@@ -7,8 +7,8 @@ The model stored in `model/210716-150459` has been trained with 36,864 seismogra
 The following table sums up the results for our model on training-validation and test datasets, with 27,648 and 9,216 samples respectively:
 |                          | Phase | F1-score  |
 | ------------------------ | ----- | --------- |
-| Training from scratch    |P<br>S | 99,94%<br>82,81% |
-| Using transfer learning  |P<br>S | 99,95%<br>83,01% |
+| Training from scratch    |P<br>S | 99.94%<br>82.81% |
+| Using transfer learning  |P<br>S | 99.95%<br>83.01% |
 
 ## 0. Installing packages
 Setting up a virtual environment using Anaconda:
