@@ -496,7 +496,7 @@ literal "false"
 
 \begin_layout Itemize
 compression waves (P-waves) that are polarized and moving in the direction
- the wave is traveling;
+ the wave is traveling,
 \end_layout
 
 \begin_layout Itemize
@@ -545,7 +545,7 @@ status open
 \align center
 \begin_inset Graphics
 	filename figs/seismograph.gif
-	scale 55
+	scale 50
 
 \end_inset
 
@@ -607,7 +607,7 @@ status open
 \align center
 \begin_inset Graphics
 	filename figs/p-s-waves.gif
-	scale 50
+	scale 40
 	rotateOrigin center
 
 \end_inset
@@ -663,6 +663,143 @@ https://www.mathsisfun.com/physics/waves-seismic.html
 Data collection
 \end_layout
 
+\begin_layout Standard
+We consider a wetland area in Guidel (a commune in the Morbihan department
+ of Brittany in north-western France).
+ To monitor the water-saturated ground of this region, we survey a studied
+ profile that traverses through the stream (Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "zone_experiment"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ Then, the sources and geophones (receivers) are lined up on the studied
+ profile (Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "mesure-method"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ The sources such as trucks are utilized to generate artificial explosions.
+ Once an explosion takes place at a source, the waves will travel through
+ the Earth's interior and be reflected to the receivers.
+ Each receiver will then record the signals by only one component z into
+ a seismogram.
+ In the experiment, we consider 96 sources and 96 receivers, so our data
+ contain 9,216 (
+\begin_inset Formula $=96\times96$
+\end_inset
+
+) seismograms recorded by a single component.
+ 
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figs/zone_experiment.png
+	scale 50
+	rotateOrigin center
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Studied zone for the experiment
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "zone_experiment"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figs/experiment-method.png
+	scale 90
+	rotateOrigin center
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Measuring experiment method
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "mesure-method"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The P-waves propagate at the same direction with the z-axis while the S-waves
+ are slower and propagate with the direction perpendicular to the P-waves
+ movement.
+ Physically, the z-axis records so more information of the P-wave while
+ most of S-wave information records by the x and y-axis.
+ Consequently, the fact that our measurement based on a single component
+ may result in a lack of information on the S-wave detection.
+\end_layout
+
 \begin_layout Subsection
 Automatic arrival time picking by deep learning
 \end_layout
@@ -691,8 +828,8 @@ Automatic arrival time picking based on PhaseNet
 \begin_layout Standard
 PhaseNet is a deep-neural-network-based arrival-time picking method that
  uses three-component seismic waveform as input and returns probability
- distributions of arrival times of both P-wave and S-wave and also noise
- as output.
+ distributions of arrival times of both P-wave and S-wave along with the
+ noise as output.
 
 \shape italic
  
@@ -956,7 +1093,7 @@ literal "false"
 \end_layout
 
 \begin_layout Itemize
-Adding an expanding path (decoder) called 
+adding an expanding path (decoder) called 
 \begin_inset Quotes eld
 \end_inset
 
@@ -976,11 +1113,11 @@ noprefix "false"
 
 a) that recovers spatial information (updated parameters: weights, biases)
  by merging features skipped from the various resolution levels on the contracti
-ng path (encoder).
+ng path (encoder),
 \end_layout
 
 \begin_layout Itemize
-Adding a 
+adding a 
 \begin_inset Quotes eld
 \end_inset
 
@@ -2173,9 +2310,177 @@ Adaptation of PhaseNet to our near surface context
 \end_layout
 
 \begin_layout Standard
-The model in PhaseNet is trained on the available data set that contains
- more than 0.7 million seismograms from natural earthquake.
- If we want the model to be adapted to a new data set, we have to retrain
+The model in PhaseNet is trained on the data set that contains more than
+ 0.7 million samples from natural earthquakes.
+ Each sample consists of three seismograms corresponding to the signals
+ recorded by three components.
+ Each seismogram is recorded with 9000 time steps.
+ Those are totally different from our real data (Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PNvsOurs"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="middle" width="6cm">
+<column alignment="center" valignment="middle" width="6cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+PhaseNet
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Our data
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Passive seismic: sources are earthquakes
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Active seismic: sources are hammering, artificial explosion, etc.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Trained with over 0.7 billion samples
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+9216 unlabeled samples
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Each sample contains 3 seismograms
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Each sample contains 1 seismogram
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Each seismogram is recorded with 9000 time steps
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Each seismogram is recorded with 4000 time steps
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Differences between PhaseNet and our data
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "PNvsOurs"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Thus, if we want the model to be adapted to a new data set, we have to retrain
  it, either from scratch, or from a pre-trained model (see 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2187,132 +2492,26 @@ noprefix "false"
 \end_inset
 
 ).
- Each sample of the data set consists of three seismograms corresponding
- to three-component signals (Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "input_signals"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-).
+ In this case, an approach based on simulated data was considered.
+ The advantage of simulated data is that:
 \end_layout
 
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\noindent
-\align center
-\begin_inset Graphics
-	filename figs/three-component.png
-	scale 55
-
-\end_inset
-
-
+\begin_layout Itemize
+we can label for the simulated data by analytical computing the arrival
+ times thanks to a given physical model,
 \end_layout
 
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Three-component signals of a sample
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset label
-LatexCommand label
-name "input_signals"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\noindent
-Then, the outputs are the probability distributions of noise, P-wave and
- S-wave (Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "proba_output"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-).
- 
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\noindent
-\align center
-\begin_inset Graphics
-	filename figs/ouput.png
-	scale 60
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Probability distributions of noise, P-wave and S-wave obtained by prediction
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset label
-LatexCommand label
-name "proba_output"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
+\begin_layout Itemize
+we can build physical models to simulate the data that are close to our
+ real data.
 \end_layout
 
 \begin_layout Section
-Generating a simulated database
+Generating a simulated data set
 \end_layout
 
 \begin_layout Subsection
-SPECFEM2D: A numerical simulation tool for forward and adjoint seismic wave
- propagation
+Generating data based on SPECFEM2D
 \end_layout
 
 \begin_layout Standard
@@ -2329,7 +2528,7 @@ literal "false"
  as well as full waveform imaging (FWI) or adjoint tomography.
  By using this software, we attempt to simulate the seismic waveforms with
  2 channels (2 components, here is X and Z) that are hopefully similar enough
- to our real data and thus create a training database for our model.
+ to our real data and thus, we can create a training data set for our model.
 \end_layout
 
 \begin_layout Standard
@@ -2339,6 +2538,14 @@ Some specific model parameters can be varied in order to achieve a diverse
  depending on their densities, their absorbing elements, the number of layers
  and thickness between them, the phase speed at each layer as well as the
  nature of each layer (acoustic or elastic), etc..
+\end_layout
+
+\begin_layout Subsubsection
+Simple simulations
+\end_layout
+
+\begin_layout Standard
+................
  The simulation can be confirmed to work well by verifying the spectrogram
  results, the forward wave field and also the seismogram output (Figure
  
@@ -2398,19 +2605,31 @@ name "simulation_specfem2d"
 
 \end_layout
 
+\begin_layout Subsubsection
+Adding realistic topography
+\end_layout
+
+\begin_layout Standard
+compare two siesmograms with and without topo ........................
+\end_layout
+
 \begin_layout Subsection
 Data augmentation
 \end_layout
 
 \begin_layout Standard
-In order to increase the size of our database, we use SPECFEM2D to simulate
- the seismograms with the series of 24,001 time points and then randomly
- extract the parts of 10,001 time points for each original sample.
+To increase the size of our data set from simulated database, we first use
+ time shifting method that has been commonly used as data augmentation approach
+ in seismic waveform treatment.
+ Typically, we run SPECFEM2D to simulate the seismograms with 24,001 time
+ steps.
+ Then, for each seismogram, we randomly extract some parts from the original
+ sample.
+ Each extracted seismogram however consists of 10,001 time steps.
  We can chose the length of the time series we want to extract (here is
  10,001), the number of extracted version from the original sample (for
  example, if we want to randomly selected 10 seismograms from each original
- seismogram, so the database size will increase 10 times) and the rate coefficie
-nt 
+ seismogram, so the data size will increase 10 times) and a rate 
 \begin_inset Formula $\alpha\in[0,1]$
 \end_inset
 
@@ -2684,18 +2903,18 @@ noprefix "false"
 ):
 \end_layout
 
-\begin_layout Enumerate
-No transfer training (B-only): they train a prediction model only with the
- data set B;
+\begin_layout Itemize
+no transfer training (B-only): they train a prediction model only with the
+ data set B,
 \end_layout
 
-\begin_layout Enumerate
-Similar transfer training: they train the model on data B using the transfer
- learning with the pre-trained model on data A (similar with B).
+\begin_layout Itemize
+similar transfer training: they train the model on data B using the transfer
+ learning with the pre-trained model on data A (similar with B),
 \end_layout
 
-\begin_layout Enumerate
-Dissimilar transfer training: the pre-trained model on the dissimilar data
+\begin_layout Itemize
+dissimilar transfer training: the pre-trained model on the dissimilar data
  A is used to transfer the prediction model on data B.
 \end_layout
 
@@ -2712,7 +2931,7 @@ status open
 \align center
 \begin_inset Graphics
 	filename figs/transfer_or_not.png
-	scale 50
+	scale 40
 
 \end_inset
 
@@ -2794,33 +3013,25 @@ keras
 \end_layout
 
 \begin_layout Standard
-Once we have created a data set with the simulation tool, we consider a
- training-validation set with the size of 3890 and a test set with the size
- of 480.
- We consider this time the neural network taking only one channel, that
- means we apply only one filter for a single channel in the input layer
- instead of three for three channels.
+In our case, the neural network takes only one channel, that means we apply
+ only one filter for a single channel in the input layer instead of three
+ for three channels as PhaseNet.
  Therefore, when loading weights from the pre-trained model into the input
  layer of our new model, we have to reshape the size of filter and also
- remove the weights based on two channels that we do not use.
+ remove the weights based on the two redundant channels.
+ We tried many of transfer learning strategies based on two criterion:
+\end_layout
+
+\begin_layout Itemize
+which layers are selected to load weights into,
+\end_layout
+
+\begin_layout Itemize
+which layers are selected to freeze weights.
 \end_layout
 
 \begin_layout Standard
-Now we want to compare the performance of the network on the data test by
- learning features from the training data in different approaches.
- We will compare the neural network trained from scratch according to our
- data (Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "from_scratch"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-) with the network using transfer learning in the different ways (Figure
- 
+For example, in the scenario shown in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "load_all_tune"
@@ -2830,7 +3041,9 @@ noprefix "false"
 
 \end_inset
 
-, 
+, we load weights from the whole pre-trained model into our new model and
+ fine-tune all of these weights.
+ In Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "freeze"
@@ -2840,7 +3053,9 @@ noprefix "false"
 
 \end_inset
 
-, 
+, we do the same thing but the weights of two deepest layers are frozen.
+ Namely, the weights in frozen layers are not updated during the training.
+ While with the configuration shown in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "load_down_up_freeze"
@@ -2850,7 +3065,9 @@ noprefix "false"
 
 \end_inset
 
-).
+, we load weights only from downsampling and upsampling layers (i.e., the
+ weights of input and output layers will be randomly initialized) and freeze
+ weights of two deepest layers.
 \end_layout
 
 \begin_layout Standard
@@ -2895,21 +3112,6 @@ name "from_scratch"
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-In the scenario of Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "load_all_tune"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, we load weights from the whole pre-trained model into our new model and
- fine-tune all of these weights.
 \end_layout
 
 \begin_layout Standard
@@ -2958,21 +3160,6 @@ name "load_all_tune"
 \end_layout
 
 \begin_layout Standard
-In Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "freeze"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, we do the same thing but the weights of two deepest layers are frozen.
- Namely, the weights in frozen layers are not updated during the training.
-\end_layout
-
-\begin_layout Standard
 \noindent
 \align center
 \begin_inset Float figure
@@ -3015,22 +3202,6 @@ name "freeze"
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-In the following configuration shown in Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "load_down_up_freeze"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, we load weights only from downsampling and upsampling layers (i.e., the
- weights of input and output layers will be randomly initialized) and freeze
- weights of two deepest layers.
 \end_layout
 
 \begin_layout Standard
@@ -3168,11 +3339,23 @@ name "load_all_freeze_some"
 
 \end_layout
 
-\begin_layout Subsection
-Results
+\begin_layout Section
+Results on simulated data
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+In this section, we will see the performance of the network (with and without
+ using transfer learning) on two data set.
+ The first data set is the one simulated without adding realistic topography,
+ that is divided into a training-validation set and a test set with 3,890
+ and 480 samples respectively (after implementing data augmentation).
+ The second one is the data simulated by adding realistic topography that
+ is divided into a training-validation set and test set with 2,880 and 288
+ samples respectively (also after implementing data augmentation).
+ 
+\end_layout
+
+\begin_layout Subsection
 Training and validation loss
 \end_layout
 
@@ -3197,7 +3380,8 @@ noprefix "false"
 
 \end_inset
 
- show the training and validation loss in the different cases.
+ show the training and validation loss in the different cases without realistic
+ topography.
 \end_layout
 
 \begin_layout Standard
@@ -3224,7 +3408,8 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Comparison of training loss in different cases
+Comparison of training loss in different transfer learning ways without
+ adding realistic topography to the simulated data set
 \end_layout
 
 \end_inset
@@ -3268,7 +3453,8 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Training and validation loss in different cases
+Training and validation loss in different transfer learning ways without
+ adding realistic topography to the simulated data set
 \end_layout
 
 \end_inset
@@ -3292,7 +3478,11 @@ name "train_valid"
 interpret loss ................
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+add fig with topo .............
+\end_layout
+
+\begin_layout Subsection
 Scoring metrics
 \end_layout
 
@@ -3380,7 +3570,8 @@ noprefix "false"
 
 \end_inset
 
- shows the scoring metrics in the 4 different cases.
+ shows the scoring metrics in the 4 different cases of simulated data set
+ without adding realistic topography.
 \end_layout
 
 \begin_layout Standard
@@ -3408,6 +3599,8 @@ status open
 
 \begin_layout Plain Layout
 
+\shape italic
+Simulated data without adding topography 
 \end_layout
 
 \end_inset
@@ -3417,6 +3610,8 @@ status open
 
 \begin_layout Plain Layout
 
+\series bold
+Phase
 \end_layout
 
 \end_inset
@@ -3425,6 +3620,8 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\series bold
 Precision
 \end_layout
 
@@ -3434,6 +3631,8 @@ Precision
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\series bold
 Recall
 \end_layout
 
@@ -3443,6 +3642,8 @@ Recall
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\series bold
 F1-score
 \end_layout
 
@@ -3463,7 +3664,7 @@ Training from scratch
 \begin_inset Text
 
 \begin_layout Plain Layout
-P-phase
+P
 \end_layout
 
 \end_inset
@@ -3493,7 +3694,7 @@ P-phase
 
 \series bold
 \color green
-0.65
+0.650
 \end_layout
 
 \end_inset
@@ -3513,7 +3714,7 @@ P-phase
 \begin_inset Text
 
 \begin_layout Plain Layout
-S-phase
+S
 \end_layout
 
 \end_inset
@@ -3560,7 +3761,7 @@ Loading and fine-tuning all layers
 \begin_inset Text
 
 \begin_layout Plain Layout
-P-phase
+P
 \end_layout
 
 \end_inset
@@ -3607,7 +3808,7 @@ P-phase
 \begin_inset Text
 
 \begin_layout Plain Layout
-S-phase
+S
 \end_layout
 
 \end_inset
@@ -3654,7 +3855,7 @@ Loading all layers and freezing 2 deepest layers
 \begin_inset Text
 
 \begin_layout Plain Layout
-P-phase
+P
 \end_layout
 
 \end_inset
@@ -3701,7 +3902,7 @@ P-phase
 \begin_inset Text
 
 \begin_layout Plain Layout
-S-phase
+S
 \end_layout
 
 \end_inset
@@ -3719,7 +3920,7 @@ S-phase
 \begin_inset Text
 
 \begin_layout Plain Layout
-1
+0.999
 \end_layout
 
 \end_inset
@@ -3751,7 +3952,7 @@ Loading only down-upsampling layers and freezing 2 deepest layers
 \begin_inset Text
 
 \begin_layout Plain Layout
-P-phase
+P
 \end_layout
 
 \end_inset
@@ -3798,7 +3999,7 @@ P-phase
 \begin_inset Text
 
 \begin_layout Plain Layout
-S-phase
+S
 \end_layout
 
 \end_inset
@@ -3845,7 +4046,7 @@ Loading and freezing input and encoder layers
 \begin_inset Text
 
 \begin_layout Plain Layout
-P-phase
+P
 \end_layout
 
 \end_inset
@@ -3854,7 +4055,7 @@ P-phase
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.54
+0.540
 \end_layout
 
 \end_inset
@@ -3892,7 +4093,7 @@ P-phase
 \begin_inset Text
 
 \begin_layout Plain Layout
-S-phase
+S
 \end_layout
 
 \end_inset
@@ -3901,7 +4102,7 @@ S-phase
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.98
+0.980
 \end_layout
 
 \end_inset
@@ -3939,7 +4140,7 @@ Loading all layers and freezing some encoder-decoder layers
 \begin_inset Text
 
 \begin_layout Plain Layout
-P-phase
+P
 \end_layout
 
 \end_inset
@@ -3948,7 +4149,7 @@ P-phase
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.64
+0.640
 \end_layout
 
 \end_inset
@@ -3986,7 +4187,7 @@ P-phase
 \begin_inset Text
 
 \begin_layout Plain Layout
-S-phase
+S
 \end_layout
 
 \end_inset
@@ -4004,7 +4205,7 @@ S-phase
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.98
+0.980
 \end_layout
 
 \end_inset
@@ -4030,7 +4231,8 @@ S-phase
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Scoring metrics for different cases
+Scoring metrics for different transfer learning strategies without adding
+ realistic topography to the simulated data set
 \end_layout
 
 \end_inset
@@ -4062,8 +4264,215 @@ Loading all layers and freezing 2 deepest layers
 ?????????????????????????
 \end_layout
 
-\begin_layout Section
-Database improvement by adding realistic topography
+\begin_layout Standard
+add score with topo .....................
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="5">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\shape italic
+Simulated data with realistic topography
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Phase
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Precision
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Recall
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+F1-score
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Loading all layers and freezing 2 deepest layers
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+P
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.972
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.968
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\color green
+0.970
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="4" alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.954
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.954
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\color green
+0.954
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Scoring metrics by adding realistic topography to the simulated data set
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "score-1"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -4079,7 +4488,7 @@ Application to the real data set
 \end_layout
 
 \begin_layout Section
-Application of semi-supervised learning to unlabeled data
+Semi-supervised learning
 \end_layout
 
 \begin_layout Subsection
@@ -4099,7 +4508,7 @@ Correcting pseudo labels using Support Vector Machine
 \end_layout
 
 \begin_layout Section
-Results
+Results on real data
 \end_layout
 
 \begin_layout Standard
