@@ -805,8 +805,8 @@ Automatic arrival time picking by deep learning
 \end_layout
 
 \begin_layout Standard
-Research bib for classical arrival time picking in order to compare with
- deep learning method............
+Research bib for classical arrival time picking in order to compare to deep
+ learning method............
 \end_layout
 
 \begin_layout Standard
@@ -1682,54 +1682,13 @@ Finally, we define the loss function by using cross entropy between the
 
 \begin_layout Standard
 \align center
-\begin_inset Formula $H(p,q)=-\sum_{i=1}^{3}\sum_{x}p_{i}(x)\log q_{i}(x)$
+\begin_inset Formula $L(p,q)=-\sum_{i=1}^{3}\sum_{x}p_{i}(x)\log q_{i}(x)$
 \end_inset
 
 .
 \end_layout
 
 \begin_layout Section
-Data pre-processing and post-processing
-\end_layout
-
-\begin_layout Subsection
-Data extraction
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:Data-extraction"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The raw data used for training in PhaseNet are the seismograms with 9000
- time steps but after pre-processing, the network takes the inputs with
- only 3000 time steps.
- It comes to the fact that they want the network to learn the essential
- information of their data and also learn to detect noises.
- Concretely, each seismogram entering the network is an extraction of 3000
- points from the original one with a chance of 0.95 (this threshold can be
- calibrated of course).
- In this case, the labels (the arrival times of P and S-wave) have to be
- included in these 3000 time steps.
- On the contrary, with a chance of 0.05, the random extraction part contains
- only the noises (a part in which the arrival times are not observed) and
- then its labels are considered as an empty list.
-\end_layout
-
-\begin_layout Standard
-For example, we consider an orginal raw sample with 9000 time steps, its
- label are ?? and ??? for P and S wave respectively.
- So, ......
-\end_layout
-
-\begin_layout Standard
-add fig................
-\end_layout
-
-\begin_layout Subsection
 Label generation
 \begin_inset CommandInset label
 LatexCommand label
@@ -1741,14 +1700,13 @@ name "sec:Arrival-times-and-pick-proba-conversion"
 \end_layout
 
 \begin_layout Standard
-As we know, PhaseNet takes the arrival times of P and S-wave as the label
- input for the training and returns the time picking of these both waves
- as the output for the prediction, while the network takes and returns the
- probability distributions of the arrival times (because the loss function
- is based on cross entropy between the true probability distribution and
- predicted distribution).
- So we want to find out how PhaseNet converts from the point times to the
- probability distributions before the input of the network (in 
+PhaseNet takes the arrival times of P and S-wave as the label input and
+ returns the time picking of these both waves as the output, while the network
+ takes and returns the probability distributions of the arrival times (and
+ also the loss function is based on cross entropy between the true probability
+ distribution and predicted distribution).
+ So we want to find out how to generate probability distributions (segmentation
+ maps) from the labels (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "subsec:Generating-picks-probability"
@@ -1758,8 +1716,7 @@ noprefix "false"
 
 \end_inset
 
-) and from the probability distributions to the time picking after the output
- of the network (in 
+) and pick arrival times from the output segmentation maps (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "subsec:Detecting-arrival-times"
@@ -1772,7 +1729,7 @@ noprefix "false"
 ).
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Subsection
 Generating segmentation map from arrival time
 \begin_inset CommandInset label
 LatexCommand label
@@ -1784,85 +1741,23 @@ name "subsec:Generating-picks-probability"
 \end_layout
 
 \begin_layout Standard
-Seeing that the network takes the probability distribution of P, S-waves
- and noise as labels, so we need to generate them from the arrival times.
- As we saw previously in 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sec:Data-extraction"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, the extracted data is either the noise part (with a chance of 5%), or
- the essential part (with a chance of 95%).
- In the first case, we realize a label as the zero probability distributions
- for P and S-wave, and the one probability distribution for the noise (Figure
- 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "noise=1"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-).
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Float figure
-wide false
-sideways false
+\align block
+\begin_inset ERT
 status open
 
 \begin_layout Plain Layout
-\noindent
-\align center
-\begin_inset Graphics
-	filename figs/input_label_noise=1.png
-	scale 60
-
-\end_inset
 
 
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Output probability distributions when the extracted data is the noise part
+\backslash
+indent
 \end_layout
 
 \end_inset
 
-
-\begin_inset CommandInset label
-LatexCommand label
-name "noise=1"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\noindent
-In the second case, we realize the label as the symmetrical distribution.
- The mean of this distribution is the arrival time of P-wave (or S-wave)
- and we compute the probability for a calibratable number of points around
- the mean (Figure 
+ The goal of generating a segmentation map instead of taking solely the
+ arrival time is to change the characteristics of the label into more meaningful
+ ones, thus facilitating interpretation and classification.
+ Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "noise/=1"
@@ -1872,7 +1767,8 @@ noprefix "false"
 
 \end_inset
 
-).
+ shows an example for generating segmentation map from the arrival times
+ of P and S-wave.
  
 \end_layout
 
@@ -1900,8 +1796,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Output probability distributions realized with 50 points around the mean
- when the extracted data is the essential part
+An example of generating segmentation map 
 \end_layout
 
 \end_inset
@@ -1921,7 +1816,86 @@ name "noise/=1"
 
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+Each symmetric 
+\begin_inset Quotes eld
+\end_inset
+
+bell curve
+\begin_inset Quotes erd
+\end_inset
+
+ is generated by using Gaussian function.
+ Assuming that 
+\begin_inset Formula $t_{P}$
+\end_inset
+
+ is an arrival time of phase P, 
+\begin_inset Formula $t_{S}$
+\end_inset
+
+ is an arrival time of phase S, 
+\begin_inset Formula $n$
+\end_inset
+
+ is the length of the time series.
+ Then, the segmentation maps of noises and both phases are generated by
+ the following formula:
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $\forall t\in[1,n],segment_{P}(t)=\ensuremath{\begin{cases}
+e^{-\frac{1}{2}\frac{(t-t_{P})^{2}}{d^{2}}}\text{, if }t\in[t_{P}-2d,t_{P}+2d]\\
+0\text{, otherwise.}
+\end{cases}}$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $segment_{S}(t)=\ensuremath{\begin{cases}
+e^{-\frac{1}{2}\frac{(t-t_{S})^{2}}{d^{2}}}\text{, if }t\in[t_{S}-2d,t_{S}+2d]\\
+0\text{, otherwise.}
+\end{cases}}$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $segment_{noises}(t)=\ensuremath{1-}segment_{P}(t)-segment_{S}(t)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align block
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent
+\end_layout
+
+\end_inset
+
+ where 
+\begin_inset Formula $d$
+\end_inset
+
+ is the standard deviation, or the Gaussian RMS width, that controls the
+ width of the "bell".
+\end_layout
+
+\begin_layout Subsection
 Detecting arrival time from output segmentation map
 \begin_inset CommandInset label
 LatexCommand label
@@ -1933,7 +1907,7 @@ name "subsec:Detecting-arrival-times"
 \end_layout
 
 \begin_layout Standard
-Now, we want to pick up the arrival times from the probability distributions
+Now, we want to pick up the arrival times from the output segmentation maps
  returned by the network.
  The 
 \family sans
@@ -1967,7 +1941,7 @@ status open
 \align center
 \begin_inset Graphics
 	filename figs/all_peaks.png
-	scale 60
+	scale 50
 
 \end_inset
 
@@ -2078,7 +2052,7 @@ status open
 \align center
 \begin_inset Graphics
 	filename figs/mph.png
-	scale 60
+	scale 50
 
 \end_inset
 
@@ -2122,7 +2096,7 @@ status open
 \align center
 \begin_inset Graphics
 	filename figs/mpd.png
-	scale 60
+	scale 50
 
 \end_inset
 
@@ -2166,7 +2140,7 @@ status open
 \align center
 \begin_inset Graphics
 	filename figs/threshold.png
-	scale 60
+	scale 50
 
 \end_inset
 
@@ -2202,15 +2176,15 @@ Testing and scoring metrics
 \end_layout
 
 \begin_layout Standard
-For evaluating the fitting of model with the data set, the method chosen
- is the evaluation metrics: precision, recall and F1 score that measure
- the performance of the model on the test data set.
- We assume that peaks probabilities above 0.5 are called as positive picks.
- Moreover, those which have large arrival-time residuals (greater than 0.1s)
- are counted as false positives (false predictive values) and those which
- have residuals are counted as true positives (true predictive values).
- Arrival-times which are relevant elements but are not among the predicted
- values are called false negatives.
+For evaluating the fitting of model with a test data set, we utilize the
+ evaluation metrics: precision, recall and F1-score.
+ We assume that predicted peaks above 0.5 are positive picks.
+ Predicted peaks that have large arrival-time residuals comparing to the
+ true label are counted as false positives (false predictive values).
+ Those that have small residuals are counted as true positives (true predictive
+ values).
+ Those that are relevant elements but are not among the predicted values
+ are called false negatives.
  Precision is so the fraction between the number of true positives and the
  total number of predicted values:
 \end_layout
@@ -2286,11 +2260,10 @@ In some cases, we can get a very high precision but a very low recall.
 \end_layout
 
 \begin_layout Standard
-Actually, F1 scores evaluating the performance of PhaseNet model on their
- own test data (with 78,592 samples) achieved 0.896 for P-waves and 0.801
- for S-waves, that shows a glorious improvement comparing with results obtained
- by classical methods.
- 
+The pre-trained model in PhaseNet achieved a F1-score of 0.896 for P-wave
+ and 0.801 for S-wave on their own test data set (with 78,592 samples).
+ This showed a glorious improvement comparing to the results obtained by
+ classical methods.
 \end_layout
 
 \begin_layout Standard
