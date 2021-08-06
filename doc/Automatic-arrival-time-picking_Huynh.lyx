@@ -4468,8 +4468,97 @@ Semi-supervised learning
 Unlabeled data issue and an approach by semi-supervised learning
 \end_layout
 
+\begin_layout Standard
+To train a neural network model based on our real data set with supervised
+ learning, the data set has to be labeled.
+ Since labeling for thousands of seismograms requires too much time and
+ effort, it is impossible to label by hand-picking methods, that are certainly
+ affected by inconsistencies and blunders.
+ But this does not imply that unlabeled data are useless for supervised
+ tasks.
+ We can even train our model with semi-supervised learning combining both
+ unlabeled and labeled data.
+\end_layout
+
+\begin_layout Standard
+The goal of semi-supervised learning is to use both unlabeled and labeled
+ samples to learn the underlying structure of the data step by step using
+ pseudo labels.
+ These pseudo labels are generated in pseudo-labeling, a process of using
+ the labeled data model to predict labels for unlabeled data.
+ In our case, the main ideal is: using a pretrained model on a data set
+ that is close to our real data, or a model trained on our small labeled
+ data set, we can predict labels for our unlabeled and then make an effort
+ to improve the quality of pseudo labels.
+ This process can be repeated many times in order to increase the size of
+ labeled data step by step (Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "pseudo-labeling"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ Once we get and correct all labels for our real data set, we can train
+ a neural network model based on our own data.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename figs/pseudo-labeling.png
+	scale 65
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Applying pseudo-labeling to our case 
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "pseudo-labeling"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
-Pseudo-labelling 
+Improving pseudo-labelling
+\end_layout
+
+\begin_layout Standard
+After using labeled data model to predict for unlabeled data, we can further
+ improve the quality of pseudo labels by correcting these predictions using
+ robust regression methods and SVM (Support Vector Machine).
+ 
 \end_layout
 
 \begin_layout Subsubsection
