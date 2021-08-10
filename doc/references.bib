@@ -54,16 +54,6 @@
   bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 
- @MISC{skipconnection,
-  author =     "Adaloglou, Nikolas",
-  title =        "Intuitive Explanation of Skip Connections in Deep Learning",
-  editor =       "theaisummer.com",
-  month =        "3",
-  year =         "2020",
-  url =          "\url{https://theaisummer.com/skip-connections/}",
-  note =         "[Online; posted 23-Mar-2020]",
- }
-
 @InProceedings{skipconnectImportance,
   author="Drozdzal, Michal and Vorontsov, Eugene and Chartrand, Gabriel and Kadoury, Samuel and Pal, Chris",
   editor="Carneiro, Gustavo and Mateus, Diana and Peter, Lo{\"i}c and Bradley, Andrew and Tavares, Jo{\~a}o Manuel R. S. and Belagiannis, Vasileios and Papa, Jo{\~a}o Paulo and Nascimento, Jacinto C. and Loog, Marco and Lu, Zhi and Cardoso, Jaime S. and Cornebise, Julien",
@@ -100,25 +90,13 @@
   year = {2017}
 }
 
- @MISC{nikolas_DLMIS,
-  author =       "Adaloglou, Nikolas",
-  title =        "Deep learning in medical imaging: 3D medical image segmentation with PyTorch",
-  editor =       "theaisummer.com",
-  month =        "4",
-  year =         "2020",
-  url =          "\url{https://theaisummer.com/medical-image-deep-learning/}",
-  note =         "[Online; posted 02-Apr-2020]",
- }
-
- @MISC{deconvolution_Chris,
-  author =       "Christian Versloot",
-  title =        "Understanding transposed convolutions",
-  editor =       "machinecurve.com",
-  month =        "9",
-  year =         "2019",
-  url =          "\url{https://www.machinecurve.com/index.php/2019/09/29/understanding-transposed-convolutions/}",
-  note =         "[Online; posted 29-Sep-2019]",
- }
+@InProceedings{deconv,
+author = {Noh, Hyeonwoo and Hong, Seunghoon and Han, Bohyung},
+title = {Learning Deconvolution Network for Semantic Segmentation},
+booktitle = {Proceedings of the IEEE International Conference on Computer Vision (ICCV)},
+month = {December},
+year = {2015}
+}
  
  @INPROCEEDINGS{Rosenstein05totransfer,
   author = "Michael T. Rosenstein and Zvika Marx and Leslie Pack Kaelbling and Thomas G. Dietterich",
@@ -152,3 +130,35 @@ abstract = {Abstract The important task of tracking seismic activity requires bo
   doi="http://doi.org/NoDOI", 
   opturl="https://geodynamics.org/cig/software/specfem2d/"
  }
+
+@article{huber_reg,
+author = {Peter J. Huber},
+title = {{Robust Estimation of a Location Parameter}},
+volume = {35},
+journal = {The Annals of Mathematical Statistics},
+number = {1},
+publisher = {Institute of Mathematical Statistics},
+pages = {73 -- 101},
+year = {1964},
+doi = {10.1214/aoms/1177703732},
+URL = {https://doi.org/10.1214/aoms/1177703732}
+}
+
+@inproceedings{SVR,
+author = {Drucker, Harris and Burges, Chris J. C. and Kaufman, Linda and Smola, Alex and Vapnik, Vladimir},
+title = {Support Vector Regression Machines},
+year = {1996},
+publisher = {MIT Press},
+address = {Cambridge, MA, USA},
+abstract = {A new regression technique based on Vapnik's concept of support vectors is introduced.
+We compare support vector regression (SVR) with a committee regression technique (bagging)
+based on regression trees and ridge regression done in feature space. On the basis
+of these experiments, it is expected that SVR will have advantages in high dimensionality
+space because SVR optimization does not depend on the dimensionality of the input
+space.},
+booktitle = {Proceedings of the 9th International Conference on Neural Information Processing Systems},
+pages = {155 -- 161},
+numpages = {7},
+location = {Denver, Colorado},
+series = {NIPS'96}
+}

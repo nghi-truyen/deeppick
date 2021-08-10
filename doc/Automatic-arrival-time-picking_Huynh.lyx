@@ -811,6 +811,15 @@ Research bib for classical arrival time picking in order to compare to deep
 
 \begin_layout Standard
 Research more about time picking methods by deep learning.............
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "fangshu2019"
+literal "false"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -903,18 +912,19 @@ Transposed convolution, or deconvolution, or upsampling is now appearing
  This technique exists in symmetrical architectures (encoder-decoder) and
  can be used to reconstruct the original representation of a convolution
  filter map by using transposed convolution.
- Firstly, the kernels in this architecture can be learnt over time thanks
- to regular convolutional layers (compressing input data) and then can be
- used to define the transposed convolution in order to find the original
- data (decompression) 
+ The deep deconvolution network proposed in 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "deconvolution_Chris"
+key "deconv"
 literal "false"
 
 \end_inset
 
-.
+ has been used to develop a novel semantic segmentation algorithm.
+ Firstly, the kernels in this architecture can be learnt over time thanks
+ to regular convolutional layers (compressing input data) and then can be
+ used to define the transposed convolution in order to find the original
+ data (decompression).
  But how does this work exactly? Let us have a look at a normal convolution.
 \end_layout
 
@@ -1136,15 +1146,7 @@ noprefix "false"
 \end_inset
 
 b) that allows us to increase the convergence speed of the loss function
- and build very deep neural networks that can contain hundreds of layers
-\begin_inset CommandInset citation
-LatexCommand cite
-key "skipconnectImportance"
-literal "false"
-
-\end_inset
-
-.
+ and build very deep neural networks that can contain hundreds of layers.
 \end_layout
 
 \begin_layout Standard
@@ -1211,15 +1213,7 @@ vanishing gradient problem
 \end_inset
 
  causes an uninterrupted gradient flow from the first layer to the last
- layer in our model 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "skipconnection"
-literal "false"
-
-\end_inset
-
-.
+ layer in our model.
  
 \end_layout
 
@@ -1488,12 +1482,12 @@ Go back to the long skip connections that are used in symmetrical architecture
  Effectively, the experiments in 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "nikolas_DLMIS"
+key "skipconnectImportance"
 literal "false"
 
 \end_inset
 
- show that adding long skip connections in the encoder-decoder architecture
+ showed that adding long skip connections in the encoder-decoder architecture
  can achieve an incredibly effective work in medical image segmentation.
 \end_layout
 
@@ -1702,9 +1696,9 @@ name "sec:Arrival-times-and-pick-proba-conversion"
 \begin_layout Standard
 PhaseNet takes the arrival times of P and S-wave as the label input and
  returns the time picking of these both waves as the output, while the network
- takes and returns the probability distributions of the arrival times (and
- also the loss function is based on cross entropy between the true probability
- distribution and predicted distribution).
+ takes and returns the probability distributions of the arrival times and
+ the loss function is based on cross entropy between the true probability
+ distribution and predicted distribution.
  So we want to find out how to generate probability distributions (segmentation
  maps) from the labels (
 \begin_inset CommandInset ref
@@ -2366,7 +2360,7 @@ Active seismic: sources are hammering, artificial explosion, etc.
 \begin_inset Text
 
 \begin_layout Plain Layout
-Trained with over 0.7 billion samples
+Trained with over 0.7 million samples
 \end_layout
 
 \end_inset
@@ -2506,7 +2500,7 @@ literal "false"
 
 \begin_layout Standard
 Some specific model parameters can be varied in order to achieve a diverse
- data set for our training database.
+ data set for our database.
  For instance, we can simulate with a range of natural states of the material
  depending on their densities, their absorbing elements, the number of layers
  and thickness between them, the phase speed at each layer as well as the
@@ -2837,6 +2831,17 @@ Northern California Earthquake Data Center Catalog
  which allows us to reuse the features the model has learnt in the past.
  In reality, it is more expensive to recollect the needed training data
  in order to rebuild the model.
+ In 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "phasenet_and_transfer"
+literal "false"
+
+\end_inset
+
+, the original deep neural network model is retrained on local seismic data
+ successfully with only 3,500 seismograms (0.45% of the data used to train
+ the original model in PhaseNet).
  The so-called 
 \begin_inset Quotes eld
 \end_inset
@@ -2855,7 +2860,7 @@ In some cases, the transfer learning helps us train the model with better
  initial weights and so, improve the learning performance.
  On the other hand, if the tasks are too dissimilar, the fact that we use
  transfer learning may hinder performance of the training.
- In the experiments shown in 
+ The experiments in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Rosenstein05totransfer"
@@ -2863,7 +2868,7 @@ literal "false"
 
 \end_inset
 
-, they compared performances of the training in three cases (Figure 
+ compared the training performances (Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "transfer_or_not"
@@ -2873,22 +2878,22 @@ noprefix "false"
 
 \end_inset
 
-):
+) in the following three cases:
 \end_layout
 
 \begin_layout Itemize
-no transfer training (B-only): they train a prediction model only with the
- data set B,
+no transfer training: train the model only on the data set B,
 \end_layout
 
 \begin_layout Itemize
-similar transfer training: they train the model on data B using the transfer
- learning with the pre-trained model on data A (similar with B),
+similar transfer training: train the model on the data set B using transfer
+ learning with the pre-trained model on the data set A (similar with B),
 \end_layout
 
 \begin_layout Itemize
-dissimilar transfer training: the pre-trained model on the dissimilar data
- A is used to transfer the prediction model on data B.
+dissimilar transfer training: train the model on the data set B using transfer
+ learning with the pre-trained model on the data set A' (dissimilar with
+ B).
 \end_layout
 
 \begin_layout Standard
@@ -2904,7 +2909,7 @@ status open
 \align center
 \begin_inset Graphics
 	filename figs/transfer_or_not.png
-	scale 40
+	scale 75
 
 \end_inset
 
@@ -4555,18 +4560,567 @@ Improving pseudo-labelling
 \end_layout
 
 \begin_layout Standard
-After using labeled data model to predict for unlabeled data, we can further
- improve the quality of pseudo labels by correcting these predictions using
- robust regression methods and SVM (Support Vector Machine).
+Physically, the greater the distance between the source and the receiver,
+ the greater the arrival time.
+ For each source, considering a set of seismograms recorded by all of the
+ receivers.
+ After using labeled data model to predict for each unlabeled set (Figure
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "pred_not_corrected"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), we can further improve the quality of pseudo labels by correcting these
+ predictions using robust regression methods and SVR (Support Vector Regression).
  
 \end_layout
 
-\begin_layout Subsubsection
-Anomaly detection using robust regression methods
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename figs/pred_not_corrected.png
+	lyxscale 60
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+An example of S-phase prediction for unlabeled data at source 1
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "pred_not_corrected"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
-Correcting pseudo labels using Support Vector Machine
+Anomaly detection using Huber regression
+\end_layout
+
+\begin_layout Standard
+Robust regression methods provide an alternative to least squares regression
+ by requiring less restrictive assumptions.
+ These methods attempt to dampen outlier influences in the model to provide
+ a better fit to the majority of the data.
+ For example, Huber regression 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "huber_reg"
+literal "false"
+
+\end_inset
+
+ uses a different loss function rather than the traditional least square
+ by solving:
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $\min_{\beta\in\mathbb{R}^{n}}\sum_{i=1}^{m}H(y_{i}-x_{i}^{T}\beta)$
+\end_inset
+
+ with the Huber function 
+\begin_inset Formula $H(r)=\begin{cases}
+r^{2}\text{, if }|r|\leq\epsilon\\
+2\epsilon r-\epsilon^{2}\text{, if }|r|>\epsilon
+\end{cases}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent
+\end_layout
+
+\end_inset
+
+ where:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $y_{i}$
+\end_inset
+
+ is the target,
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $x_{i}$
+\end_inset
+
+ is the predictor,
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\beta$
+\end_inset
+
+ is the coefficient,
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\epsilon>0$
+\end_inset
+
+ is a threshold that controls the number of samples that should be classified
+ as outliers.
+ For small residuals, the function is identical to the least squares penalty,
+ but on large residuals, its penalty is lower and increases linearly rather
+ than quadratically.
+ It is thus more forgiving of outliers.
+\end_layout
+
+\begin_layout Standard
+Now assuming that the trend of the data is a curve (non-linear), so we can
+ use the logarithmic regression model instead (Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "linear_reg"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "log_reg"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), we solve:
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $\min_{\beta\in\mathbb{R}^{n}}\sum_{i=1}^{m}H(y_{i}-(\log x_{i}^{T})\beta)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename figs/outliers_linear_reg.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Outlier detection for S-phase using linear Huber regression
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "linear_reg"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename figs/outliers_log_reg.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Outlier detection for P-phase using logarithmic Huber regression
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "log_reg"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Correcting pseudo labels using Support Vector Regression
+\end_layout
+
+\begin_layout Standard
+Although we observed that the data almost take the shape of a line (or a
+ curve), we have no reason to assume that the linear regression model (or
+ logarithmic regression model) is the best fit to the data.
+ But at least, robust regression methods helped us detect the anomalies
+ that are unusually far from other observations.
+ Now we apply SVR to the data with standard observations.
+\end_layout
+
+\begin_layout Standard
+The ideal of SVR is based on SVM (Support Vector Machine), that originates
+ from the VC theory developed by Vladimir Vapnik and Alexey Chervonenkis
+ during 1960-1990 and was first proposed for utilization in the regression
+ tasks in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "SVR"
+literal "false"
+
+\end_inset
+
+.
+ While many of the regression algorithms attempt to minimize the sum squared
+ errors with and without additional penalty parameters that aims to reduce
+ the number of features used in the final model, SVR gives us the flexibility
+ to define how much error is acceptable in finding an appropriate line or
+ hyperplane to fit the data.
+ The objective is to minimize the 
+\begin_inset Formula $L2$
+\end_inset
+
+-norm of the coefficient vector (not the squared error) and additional deviation
+ based on 
+\begin_inset Formula $\xi$
+\end_inset
+
+-margin.
+ This is handled in the constraints, where the absolute error is set less
+ than or equal to a maximum error 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $\min_{\beta,b,\xi,\xi^{*}}\frac{1}{2}\beta^{T}\beta+C\sum_{i=1}^{m}(\xi_{i}+\xi_{i}^{*})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent
+\end_layout
+
+\end_inset
+
+ subject to:
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $y_{i}-\beta^{T}\phi(x_{i})-b\leq\epsilon+\xi_{i}$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $\beta^{T}\phi(x_{i})+b-y_{i}\leq\epsilon+\xi_{i}^{*},$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $\xi_{i},\xi_{i}^{*}\geq0,i=1,...,n$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent
+\end_layout
+
+\end_inset
+
+ where:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $y_{i}$
+\end_inset
+
+ is the target,
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $x_{i}$
+\end_inset
+
+ is the predictor,
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\beta$
+\end_inset
+
+ is the coefficient,
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $b$
+\end_inset
+
+ is the intercept,
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\epsilon$
+\end_inset
+
+ is the maximum error,
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\phi(.)^{T}\phi(.)=K(.,.)$
+\end_inset
+
+ is the kernel,
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\xi,\xi^{*}$
+\end_inset
+
+ are the margins that penalize samples whose prediction is at least 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+ away from their true target,
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $C$
+\end_inset
+
+ is the regularization parameter, that is inversely proportional to the
+ strength of the regularization.
+\end_layout
+
+\begin_layout Standard
+\align left
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "SVR_P"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "SVR_S"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ show the SVR models for P and S-phase based on the data without outliers
+ (detected by using Huber regression):
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename figs/SVR_P.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Correcting labels for P-phase using SVR and Huber regression 
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "SVR_P"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename figs/SVR_S.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Correcting labels for S-phase using SVR and Huber regression 
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "SVR_S"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -4603,28 +5157,6 @@ status open
 \backslash
 addcontentsline{toc}{part}{References}
 \end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset CommandInset citation
-LatexCommand cite
-key "phasenet_and_transfer"
-literal "false"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset CommandInset citation
-LatexCommand cite
-key "fangshu2019"
-literal "false"
 
 \end_inset
 
