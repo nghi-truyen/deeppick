@@ -664,8 +664,9 @@ Data collection
 \end_layout
 
 \begin_layout Standard
-We consider a wetland area in Guidel (a commune in the Morbihan department
- of Brittany in north-western France).
+To illustrate the experiments we realized for collecting the data, let us
+ consider a wetland area in Guidel (a commune in the Morbihan department
+ of Brittany in north-western France) for example.
  To monitor the water-saturated ground of this region, we survey a studied
  profile that traverses through the stream (Figure 
 \begin_inset CommandInset ref
@@ -791,17 +792,96 @@ name "mesure-method"
 \end_layout
 
 \begin_layout Standard
-The P-waves propagate at the same direction with the z-axis while the S-waves
- are slower and propagate with the direction perpendicular to the P-waves
+The P-waves propagate in the same direction with the z-axis while the S-waves
+ are slower and propagate in the direction perpendicular to the P-waves
  movement.
  Physically, the z-axis records so more information of the P-wave while
- most of S-wave information records by the x and y-axis.
+ most of S-wave information recorded by the x and y-axis.
  Consequently, the fact that our measurement based on a single component
  may result in a lack of information on the S-wave detection.
 \end_layout
 
 \begin_layout Subsection
 Automatic arrival time picking by deep learning
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Automatic-arrival-time"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Previously, we used the hand-picking methods to solve the inversion problem
+ with time picking.
+ For instance, we first identify the arrival time by hand-picking and then
+ reconstruct the seismic velocity by using ray tracing method 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ray_tracing,podvin,qian,sergey_eikonal_equation,huang_tomo,billette"
+literal "false"
+
+\end_inset
+
+ (Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "seismic_velocity"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ Nevertheless, the hand-picking methods require too much effort and can
+ be affected by inconsistencies.
+ Therefore, we are attempting to develop automatic-picking methods like
+ Deep Learning approaches to calculate these arrival times.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figs/Nearest.png
+	scale 80
+	rotateOrigin center
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Seismic velocity model
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "seismic_velocity"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -846,7 +926,7 @@ PhaseNet is a deep-neural-network-based arrival-time picking method that
 We note that picking S arrivals is more challenging for automatic method
  because the S-waves are not the first arriving waves and thus, they emerge
  from the scattered waves of the P coda.
- PhaseNet model showed a significant improvement compared to the models
+ PhaseNet model has shown a significant improvement compared to the models
  which do not utilize the deep neural network, particularly, a very higher
  precision of predicted time picking with S-waves in 
 \begin_inset CommandInset citation
@@ -858,8 +938,8 @@ literal "false"
 
 .
  This model is an U-net that is used for biomedical image segmentation and
- particularly, showed its efficiencies for segmentation of neuronal structures
- in electron microscopic stacks in 
+ particularly, has shown its efficiencies for segmentation of neuronal structure
+s in electron microscopic stacks in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "UnetDL"
@@ -1162,7 +1242,7 @@ status open
 \align center
 \begin_inset Graphics
 	filename figs/setup_skipconection.png
-	scale 60
+	scale 65
 
 \end_inset
 
@@ -1790,7 +1870,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-An example of generating segmentation map 
+Example of generating segmentation map 
 \end_layout
 
 \end_inset
@@ -1967,7 +2047,7 @@ name "all_peaks"
 \end_layout
 
 \begin_layout Standard
-Beside, there are some calibratable parameters based on different criteria
+Besides, there are some calibratable parameters based on different criteria
  such as:
 \end_layout
 
@@ -1984,9 +2064,9 @@ noprefix "false"
 
 \end_inset
 
-, so the function only detect the peak which are not less than 6 (peak at
- index 8) but do not detect the three peaks at index 1, 3 and 11 which are
- less than 6.
+, so the function only detects the peak which are not less than 6 (peak
+ at index 8) but do not detect the three peaks at index 1, 3 and 11 which
+ are less than 6.
 \end_layout
 
 \begin_layout Itemize
@@ -2464,7 +2544,7 @@ noprefix "false"
 \end_layout
 
 \begin_layout Itemize
-we can label for the simulated data by analytical computing the arrival
+we can label for the simulated data by computing analytically the arrival
  times thanks to a given physical model,
 \end_layout
 
@@ -2512,8 +2592,66 @@ Simple simulations
 \end_layout
 
 \begin_layout Standard
-................
- The simulation can be confirmed to work well by verifying the spectrogram
+We realize simple simulations by defining some flat interface surfaces,
+ typically as Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "velocity_flat"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename figs/flat_interface.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Simple interface model with 5 layers and 4 flat interfaces
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "velocity_flat"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The simulations can be confirmed to work well by verifying the spectrogram
  results, the forward wave field and also the seismogram output (Figure
  
 \begin_inset CommandInset ref
@@ -2552,7 +2690,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-A seismic waveform example simulated by SPECFEM2D
+Simple seismic waveform simulated by SPECFEM2D
 \end_layout
 
 \end_inset
@@ -2577,7 +2715,158 @@ Adding realistic topography
 \end_layout
 
 \begin_layout Standard
-compare two siesmograms with and without topo ........................
+Now by adding a topography to the simulation, we can increase the complexity
+ of the basement model to gain a nearest possible surface.
+ Namely, based on the arrival times obtained by hand-picking methods, we
+ can solve the seismic inversion problem by using ray tracing method (see
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Automatic-arrival-time"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ Then, we can build a complex velocity model with 30 layers and 29 interfaces.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "velocity_topo"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shows us the interface model in this case:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename figs/topo_interface.png
+	scale 85
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Interface model with 30 layers and 29 interfaces
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "velocity_topo"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent
+\end_layout
+
+\end_inset
+
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "waveform_complex"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ conveys a seismogram simulated by adding the topography, that has a waveform
+ more complex than Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "simulation_specfem2d"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and is closer to reality:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename figs/seismo_with_topo.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Example of a seismogram simulated by adding a topography
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "waveform_complex"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -2656,7 +2945,7 @@ status open
 \begin_layout Plain Layout
 Different seismograms randomly selected from the original one.
  Both seismograms at the top are selected from the essential part, the one
- at the bottom left are selected from the part which does not contain the
+ at the bottom left is selected from the part which does not contain the
  arrival times, and the one at the bottom right is selected from the essential
  part which is however reversed
 \end_layout
@@ -2983,6 +3272,7 @@ to
 keras
 \family default
  first loads all required model weights from a pre-trained model.
+ Effectively, ................................
  Subsequently, the network tries to learn new features of the new data using
  the knowledge of pre-trained model instead of initializing the model with
  random weights.
@@ -2997,7 +3287,7 @@ In our case, the neural network takes only one channel, that means we apply
  Therefore, when loading weights from the pre-trained model into the input
  layer of our new model, we have to reshape the size of filter and also
  remove the weights based on the two redundant channels.
- We tried many of transfer learning strategies based on two criterion:
+ We tried many transfer learning strategies based on two criterion:
 \end_layout
 
 \begin_layout Itemize
@@ -3323,7 +3613,7 @@ Results on simulated data
 
 \begin_layout Standard
 In this section, we will see the performance of the network (with and without
- using transfer learning) on two data set.
+ using transfer learning) on two data sets.
  The first data set is the one simulated without adding realistic topography,
  that is divided into a training-validation set and a test set with 3,890
  and 480 samples respectively (after implementing data augmentation).
@@ -3338,7 +3628,7 @@ Training and validation loss
 \end_layout
 
 \begin_layout Standard
-Figure 
+Based on Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "train"
@@ -3348,18 +3638,10 @@ noprefix "false"
 
 \end_inset
 
- and 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "train_valid"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- show the training and validation loss in the different cases without realistic
- topography.
+, we clarify that the models implemented transfer learning (cases 2, 3,
+ 4, 5, 6) learn the problem quickly and its loss function are converge faster
+ than the loss in the case of training from scratch (case 1).
+  
 \end_layout
 
 \begin_layout Standard
@@ -3375,7 +3657,6 @@ status open
 \align center
 \begin_inset Graphics
 	filename figs/compare_train.png
-	scale 60
 
 \end_inset
 
@@ -3408,6 +3689,21 @@ name "train"
 \end_layout
 
 \begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "train_valid"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shows the training and validation loss in the different cases without realistic
+ topography.....................
+\end_layout
+
+\begin_layout Standard
 \noindent
 \align center
 \begin_inset Float figure
@@ -3420,7 +3716,7 @@ status open
 \align center
 \begin_inset Graphics
 	filename figs/compare_train_valid.png
-	scale 50
+	scale 85
 
 \end_inset
 
@@ -3453,11 +3749,61 @@ name "train_valid"
 \end_layout
 
 \begin_layout Standard
-interpret loss ................
+Loss with topo ...............................
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "loss_topo"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+:
 \end_layout
 
 \begin_layout Standard
-add fig with topo .............
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figs/loss_with_topo.png
+	scale 60
+	rotateOrigin center
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Training and validation loss with realistic topography
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "loss_topo"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -3548,8 +3894,7 @@ noprefix "false"
 
 \end_inset
 
- shows the scoring metrics in the 4 different cases of simulated data set
- without adding realistic topography.
+ shows the scoring metrics in different transfer learning strategies .................
 \end_layout
 
 \begin_layout Standard
@@ -4562,8 +4907,8 @@ Improving pseudo-labelling
 \begin_layout Standard
 Physically, the greater the distance between the source and the receiver,
  the greater the arrival time.
- For each source, considering a set of seismograms recorded by all of the
- receivers.
+ For each source, let us consider a set of seismograms recorded by all of
+ the receivers.
  After using labeled data model to predict for each unlabeled set (Figure
  
 \begin_inset CommandInset ref
@@ -4605,7 +4950,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-An example of S-phase prediction for unlabeled data at source 1
+Example of S-phase prediction for unlabeled data at source 1
 \end_layout
 
 \end_inset
@@ -4859,9 +5204,9 @@ literal "false"
 \end_inset
 
 .
- While many of the regression algorithms attempt to minimize the sum squared
- errors with and without additional penalty parameters that aims to reduce
- the number of features used in the final model, SVR gives us the flexibility
+ While many regression algorithms attempt to minimize the sum squared errors
+ with and without additional penalty parameters that aims to reduce the
+ number of features used in the final model, SVR gives us the flexibility
  to define how much error is acceptable in finding an appropriate line or
  hyperplane to fit the data.
  The objective is to minimize the 
@@ -4924,7 +5269,7 @@ noindent
 
 \begin_layout Standard
 \align center
-\begin_inset Formula $\xi_{i},\xi_{i}^{*}\geq0,i=1,...,n$
+\begin_inset Formula $\xi_{i},\xi_{i}^{*}\geq0,i=1,...,m$
 \end_inset
 
 

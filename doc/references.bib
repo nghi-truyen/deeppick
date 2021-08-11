@@ -138,7 +138,7 @@ volume = {35},
 journal = {The Annals of Mathematical Statistics},
 number = {1},
 publisher = {Institute of Mathematical Statistics},
-pages = {73 -- 101},
+pages = {73--101},
 year = {1964},
 doi = {10.1214/aoms/1177703732},
 URL = {https://doi.org/10.1214/aoms/1177703732}
@@ -157,8 +157,91 @@ of these experiments, it is expected that SVR will have advantages in high dimen
 space because SVR optimization does not depend on the dimensionality of the input
 space.},
 booktitle = {Proceedings of the 9th International Conference on Neural Information Processing Systems},
-pages = {155 -- 161},
+pages = {155--161},
 numpages = {7},
 location = {Denver, Colorado},
 series = {NIPS'96}
+}
+
+@article{ray_tracing,
+author = {Lecomte, Isabelle and Lubrano-Lavadera, Paul and Anell, Ingrid and Buckley, Simon and Schmid, Daniel Walter and Heeremans, Michael},
+year = {2015},
+month = {11},
+pages = {SAC71-SAC89},
+title = {Ray-based seismic modeling of geologic models: Understanding and analyzing seismic images efficiently},
+volume = {3},
+journal = {Interpretation},
+doi = {10.1190/INT-2015-0061.1}
+}
+
+@article{podvin,
+    author = {Podvin, Pascal and Lecomte, Isabelle},
+    title = "{Finite difference computation of traveltimes in very contrasted velocity models: a massively parallel approach and its associated tools}",
+    journal = {Geophysical Journal International},
+    volume = {105},
+    number = {1},
+    pages = {271--284},
+    year = {1991},
+    month = {04},
+    abstract = "{We present a new massively parallel method for computation of first arrival times in arbitrary velocity models. An implementation on conventional sequential computers is also proposed.This method relies on a systematic application of Huygens' principle in the finite difference approximation. Such an approach explicitly takes into account the existence of different propagation modes (transmitted and diffracted body waves, head waves). Local discontinuities of the time gradient in the first arrival time field (e.g., caustics) are built as intersections of locally independent wavefronts. As a consequence, the proposed method provides accurate first traveltimes in the presence of extremely severe, arbitrarily shaped velocity contrasts.Associated with a simple procedure which accurately traces rays in the obtained time field, this method provides a very fast tool for a large spectrum of seismic and seismological problems.We show moreover that this method may also be used to obtain several arrivals at a given receiver, when the model contains reflectors. This possibility significantly extends the domain of potential geophysical applications.}",
+    issn = {0956-540X},
+    doi = {10.1111/j.1365-246X.1991.tb03461.x},
+    url = {https://doi.org/10.1111/j.1365-246X.1991.tb03461.x},
+    eprint = {https://academic.oup.com/gji/article-pdf/105/1/271/1953500/105-1-271.pdf},
+}
+
+@article{huang_tomo,
+author = {Guangnan Huang and Songting Luo and Tryggvason Ari and Hongxing Li and David C. Nobes},
+title = {First-arrival tomography with fast sweeping method solving the factored eikonal equation},
+journal = {Exploration Geophysics},
+volume = {50},
+number = {2},
+pages = {144-158},
+year  = {2019},
+publisher = {Taylor & Francis},
+doi = {10.1080/08123985.2019.1577110},
+URL = { https://doi.org/10.1080/08123985.2019.1577110},
+eprint = { https://doi.org/10.1080/08123985.2019.1577110},
+}
+
+@article{sergey_eikonal_equation,
+title = {Fast sweeping method for the factored eikonal equation},
+journal = {Journal of Computational Physics},
+volume = {228},
+number = {17},
+pages = {6440-6455},
+year = {2009},
+issn = {0021-9991},
+doi = {https://doi.org/10.1016/j.jcp.2009.05.029},
+url = {https://www.sciencedirect.com/science/article/pii/S0021999109002873},
+author = {Sergey Fomel and Songting Luo and Hongkai Zhao},
+keywords = {Fast sweeping method, Eikonal equation, Factored eikonal equation, Source singularity},
+abstract = {We develop a fast sweeping method for the factored eikonal equation. By decomposing the solution of a general eikonal equation as the product of two factors: the first factor is the solution to a simple eikonal equation (such as distance) or a previously computed solution to an approximate eikonal equation. The second factor is a necessary modification/correction. Appropriate discretization and a fast sweeping strategy are designed for the equation of the correction part. The key idea is to enforce the causality of the original eikonal equation during the Gauss–Seidel iterations. Using extensive numerical examples we demonstrate that (1) the convergence behavior of the fast sweeping method for the factored eikonal equation is the same as for the original eikonal equation, i.e., the number of iterations for the Gauss–Seidel iterations is independent of the mesh size, (2) the numerical solution from the factored eikonal equation is more accurate than the numerical solution directly computed from the original eikonal equation, especially for point sources.}
+}
+
+@article{qian,
+author = {Qian, Jianliang and Zhang, Yong-Tao and Zhao, Hong-Kai},
+year = {2007},
+month = {01},
+pages = {83--107},
+title = {Fast Sweeping Methods for Eikonal Equations on Triangular Meshes},
+volume = {45},
+journal = {SIAM J. Numerical Analysis},
+doi = {10.1137/050627083}
+}
+
+@article{billette,
+    author = {Billette, Frederic and Lambare, Gilles},
+    title = "{Velocity macro-model estimation from seismic reflection data by stereotomography}",
+    journal = {Geophysical Journal International},
+    volume = {135},
+    number = {2},
+    pages = {671-690},
+    year = {1998},
+    month = {11},
+    abstract = "{We introduce a new tomographic method for estimating velocity macro-models from seismic reflection data. In addition to traveltimes picked on locally coherent reflected events, the method requires that the associated local slopes of the events be picked simultaneously in the common-shot and common-receiver trace gathers. The data then consist of a discrete collection of traveltimes, positions and slopes for selected reflected events. Unlike traveltime tomography, picked events are only required to be locally coherent. It is not necessary to follow continuous arrivals all over the trace gathers. Indeed, the method does not require the introduction of interfaces in the model description.Several approaches of tomography using the slope have already been proposed. We present a unified formulation for slope tomography methods, in which the model is described by the velocity field and a set of ray-segment pairs associated with the reflected/diffracted events. We propose a new robust slope tomography method, which we call ‘stereotomography’. It consists of fitting all observed data (positions, slopes and traveltimes) to data calculated by ray tracing. There are no theoretical limitations in stereotomography for laterally heterogeneous velocity macro-models.Practically, traveltimes and slopes are picked on local slant stack panels. Ray multipathing can be accounted for since paths are discriminated by their associated slopes. The non-linear inverse problem is iteratively resolved by a local optimization. The Fréchet derivatives are estimated by paraxial ray tracing.Validation tests on 1-D and 2-D synthetic data are analysed. In the first 1-D example, we study the sensitivity of the method to model parameters (using a singular-value decomposition). The second 1-D example evaluates picking precision and shows that it is sufficient for constraining the velocity field. The last example is a 2-D application in which data are calculated directly by ray tracing. It shows the performance of the method in the presence of strong lateral velocity variations.}",
+    issn = {0956-540X},
+    doi = {10.1046/j.1365-246X.1998.00632.x},
+    url = {https://doi.org/10.1046/j.1365-246X.1998.00632.x},
+    eprint = {https://academic.oup.com/gji/article-pdf/135/2/671/2344430/135-2-671.pdf},
 }
