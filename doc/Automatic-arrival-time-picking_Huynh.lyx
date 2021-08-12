@@ -458,10 +458,6 @@ Research bib for inversion problem .................
 Approaching by arrival time picking method
 \end_layout
 
-\begin_layout Standard
-Explain how arrival time picking can help to solve inversion problem????????????
-\end_layout
-
 \begin_layout Subsection
 Introduction to body waves
 \end_layout
@@ -813,9 +809,9 @@ name "subsec:Automatic-arrival-time"
 \end_layout
 
 \begin_layout Standard
-Previously, we used the hand-picking methods to solve the inversion problem
- with time picking.
- For instance, we first identify the arrival time by hand-picking and then
+Before, we used to utilize hand-picking methods to solve seismic inversion
+ problem.
+ Firstly, we have to identify the arrival time by hand-picking and then
  reconstruct the seismic velocity by using ray tracing method 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -837,8 +833,8 @@ noprefix "false"
 ).
  Nevertheless, the hand-picking methods require too much effort and can
  be affected by inconsistencies.
- Therefore, we are attempting to develop automatic-picking methods like
- Deep Learning approaches to calculate these arrival times.
+ Therefore, we are attempting to develop automatic-picking methods based
+ on deep learning approaches to calculate these arrival times.
 \end_layout
 
 \begin_layout Standard
@@ -2578,6 +2574,10 @@ literal "false"
  to our real data and thus, we can create a training data set for our model.
 \end_layout
 
+\begin_layout Subsubsection
+Simple simulations
+\end_layout
+
 \begin_layout Standard
 Some specific model parameters can be varied in order to achieve a diverse
  data set for our database.
@@ -2585,14 +2585,7 @@ Some specific model parameters can be varied in order to achieve a diverse
  depending on their densities, their absorbing elements, the number of layers
  and thickness between them, the phase speed at each layer as well as the
  nature of each layer (acoustic or elastic), etc..
-\end_layout
-
-\begin_layout Subsubsection
-Simple simulations
-\end_layout
-
-\begin_layout Standard
-We realize simple simulations by defining some flat interface surfaces,
+ We realize simple simulations by defining some flat interface surfaces,
  typically as Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2679,7 +2672,6 @@ status open
 \align center
 \begin_inset Graphics
 	filename figs/simulation_example.png
-	scale 65
 
 \end_inset
 
@@ -2877,15 +2869,15 @@ Data augmentation
 To increase the size of our data set from simulated database, we first use
  time shifting method that has been commonly used as data augmentation approach
  in seismic waveform treatment.
- Typically, we run SPECFEM2D to simulate the seismograms with 24,001 time
+ For exmaple, we run SPECFEM2D to simulate the seismograms with 3,000 time
  steps.
  Then, for each seismogram, we randomly extract some parts from the original
  sample.
- Each extracted seismogram however consists of 10,001 time steps.
+ Each extracted seismogram however consists of 1,500 time steps.
  We can chose the length of the time series we want to extract (here is
- 10,001), the number of extracted version from the original sample (for
- example, if we want to randomly selected 10 seismograms from each original
- seismogram, so the data size will increase 10 times) and a rate 
+ 1,500), the number of extracted version from the original sample (for example,
+ if we want to randomly selected 3 seismograms from each original seismogram,
+ so the data size will increase 3 times) and a rate 
 \begin_inset Formula $\alpha\in[0,1]$
 \end_inset
 
@@ -2932,7 +2924,7 @@ status open
 \align center
 \begin_inset Graphics
 	filename figs/data_aug.png
-	scale 65
+	scale 75
 
 \end_inset
 
@@ -2944,10 +2936,6 @@ status open
 
 \begin_layout Plain Layout
 Different seismograms randomly selected from the original one.
- Both seismograms at the top are selected from the essential part, the one
- at the bottom left is selected from the part which does not contain the
- arrival times, and the one at the bottom right is selected from the essential
- part which is however reversed
 \end_layout
 
 \end_inset
@@ -3258,30 +3246,29 @@ name "subsec:Training-on-new-phasenet"
 \end_layout
 
 \begin_layout Standard
-Primarily, we need to convert all of the PhaseNet code from 
-\family sans
-tensorflow 
-\family default
-to
-\family sans
- keras
-\family default
- that provides a convenient way in order to implement transfer learning.
- Once we train the model with a new data set using transfer learning, 
-\family sans
-keras
-\family default
- first loads all required model weights from a pre-trained model.
- Effectively, ................................
+The original code of PhaseNet was written in Tensorflow, a Python open-source
+ library, that provides both high-level and low-level APIs.
+ Tensorflow particularly showcases its efficiency when working with large
+ data sets requiring an excellent functionality and a high performance.
+ Keras on the other hand is a high-level neural network library that runs
+ on top of Tensorflow.
+ It is more user-friendly and easier to a perform neural network with small
+ and medium data sets, especially, provides a convenient way in order to
+ implement transfer learning with fine-tuning and more flexible choices.
+ 
+\end_layout
+
+\begin_layout Standard
+Primarily, we need to convert all of the PhaseNet code from Tensorflow to
+ Keras.
+ Then, once we train the model with a new data set using transfer learning,
+ all required model weights are loaded from a pre-trained model.
  Subsequently, the network tries to learn new features of the new data using
  the knowledge of pre-trained model instead of initializing the model with
  random weights.
  Finally, the new model can be improved and adapted to the new data set
  using the knowledge in the past.
-\end_layout
-
-\begin_layout Standard
-In our case, the neural network takes only one channel, that means we apply
+ In our case, the neural network takes only one channel, that means we apply
  only one filter for a single channel in the input layer instead of three
  for three channels as PhaseNet.
  Therefore, when loading weights from the pre-trained model into the input
@@ -3748,64 +3735,6 @@ name "train_valid"
 
 \end_layout
 
-\begin_layout Standard
-Loss with topo ...............................
- 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "loss_topo"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-:
-\end_layout
-
-\begin_layout Standard
-\align center
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename figs/loss_with_topo.png
-	scale 60
-	rotateOrigin center
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Training and validation loss with realistic topography
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset label
-LatexCommand label
-name "loss_topo"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsection
 Scoring metrics
 \end_layout
@@ -3887,7 +3816,7 @@ a false negative if the true label exists but there is no peak detected.
 Table 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "score"
+reference "score-without-topo"
 plural "false"
 caps "false"
 noprefix "false"
@@ -4563,7 +4492,7 @@ Scoring metrics for different transfer learning strategies without adding
 
 \begin_inset CommandInset label
 LatexCommand label
-name "score"
+name "score-without-topo"
 
 \end_inset
 
@@ -4588,7 +4517,18 @@ Loading all layers and freezing 2 deepest layers
 \end_layout
 
 \begin_layout Standard
-add score with topo .....................
+score with topo .....................
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "score-topo"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+:
 \end_layout
 
 \begin_layout Standard
@@ -4786,7 +4726,7 @@ Scoring metrics by adding realistic topography to the simulated data set
 
 \begin_inset CommandInset label
 LatexCommand label
-name "score-1"
+name "score-topo"
 
 \end_inset
 
@@ -5470,6 +5410,438 @@ name "SVR_S"
 
 \begin_layout Section
 Results on real data
+\end_layout
+
+\begin_layout Standard
+Loss ...............................
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "loss_real_data"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figs/loss_with_topo.png
+	scale 60
+	rotateOrigin center
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Training and validation loss on real data
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "loss_real_data"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Prediction examples .....................................
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "test_example_real_data"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figs/pred_real_data.png
+	scale 60
+	rotateOrigin center
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Some predictions while testing on real data
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "test_example_real_data"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Score real data ...........................
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "score-real-data"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="5">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\shape italic
+Real data 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Phase
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Precision
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Recall
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+F1-score
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Training from scratch
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+P
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.9993
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.9995
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.9994
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="4" alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.8302
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.8259
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.8280
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Loading all layers and freezing 2 deepest layers
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+P
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.9992
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.9998
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\color green
+0.9995
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="4" alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.8319
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.8283
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\color green
+0.8301
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Scoring metrics for models trained on real data
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "score-real-data"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
