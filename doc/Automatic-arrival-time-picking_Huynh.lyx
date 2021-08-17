@@ -201,7 +201,8 @@ status open
 
 
 \backslash
-textbf{Automatic arrival time picking for seismic inversion}
+textbf{Automatic arrival time picking for seismic inversion with unlabeled
+ data}
 \end_layout
 
 \end_inset
@@ -246,7 +247,7 @@ August 2021
 
 \series bold
 \shape italic
-Tutors:
+Supervisors:
 \end_layout
 
 \begin_layout Standard
@@ -276,7 +277,7 @@ status open
 
 
 \backslash
-vskip 4cm
+vskip 3.5cm
 \end_layout
 
 \end_inset
@@ -322,10 +323,6 @@ thispagestyle{empty}
 
 \end_layout
 
-\begin_layout Abstract
-sfcsfsa
-\end_layout
-
 \begin_layout Standard
 \begin_inset ERT
 status open
@@ -342,11 +339,70 @@ thispagestyle{empty}
 
 \end_layout
 
-\begin_layout Part*
+\begin_layout Section*
+Acknowledgment
+\end_layout
+
+\begin_layout Standard
+I would like to express my gratitude and appreciation for the support of
+ my supervisors, Roland Martin, Thomas Oberlin and Bastien Plazolles.
+ Without your help, this project would not have been possible.
+ Many thanks to Thomas for sharing your advice and your extensive knowledge
+ of Machine Learning.
+ Special thanks to Roland for your patience, guidance and for all the time
+ we spent together throughout the project.
+ I greatly appreciate your time for sharing your deep understanding of Physic
+ and Geophysics, and for reading my numerous revisions as well as helping
+ make some sense of the confusion.
+ Also thanks to Etienne Gondet, who helped me have the opportunity to attend
+ the AI conferences, where I gave a presentation and met many peoples working
+ in this field.
+\end_layout
+
+\begin_layout Standard
+Lastly, I would like to thank the laboratory of ENV'IA for providing me
+ with the financial means to complete this project.
+\end_layout
+
+\begin_layout Standard
+\align block
 \begin_inset Newpage clearpage
 \end_inset
 
 
+\end_layout
+
+\begin_layout Abstract
+Nowadays, the understanding of subsurface information on the Earth is crucial
+ in numerous fields such as: economic, archaeology, biology and meteorology,
+ etc..
+ The methodology is to reconstruct the velocity model, that contains information
+ about the basement structure, by resolving complex nonlinear systems with
+ the data collected from seismic experiments and measurements.
+ In the last few years, along with the explosion of AI and machine learning,
+ many deep neural networks have been proposed to handle the situation with
+ fast algorithm and high accuracy.
+ However, the labeling process of seismic data requires too much time and
+ effort to train a neural network with supervised learning task.
+ We present an approach to tackle the unlabeled data issue by transfer learning
+ and semi-supervised learning based on a deep neural network for arrival
+ time picking method.
+ The neural network model showcased a very high score when evaluating and
+ testing on the synthetic as well as real data.
+ This can demonstrate the efficiency of automatic arrival time picking method
+ for resolving seismic inversion problem.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\shape italic
+Keywords: 
+\series default
+\shape default
+seismic survey, seismic inversion, seismic wave, velocity model, deep neural
+ network, unlabeled data, pseudo-labeling, transfer learning, semi-supervised
+ learning, arrival time picking.
 \end_layout
 
 \begin_layout Standard
@@ -366,7 +422,6 @@ thispagestyle{empty}
 \end_layout
 
 \begin_layout Section*
-Acknowledgment
 \begin_inset Newpage clearpage
 \end_inset
 
@@ -443,7 +498,7 @@ Monitoring of basement structures and water-saturated ground .......
 \end_layout
 
 \begin_layout Part
-State-of-the-art of seismic imaging techniques
+State-of-the-art techniques of seismic imaging
 \end_layout
 
 \begin_layout Section
@@ -451,7 +506,164 @@ Seismic inversion problem
 \end_layout
 
 \begin_layout Standard
-Research bib for inversion problem .................
+Seismic exploration 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "TALWANI2003709"
+literal "false"
+
+\end_inset
+
+ is the use of seismic energy to investigate the surface of the Earth.
+ It plays a crucial role in the delineation of near surface geology for
+ economic deposits of oil, gas, or minerals, but also for engineering purposes,
+ archaeological, and scientific studies.
+ Among the parameters used for seismic exploration purpose, seismic velocity
+ is one of the most important ones.
+ This can be defined as the speed with which an elastic wave propagates
+ through a medium, and thus considered to be seismic properties.
+ Seismic inversion is the fact of reconstructing the subsurface velocity
+ model by employing the data collected from seismic experiments (Figure
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:seismic_inver"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figs/seismic_invers.png
+	scale 65
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Illustration of seismic inversion problem
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:seismic_inver"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Basically, such velocity information can be derived by travel-time tomography
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Hole_inversion,Hobro_inversion,Bording_inversion"
+literal "false"
+
+\end_inset
+
+ or full-waveform inversion (FWI) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "intro_FWI,Xu_FWI"
+literal "false"
+
+\end_inset
+
+.
+ These techniques have been proven to be effective for acoustic model building
+ in many geological scenarios, but still have limitations affected by human
+ interventions, and are sophisticated in resolving highly nonlinear processes
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Dan,Jones2010TutorialVE"
+literal "false"
+
+\end_inset
+
+.
+ Currently, most seismic inversion problems are approached by deep learning
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "lecun2015deeplearning"
+literal "false"
+
+\end_inset
+
+ techniques, using supervised learning method to reconstruct the velocity
+ model 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Adler_deep,fangshu2019,Zheng_deep_learning_inversion,Li_deep_learning_inversion"
+literal "false"
+
+\end_inset
+
+.
+ FWI deep learning method stood on automatic differentiation and adjoint
+ state methods is now one of the most appealing approaches to solve seismic
+ inversion problem with fast algorithm and high accuracy 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "CAO201547,richardson2018seismic,Zhu_2021,baydin2018automatic"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Recently, geophysicists and data scientists have made many improvements
+ in approaching FWI by deep learning in frequency-domain for extracting
+ dispersion curves 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "dl_dispersion_curves"
+literal "false"
+
+\end_inset
+
+, and in time-domain for arrival time picking 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "PickNet,berozaPhaseNet"
+literal "false"
+
+\end_inset
+
+.
+ Both methodologies have demonstrated to be highly effective in helping
+ reconstruct the seismic velocity model.
 \end_layout
 
 \begin_layout Section
@@ -687,7 +899,8 @@ noprefix "false"
 \end_inset
 
 ).
- The sources such as trucks are utilized to generate artificial explosions.
+ The sources such as trucks or hammers are utilized to generate artificial
+ explosions.
  Once an explosion takes place at a source, the waves will travel through
  the Earth's interior and be reflected to the receivers.
  Each receiver will then record the signals by only one component z into
@@ -809,10 +1022,12 @@ name "subsec:Automatic-arrival-time"
 \end_layout
 
 \begin_layout Standard
-Before, we used to utilize hand-picking methods to solve seismic inversion
- problem.
- Firstly, we have to identify the arrival time by hand-picking and then
- reconstruct the seismic velocity by using ray tracing method 
+Before employing deep learning techniques, we used to utilize hand-picking
+ methods to solve seismic inversion problem.
+ Primarily, we have to identify the arrival time by hand-picking and then
+ reconstruct the seismic velocity by using adjoint-based inversion techniques
+ (tomography or FWI) or travel-time inversion techniques based on ray tracing
+ method 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "ray_tracing,podvin,qian,sergey_eikonal_equation,huang_tomo,billette"
@@ -881,21 +1096,47 @@ name "seismic_velocity"
 \end_layout
 
 \begin_layout Standard
-Research bib for classical arrival time picking in order to compare to deep
- learning method............
-\end_layout
-
-\begin_layout Standard
-Research more about time picking methods by deep learning.............
- 
+PickNet 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "fangshu2019"
+key "PickNet"
 literal "false"
 
 \end_inset
 
+ and PhaseNet 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "berozaPhaseNet"
+literal "false"
 
+\end_inset
+
+ are the stage-of-the-art deep neural networks for arrival time picking
+ method.
+ While PickNet is constructed from VGG-16 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "VGG-16"
+literal "false"
+
+\end_inset
+
+, a very deep convolutional neural network (CNN) for large-scale image recogniti
+on.
+ PhaseNet on the other hand is based on U-net 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "UnetDL"
+literal "false"
+
+\end_inset
+
+, that is used for biomedical image segmentation and particularly, has shown
+ its efficiencies for segmentation of neuronal structures in electron microscopi
+c stacks.
+ In this paper, we will focus on an automatic arrival time picking method
+ based on PhaseNet.
 \end_layout
 
 \begin_layout Standard
@@ -922,49 +1163,17 @@ PhaseNet is a deep-neural-network-based arrival-time picking method that
 We note that picking S arrivals is more challenging for automatic method
  because the S-waves are not the first arriving waves and thus, they emerge
  from the scattered waves of the P coda.
- PhaseNet model has shown a significant improvement compared to the models
- which do not utilize the deep neural network, particularly, a very higher
- precision of predicted time picking with S-waves in 
+ PhaseNet model has shown a significant improvement compared to classical
+ time picking methods (for example AR-picker in 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "berozaPhaseNet"
+key "AR-picker"
 literal "false"
 
 \end_inset
 
-.
- This model is an U-net that is used for biomedical image segmentation and
- particularly, has shown its efficiencies for segmentation of neuronal structure
-s in electron microscopic stacks in 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "UnetDL"
-literal "false"
-
-\end_inset
-
-.
- We will see in 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "subsec:Transpose-convolutional-layers:"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- and 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "subsec:Skip-connections"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- two essential techniques that are used in U-net and PhaseNet.
+), particularly, a very higher precision of predicted time picking with
+ S-waves.
 \end_layout
 
 \begin_layout Section
@@ -1156,8 +1365,7 @@ name "subsec:Skip-connections"
 \end_layout
 
 \begin_layout Standard
-Currently, skip connection is a standard module in many Convolutional Neural
- Network (CNN) architectures.
+Currently, skip connection is a standard module in many CNN architectures.
  It plays a very important role in the fact of building a 
 \begin_inset Quotes eld
 \end_inset
@@ -1264,6 +1472,26 @@ name "skip connections-steup"
 
 \end_layout
 
+\begin_layout Plain Layout
+\align center
+
+\shape italic
+Source:
+\shape default
+ 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://theaisummer.com/skip-connections/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \end_inset
 
 
@@ -1356,7 +1584,7 @@ noprefix "false"
 
 \end_inset
 
-:
+.
 \end_layout
 
 \begin_layout Standard
@@ -1588,7 +1816,7 @@ noprefix "false"
  The downsampling stages compress the input signal and reduce the size of
  the data.
  Afterwards, the up-sampling stages expand and convert the useful information
- into probability distributions of the outputs for each time point.
+ into probability distributions of the outputs for each discrete time series.
  The skip connection used in each up-sampling stage allows to concatenate
  directly the left output to the right layer without going through the deep
  layers between them.
@@ -1725,7 +1953,8 @@ noindent
 \end_inset
 
  So we utilize the soft-max normalized exponential function to calculate
- the probability of each category (noise, P-wave, S-wave) at each time point:
+ the probability of each category (noise, P-wave, S-wave) at each discrete
+ time series:
 \end_layout
 
 \begin_layout Standard
@@ -2540,13 +2769,13 @@ noprefix "false"
 \end_layout
 
 \begin_layout Itemize
-we can label for the simulated data by computing analytically the arrival
- times thanks to a given physical model,
+we can build a physical model to simulate the data that are close to our
+ real data,
 \end_layout
 
 \begin_layout Itemize
-we can build physical models to simulate the data that are close to our
- real data.
+we can label for the simulated data by computing analytically the arrival
+ times thanks to the given physical model.
 \end_layout
 
 \begin_layout Section
@@ -2568,7 +2797,8 @@ literal "false"
 
  is a computational software for 2D and 2.5D (i.e., axisymmetric) simulations
  of acoustic, elastic, viscoelastic, and poroelastic seismic wave propagation
- as well as full waveform imaging (FWI) or adjoint tomography.
+ as well as FWI or adjoint tomography.
+ It is based on spectral finite elements.
  By using this software, we attempt to simulate the seismic waveforms with
  2 channels (2 components, here is X and Z) that are hopefully similar enough
  to our real data and thus, we can create a training data set for our model.
@@ -2582,9 +2812,9 @@ Simple simulations
 Some specific model parameters can be varied in order to achieve a diverse
  data set for our database.
  For instance, we can simulate with a range of natural states of the material
- depending on their densities, their absorbing elements, the number of layers
- and thickness between them, the phase speed at each layer as well as the
- nature of each layer (acoustic or elastic), etc..
+ depending on their densities, their absorbing boundary elements, the number
+ of layers and thickness between them, the phase speed at each layer as
+ well as the nature of each layer (acoustic or elastic), etc..
  We realize simple simulations by defining some flat interface surfaces,
  typically as Figure 
 \begin_inset CommandInset ref
@@ -2733,7 +2963,7 @@ noprefix "false"
 
 \end_inset
 
- shows us the interface model in this case:
+ shows us the interface model in this case.
 \end_layout
 
 \begin_layout Standard
@@ -2814,7 +3044,7 @@ noprefix "false"
 
 \end_inset
 
- and is closer to reality:
+ and is closer to reality.
 \end_layout
 
 \begin_layout Standard
@@ -2869,12 +3099,12 @@ Data augmentation
 To increase the size of our data set from simulated database, we first use
  time shifting method that has been commonly used as data augmentation approach
  in seismic waveform treatment.
- For exmaple, we run SPECFEM2D to simulate the seismograms with 3,000 time
+ For example, we run SPECFEM2D to simulate the seismograms with 3,000 time
  steps.
  Then, for each seismogram, we randomly extract some parts from the original
  sample.
  Each extracted seismogram however consists of 1,500 time steps.
- We can chose the length of the time series we want to extract (here is
+ We can choose the length of the time series we want to extract (here is
  1,500), the number of extracted version from the original sample (for example,
  if we want to randomly selected 3 seismograms from each original seismogram,
  so the data size will increase 3 times) and a rate 
@@ -3096,7 +3326,7 @@ Nowadays, many deep learning algorithms work well only under a common assumption
  that is drawn from another feature space and another distribution, then
  the models need to be rebuilt from scratch to learn about all features
  of the new data.
- For instance, PhaseNet used the data based on 
+ For instance, PhaseNet employed the data based on 
 \shape italic
 Northern California Earthquake Data Center Catalog
 \shape default
@@ -3127,7 +3357,7 @@ transfer learning
 \begin_inset Quotes erd
 \end_inset
 
- is a method where a model trained on one task is repurposed on a second
+ is a methodology where a model trained on one task is repurposed on a second
  related task in order to improve performance on this second task.
  
 \end_layout
@@ -3135,7 +3365,7 @@ transfer learning
 \begin_layout Standard
 In some cases, the transfer learning helps us train the model with better
  initial weights and so, improve the learning performance.
- On the other hand, if the tasks are too dissimilar, the fact that we use
+ On the other hand, if the tasks are too dissimilar, the fact of implementing
  transfer learning may hinder performance of the training.
  The experiments in 
 \begin_inset CommandInset citation
@@ -3252,15 +3482,14 @@ The original code of PhaseNet was written in Tensorflow, a Python open-source
  data sets requiring an excellent functionality and a high performance.
  Keras on the other hand is a high-level neural network library that runs
  on top of Tensorflow.
- It is more user-friendly and easier to a perform neural network with small
- and medium data sets, especially, provides a convenient way in order to
- implement transfer learning with fine-tuning and more flexible choices.
+ It is more user-friendly and easier to perform a neural network with small
+ and medium data sets, especially, provides a convenient way to implement
+ transfer learning with fine-tuning and more flexible choices.
  
 \end_layout
 
 \begin_layout Standard
-Primarily, we need to convert all of the PhaseNet code from Tensorflow to
- Keras.
+Primarily, we need to convert all of PhaseNet code from Tensorflow to Keras.
  Then, once we train the model with a new data set using transfer learning,
  all required model weights are loaded from a pre-trained model.
  Subsequently, the network tries to learn new features of the new data using
@@ -3615,7 +3844,9 @@ Training and validation loss
 \end_layout
 
 \begin_layout Standard
-Based on Figure 
+Let us consider the model trained on the synthetic data without realistic
+ topography.
+ Based on Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "train"
@@ -3625,10 +3856,12 @@ noprefix "false"
 
 \end_inset
 
-, we clarify that the models implemented transfer learning (cases 2, 3,
- 4, 5, 6) learn the problem quickly and its loss function are converge faster
- than the loss in the case of training from scratch (case 1).
-  
+, we clarify that the models implemented using transfer learning (cases
+ 2, 3, 4, 5, 6) learn the problem quickly and converge early compared to
+ the case of training from scratch (case 1).
+ The best curve is the one of case 3 while the one of case 2 seems to converge
+ to a local minimum.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -3686,8 +3919,13 @@ noprefix "false"
 
 \end_inset
 
- shows the training and validation loss in the different cases without realistic
- topography.....................
+ showcases the training and validation loss in these different cases.
+ We don't nearly have the problem of over-fitting or under-fitting in cases
+ 1, 2, 3 while the three remaining cases may run into the problem of over-fittin
+g in which the model "memorizes" the training samples and becomes kind of
+ ineffective for the test set.
+ To avoid this phenomena, we can, for instance, employ some regularization
+ parameters in order to simplify the complexity of the model.
 \end_layout
 
 \begin_layout Standard
@@ -3823,7 +4061,19 @@ noprefix "false"
 
 \end_inset
 
- shows the scoring metrics in different transfer learning strategies .................
+ shows the scoring metrics in different transfer learning strategies.
+ We can interpret that the score of case 3 is the best among transfer learning
+ strategies.
+ Perhaps, the hidden features of deepest layers the neural network has learnt
+ from the original data is much useful for our new data.
+ By freezing these two deepest layers, the network just need to learn features
+ of surface layers to adapt to the new data.
+ Overall, picking for P-phase is not succeed as that for S-phase.
+ This may come to the fact that P-wave is so much weaker than S-wave in
+ our simulations.
+ Consequently, the network may struggle to learn to detect the first arrival
+ time for P-phase.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -4401,7 +4651,7 @@ P
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.640
+0.630
 \end_layout
 
 \end_inset
@@ -4410,7 +4660,7 @@ P
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.557
+0.547
 \end_layout
 
 \end_inset
@@ -4419,7 +4669,7 @@ P
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.596
+0.586
 \end_layout
 
 \end_inset
@@ -4505,19 +4755,8 @@ name "score-without-topo"
 \end_layout
 
 \begin_layout Standard
-Interpret the score??? Explain why we chose 
-\begin_inset Quotes eld
-\end_inset
-
-Loading all layers and freezing 2 deepest layers
-\begin_inset Quotes erd
-\end_inset
-
-?????????????????????????
-\end_layout
-
-\begin_layout Standard
-score with topo .....................
+Now, by training and testing on the synthetic data with realistic topography,
+ we can see the impressive scores for both picking P and S phases in Table
  
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -4528,7 +4767,7 @@ noprefix "false"
 
 \end_inset
 
-:
+.
 \end_layout
 
 \begin_layout Standard
@@ -4771,13 +5010,13 @@ To train a neural network model based on our real data set with supervised
 \end_layout
 
 \begin_layout Standard
-The goal of semi-supervised learning is to use both unlabeled and labeled
+The goal of semi-supervised learning is to employ both unlabeled and labeled
  samples to learn the underlying structure of the data step by step using
  pseudo labels.
  These pseudo labels are generated in pseudo-labeling, a process of using
  the labeled data model to predict labels for unlabeled data.
- In our case, the main ideal is: using a pretrained model on a data set
- that is close to our real data, or a model trained on our small labeled
+ In our case, the main idea is that: using a pretrained model on a data
+ set that is close to our real data, or a model trained on our small labeled
  data set, we can predict labels for our unlabeled and then make an effort
  to improve the quality of pseudo labels.
  This process can be repeated many times in order to increase the size of
@@ -5132,7 +5371,7 @@ Although we observed that the data almost take the shape of a line (or a
 \end_layout
 
 \begin_layout Standard
-The ideal of SVR is based on SVM (Support Vector Machine), that originates
+The idea of SVR is based on SVM (Support Vector Machine), that originates
  from the VC theory developed by Vladimir Vapnik and Alexey Chervonenkis
  during 1960-1990 and was first proposed for utilization in the regression
  tasks in 
@@ -5315,7 +5554,7 @@ noprefix "false"
 \end_inset
 
  show the SVR models for P and S-phase based on the data without outliers
- (detected by using Huber regression):
+ (detected by using Huber regression).
 \end_layout
 
 \begin_layout Standard
@@ -5413,8 +5652,7 @@ Results on real data
 \end_layout
 
 \begin_layout Standard
-Loss ...............................
- 
+Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "loss_real_data"
@@ -5424,7 +5662,8 @@ noprefix "false"
 
 \end_inset
 
-:
+ compares the training and validation loss on the real data with and without
+ transfer learning.
 \end_layout
 
 \begin_layout Standard
@@ -5471,8 +5710,7 @@ name "loss_real_data"
 \end_layout
 
 \begin_layout Standard
-Prediction examples .....................................
- 
+Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "test_example_real_data"
@@ -5482,7 +5720,7 @@ noprefix "false"
 
 \end_inset
 
-:
+ shows some prediction examples.
 \end_layout
 
 \begin_layout Standard
@@ -5529,8 +5767,7 @@ name "test_example_real_data"
 \end_layout
 
 \begin_layout Standard
-Score real data ...........................
- 
+Table 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "score-real-data"
@@ -5540,7 +5777,7 @@ noprefix "false"
 
 \end_inset
 
-:
+ sums up the results for our models on the real data.
 \end_layout
 
 \begin_layout Standard
@@ -5853,7 +6090,7 @@ name "score-real-data"
 \end_layout
 
 \begin_layout Part
-Conclusion and perspectives
+Conclusion
 \end_layout
 
 \begin_layout Standard
