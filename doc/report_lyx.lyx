@@ -374,8 +374,8 @@ Lastly, I would like to thank the laboratory of ENV'IA for providing me
 
 \begin_layout Abstract
 Nowadays, the understanding of subsurface information on the Earth is crucial
- in numerous fields such as: economic, archaeology, biology and meteorology,
- etc..
+ in numerous fields such as: economics of oil and gas, archaeology and meteorolo
+gy, etc..
  The methodology is to reconstruct the velocity model, that contains information
  about the basement structure, by resolving complex nonlinear systems with
  the data collected from seismic experiments and measurements.
@@ -400,9 +400,9 @@ Nowadays, the understanding of subsurface information on the Earth is crucial
 Keywords: 
 \series default
 \shape default
-seismic survey, seismic inversion, seismic wave, velocity model, deep neural
- network, unlabeled data, pseudo-labeling, transfer learning, semi-supervised
- learning, arrival time picking.
+seismic survey, seismic inversion, seismic wave, velocity model, arrival
+ time picking, deep neural network, unlabeled data, pseudo-labeling, transfer
+ learning, semi-supervised learning.
 \end_layout
 
 \begin_layout Standard
@@ -1164,7 +1164,7 @@ We note that picking S arrivals is more challenging for automatic method
  because the S-waves are not the first arriving waves and thus, they emerge
  from the scattered waves of the P coda.
  PhaseNet model has shown a significant improvement compared to classical
- time picking methods (for example AR-picker in 
+ time picking methods (for example AR-picker 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "AR-picker"
@@ -2278,7 +2278,7 @@ Besides, there are some calibratable parameters based on different criteria
 
 \begin_layout Itemize
 detect peaks that are greater than minimum peak height (mph).
- For instance, if we set a value of 6 for the parameter based on this criteria
+ For instance, if we set a value of 6 for the parameter based on this criterion
  for a data as Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2362,7 +2362,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Detecting peaks in the data with mph criteria
+Detecting peaks in the data with mph criterion
 \end_layout
 
 \end_inset
@@ -2406,7 +2406,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Detecting all peaks in the data with mpd criteria
+Detecting all peaks in the data with mpd criterion
 \end_layout
 
 \end_inset
@@ -2450,7 +2450,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Detecting all peaks in the data with threshold criteria
+Detecting all peaks in the data with threshold criterion
 \end_layout
 
 \end_inset
@@ -3203,7 +3203,7 @@ Additive White Gaussian Noise
 \end_inset
 
  (AWGN).
- This kind of noise is easier to generate and to model for analytical analyzes.
+ This kind of noise is easy to generate and to model for analytical analyzes.
  In AWGN, the noises are randomly sampled from a Gaussian distribution with
  mean value of zero and its standard deviation can vary depending on a so-called
  
@@ -3503,7 +3503,7 @@ Primarily, we need to convert all of PhaseNet code from Tensorflow to Keras.
  Therefore, when loading weights from the pre-trained model into the input
  layer of our new model, we have to reshape the size of filter and also
  remove the weights based on the two redundant channels.
- We tried many transfer learning strategies based on two criterion:
+ We tried many transfer learning strategies based on two criteria:
 \end_layout
 
 \begin_layout Itemize
