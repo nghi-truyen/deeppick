@@ -38,20 +38,13 @@
   eprint = {https://doi.org/10.1190/geo2018-0249.1},
 }
 
-@article{UnetDL,
-  author    = {Olaf Ronneberger and
-               Philipp Fischer and
-               Thomas Brox},
-  title     = {U-Net: Convolutional Networks for Biomedical Image Segmentation},
-  journal   = {CoRR},
-  volume    = {abs/1505.04597},
-  year      = {2015},
-  url       = {http://arxiv.org/abs/1505.04597},
-  archivePrefix = {arXiv},
-  eprint    = {1505.04597},
-  timestamp = {Mon, 13 Aug 2018 16:46:52 +0200},
-  biburl    = {https://dblp.org/rec/journals/corr/RonnebergerFB15.bib},
-  bibsource = {dblp computer science bibliography, https://dblp.org}
+@inproceedings{UnetDL,
+  title={U-net: Convolutional networks for biomedical image segmentation},
+  author={Ronneberger, Olaf and Fischer, Philipp and Brox, Thomas},
+  booktitle={International Conference on Medical image computing and computer-assisted intervention},
+  pages={234--241},
+  year={2015},
+  organization={Springer}
 }
 
 @InProceedings{skipconnectImportance,
@@ -67,19 +60,19 @@
 }
 
 @InProceedings{Long_2015_CVPR,
-  author = {Long, Jonathan and Shelhamer, Evan and Darrell, Trevor},
-  title = {Fully Convolutional Networks for Semantic Segmentation},
-  booktitle = {Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
-  month = {June},
-  year = {2015}
+  title={Fully convolutional networks for semantic segmentation},
+  author={Long, Jonathan and Shelhamer, Evan and Darrell, Trevor},
+  booktitle={Proceedings of the IEEE conference on computer vision and pattern recognition},
+  pages={3431--3440},
+  year={2015}
 }
 
 @InProceedings{ResNet_He_2016_CVPR,
-  author = {He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian},
-  title = {Deep Residual Learning for Image Recognition},
-  booktitle = {Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
-  month = {June},
-  year = {2016}
+  title={Deep residual learning for image recognition},
+  author={He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian},
+  booktitle={Proceedings of the IEEE conference on computer vision and pattern recognition},
+  pages={770--778},
+  year={2016}
 }
 
 @InProceedings{DenseNet_Huang_2017_CVPR,
@@ -91,34 +84,31 @@
 }
 
 @InProceedings{deconv,
-author = {Noh, Hyeonwoo and Hong, Seunghoon and Han, Bohyung},
-title = {Learning Deconvolution Network for Semantic Segmentation},
-booktitle = {Proceedings of the IEEE International Conference on Computer Vision (ICCV)},
-month = {December},
-year = {2015}
+  title={Learning deconvolution network for semantic segmentation},
+  author={Noh, Hyeonwoo and Hong, Seunghoon and Han, Bohyung},
+  booktitle={Proceedings of the IEEE international conference on computer vision},
+  pages={1520--1528},
+  year={2015}
 }
- 
- @INPROCEEDINGS{Rosenstein05totransfer,
-  author = "Michael T. Rosenstein and Zvika Marx and Leslie Pack Kaelbling and Thomas G. Dietterich",
-  title = "To transfer or not to transfer",
-  booktitle = "In NIPS'05 Workshop, Inductive Transfer: 10 Years Later",
-  year = "2005"
+
+@INPROCEEDINGS{Rosenstein05totransfer,
+  title={To transfer or not to transfer},
+  author={Rosenstein, Michael T and Marx, Zvika and Kaelbling, Leslie Pack and Dietterich, Thomas G},
+  booktitle={NIPS 2005 workshop on transfer learning},
+  volume={898},
+  pages={1--4},
+  year={2005}
 }
 
 @article{phasenet_and_transfer,
-  author = {Chai, Chengping and Maceira, Monica and Santos-Villalobos, Hector J. and Venkatakrishnan, Singanallur V. and Schoenball, Martin and Zhu, Weiqiang and Beroza, Gregory C. and Thurber, Clifford and EGS Collab Team},
-  title = {Using a Deep Neural Network and Transfer Learning to Bridge Scales for Seismic Phase Picking},
-  journal = {Geophysical Research Letters},
-  volume = {47},
-  number = {16},
-  pages = {e2020GL088651},
-  keywords = {machine learning, transfer learning, neural network, seismic tomography, geothermal, seismic phase picking},
-  doi = {https://doi.org/10.1029/2020GL088651},
-  url = {https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2020GL088651},
-  eprint = {https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/2020GL088651},
-  note = {e2020GL088651 2020GL088651},
-abstract = {Abstract The important task of tracking seismic activity requires both sensitive detection and accurate earthquake location. Approximate earthquake locations can be estimated promptly and automatically; however, accurate locations depend on precise seismic phase picking, which is a laborious and time-consuming task. We adapted a deep neural network (DNN) phase picker trained on local seismic data to mesoscale hydraulic fracturing experiments. We designed a novel workflow, transfer learning-aided double-difference tomography, to overcome the 3 orders of magnitude difference in both spatial and temporal scales between our data and data used to train the original DNN. Only 3,500 seismograms (0.45\% of the original DNN data) were needed to retrain the original DNN model successfully. The phase picks obtained with transfer-learned model are at least as accurate as the analyst's and lead to improved event locations. Moreover, the effort required for picking once the DNN is trained is a small fraction of the analyst's.},
-  year = {2020}
+  title={Using a deep neural network and transfer learning to bridge scales for seismic phase picking},
+  author={Chai, Chengping and Maceira, Monica and Santos-Villalobos, Hector J and Venkatakrishnan, Singanallur V and Schoenball, Martin and Zhu, Weiqiang and Beroza, Gregory C and Thurber, Clifford and EGS Collab Team},
+  journal={Geophysical Research Letters},
+  volume={47},
+  number={16},
+  pages={e2020GL088651},
+  year={2020},
+  publisher={Wiley Online Library}
 }
 
 @Software{specfem2d, 
@@ -144,23 +134,14 @@ doi = {10.1214/aoms/1177703732},
 URL = {https://doi.org/10.1214/aoms/1177703732}
 }
 
-@inproceedings{SVR,
-author = {Drucker, Harris and Burges, Chris J. C. and Kaufman, Linda and Smola, Alex and Vapnik, Vladimir},
-title = {Support Vector Regression Machines},
-year = {1996},
-publisher = {MIT Press},
-address = {Cambridge, MA, USA},
-abstract = {A new regression technique based on Vapnik's concept of support vectors is introduced.
-We compare support vector regression (SVR) with a committee regression technique (bagging)
-based on regression trees and ridge regression done in feature space. On the basis
-of these experiments, it is expected that SVR will have advantages in high dimensionality
-space because SVR optimization does not depend on the dimensionality of the input
-space.},
-booktitle = {Proceedings of the 9th International Conference on Neural Information Processing Systems},
-pages = {155--161},
-numpages = {7},
-location = {Denver, Colorado},
-series = {NIPS'96}
+@article{SVR,
+  title={Support vector regression machines},
+  author={Drucker, Harris and Burges, Chris JC and Kaufman, Linda and Smola, Alex and Vapnik, Vladimir and others},
+  journal={Advances in neural information processing systems},
+  volume={9},
+  pages={155--161},
+  year={1997},
+  publisher={Morgan Kaufmann Publishers}
 }
 
 @article{ray_tracing,
@@ -307,33 +288,22 @@ year = {1992}
     eprint = {https://academic.oup.com/gji/article-pdf/90/2/285/2563963/90-2-285.pdf},
 }
 
-@article{Xu_FWI,
-   author = "Xu, S. and Wang, D. and Chen, F. and Zhang, Y. and Lambare, G.",
-   title = "Full Waveform Inversion for Reflected Seismic Data", 
-   journal= "",
-   year = "2012",
-   volume = "",
-   number = "",
-   pages = "",
-   doi = "https://doi.org/10.3997/2214-4609.20148725",
-   url = "https://www.earthdoc.org/content/papers/10.3997/2214-4609.20148725",
-   publisher = "European Association of Geoscientists &amp; Engineers",
-   issn = "2214-4609",
-   type = "",
-   eid = "cp-293-00729",
-  }
+@inproceedings{Xu_FWI,
+  title={Full waveform inversion for reflected seismic data},
+  author={Xu, Sheng and Wang, D and Chen, F and Zhang, Yu and Lambare, G},
+  booktitle={74th EAGE Conference and Exhibition incorporating EUROPEC 2012},
+  pages={cp--293},
+  year={2012},
+  organization={European Association of Geoscientists \& Engineers}
+}
 
-@inbook{intro_FWI,
-author = {J. Virieux and A. Asnaashari and R. Brossier and L. Metivier and A. Ribodetti and W. Zhou},
-title = {6. An introduction to full waveform inversion},
-booktitle = {Encyclopedia of Exploration Geophysics},
-chapter = {},
-pages = {R1-1-R1-40},
-year = {2017},
-doi = {10.1190/1.9781560803027.entry6},
-URL = {https://library.seg.org/doi/abs/10.1190/1.9781560803027.entry6},
-eprint = {https://library.seg.org/doi/pdf/10.1190/1.9781560803027.entry6},
-abstract = { Full waveform inversion (FWI) is a high-resolution seismic imaging technique that is based on using the entire content of seismic traces for extracting physical parameters of the medium sampled by seismic waves. The widespread strategy of seismic imaging, the single scattering formulation, at the core of FWI, assumes no prior scale in the model description. Each unexplained residual data sample at receivers for one source is assumed to come from any point of the medium, and only the summation over sources and receivers helps in locating medium property anomalies, regardless of what type of phase is involved. This pixel-oriented perturbation leads to the local optimization approach, which is a linearized differential approach based on the Newton equation. For a least-squares misfit function, there are both the gradient vector and Hessian matrix, in addition to approximations that can be considered for the related Newton equation. The forward problem of the wave propagation, used thousands of times during optimization, should be efficient, and these equations are expressed either as a first-order hyperbolic system of velocity-stress or as a second-order hyperbolic system of displacement (or velocity) only, by using a self-adjoint formulation in both cases. Gradient vectors are built as a zero-lag crosscorrelation in time between incident and adjoint wavefields with forward and backward patterns and also could be used for obtaining Hessian-matrix approximations. Resolution and uncertainties are relevant, although the actual state of the art does not provide meaningful estimation of these quantities: the FWI remains a deterministic approach at this time. An examplary North Sea data set from the Valhall reservoir illustrates the successful story for high-resolution imaging based on data-driven components, with paleorivers stored in sediments, imprints of glaciers in the bedrock, and gas clouds at different scales in the image. Alternative sources of information on the medium, such as sonic logs and geologic interpretation, are illustrated through a model-driven component of the misfit function. Although methods can be used to increase the speed of the workflow, they are quite costly. The multiparameter reconstruction, which is mandatory for elastic FWI, starts to be feasible if one improves the Hessian-matrix influence. Thus, FWI is becoming a mature strategy for high-resolution seismic imaging. },
+@incollection{intro_FWI,
+  title={An introduction to full waveform inversion},
+  author={Virieux, Jean and Asnaashari, Amir and Brossier, Romain and M{\'e}tivier, Ludovic and Ribodetti, Alessandra and Zhou, Wei},
+  booktitle={Encyclopedia of exploration geophysics},
+  pages={R1--R40},
+  year={2017},
+  publisher={Society of Exploration Geophysicists}
 }
 
 @article{Dan,
@@ -352,10 +322,12 @@ abstract = { A method for velocity and interface depth determination based on to
 
 @article{Jones2010TutorialVE,
   title={Tutorial: Velocity estimation via ray-based tomography},
-  author={I. Jones},
-  journal={First Break},
+  author={Jones, Ian F},
+  journal={first break},
+  volume={28},
+  number={2},
   year={2010},
-  volume={28}
+  publisher={European Association of Geoscientists \& Engineers}
 }
 
 @article{lecun2015deeplearning,
@@ -429,7 +401,7 @@ keywords = {Full waveform inversion, Adjoint state method, Automatic differentia
 abstract = {Full waveform inversion (FWI) is a model-based data-fitting technique that has been widely used to estimate model parameters in Geophysics. In this work, we propose an efficient computational approach to solve the FWI of crosswell seismic data. The FWI problem is mathematically formulated as a partial differential equation (PDE)-constrained optimization problem, which is numerically solved using a gradient-based optimization method. The efficiency and accuracy of FWI are mainly determined by the three main components: forward modeling, gradient calculation and model update which usually involves the gradient-based optimization algorithm. Given the large number of iterations needed by FWI, an accurate gradient is critical for the success of FWI, as it will not only speed up the convergence but also increase the accuracy of the solution. However computing the gradient still remains a challenging task even after the adjoint PDE has been derived. Automatic differentiation (AD) tools have been proved very effective in a variety of application areas including Geoscience. In this work we investigated the feasibility of integrating TAPENADE, a powerful AD tool into FWI, so that the FWI workflow is simplified to allow us to focus on the forward modeling and the model updating. In this paper we choose the limited-memory Broyden–Fletcher–Goldfarb–Shanno (L-BFGS) method due to its robustness and fast convergence. Numerical experiments have been conducted to demonstrate the effectiveness, efficiency and robustness of the new computational approach for FWI.},
 }
 
-@misc{richardson2018seismic,
+@article{richardson2018seismic,
       title={Seismic Full-Waveform Inversion Using Deep Learning Tools and Techniques}, 
       author={Alan Richardson},
       year={2018},
@@ -439,26 +411,22 @@ abstract = {Full waveform inversion (FWI) is a model-based data-fitting techniqu
 }
 
 @article{Zhu_2021,
-   title={A general approach to seismic inversion with automatic differentiation},
-   volume={151},
-   ISSN={0098-3004},
-   url={http://dx.doi.org/10.1016/j.cageo.2021.104751},
-   DOI={10.1016/j.cageo.2021.104751},
-   journal={Computers and Geosciences},
-   publisher={Elsevier BV},
-   author={Zhu, Weiqiang and Xu, Kailai and Darve, Eric and Beroza, Gregory C.},
-   year={2021},
-   month={Jun},
-   pages={104751},
+  title={A general approach to seismic inversion with automatic differentiation},
+  author={Zhu, Weiqiang and Xu, Kailai and Darve, Eric and Beroza, Gregory C},
+  journal={Computers \& Geosciences},
+  volume={151},
+  pages={104751},
+  year={2021},
+  publisher={Elsevier}
 }
 
-@misc{baydin2018automatic,
-      title={Automatic differentiation in machine learning: a survey}, 
-      author={Atilim Gunes Baydin and Barak A. Pearlmutter and Alexey Andreyevich Radul and Jeffrey Mark Siskind},
-      year={2018},
-      eprint={1502.05767},
-      archivePrefix={arXiv},
-      primaryClass={cs.SC},
+@article{baydin2018automatic,
+  title={Automatic differentiation in machine learning: a survey},
+  author={Baydin, Atilim Gunes and Pearlmutter, Barak A and Radul, Alexey Andreyevich and Siskind, Jeffrey Mark},
+  journal={Journal of machine learning research},
+  volume={18},
+  year={2018},
+  publisher={Journal of Machine Learning Research}
 }
 
 @article{PickNet,
@@ -476,21 +444,19 @@ abstract = {Abstract Arrival times of seismic phases contribute substantially to
 year = {2019}
 }
 
-@article{AR-picker,
-author = {Akazawa, Takashi},
-year = {2004},
-month = {01},
-pages = {},
-title = {A technique for automatic detection of onset time of P and S phases in strong motion records}
+@inproceedings{AR-picker,
+  title={A technique for automatic detection of onset time of P-and S-phases in strong motion records},
+  author={Akazawa, Takashi},
+  booktitle={Proc. of the 13th World Conf. on Earthquake Engineering},
+  year={2004},
+  organization={Vancouver, Canada}
 }
 
-@misc{VGG-16,
-      title={Very Deep Convolutional Networks for Large-Scale Image Recognition}, 
-      author={Karen Simonyan and Andrew Zisserman},
-      year={2015},
-      eprint={1409.1556},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV}
+@article{VGG-16,
+  title={Very deep convolutional networks for large-scale image recognition},
+  author={Simonyan, Karen and Zisserman, Andrew},
+  journal={arXiv preprint arXiv:1409.1556},
+  year={2014}
 }
 
 @article{dl_dispersion_curves,
@@ -502,4 +468,52 @@ title = {Deep Learning for Extracting Dispersion Curves},
 volume = {42},
 journal = {Surveys in Geophysics},
 doi = {10.1007/s10712-020-09615-3}
+}
+
+@article{adjoint_seismo,
+author = {Fichtner, Andreas and Bunge, Hans-peter and Igel, Heiner},
+year = {2006},
+month = {08},
+pages = {86-104},
+title = {The adjoint method in seismology: I. Theory},
+volume = {157},
+journal = {Physics of the Earth and Planetary Interiors},
+doi = {10.1016/j.pepi.2006.03.016}
+}
+
+@article{PATERA1984468,
+title = {A spectral element method for fluid dynamics: Laminar flow in a channel expansion},
+journal = {Journal of Computational Physics},
+volume = {54},
+number = {3},
+pages = {468-488},
+year = {1984},
+issn = {0021-9991},
+doi = {https://doi.org/10.1016/0021-9991(84)90128-1},
+url = {https://www.sciencedirect.com/science/article/pii/0021999184901281},
+author = {Anthony T Patera},
+abstract = {A spectral element method that combines the generality of the finite element method with the accuracy of spectral techniques is proposed for the numerical solution of the incompressible Navier-Stokes equations. In the spectral element discretization, the computational domain is broken into a series of elements, and the velocity in each element is represented as a high-order Lagrangian interpolant through Chebyshev collocation points. The hyperbolic piece of the governing equations is then treated with an explicit collocation scheme, while the pressure and viscous contributions are treated implicitly with a projection operator derived from a variational principle. The implementation of the technique is demonstrated on a one-dimensional inflow-outflow advection-diffusion equation, and the method is then applied to laminar two-dimensional (separated) flow in a channel expansion. Comparisons are made with experiment and previous numerical work.}
+}
+
+@INPROCEEDINGS{1989sasc.proc...71M,
+author = {{Maday}, Yvon and {Patera}, Anthony T.},
+title = "{Spectral element methods for the incompressible Navier-Stokes equations}",
+keywords = {Computational Fluid Dynamics, Incompressible Flow, Navier-Stokes Equation, Spectral Methods, Elliptic Differential Equations, Numerical Flow Visualization, Stokes Flow, Three Dimensional Flow, Two Dimensional Flow, Unsteady Flow, Fluid Mechanics and Heat Transfer},
+booktitle = {IN: State-of-the-art surveys on computational mechanics (A90-47176 21-64). New York},
+year = 1989,
+month = jan,
+pages = {71-143},
+adsurl = {https://ui.adsabs.harvard.edu/abs/1989sasc.proc...71M},
+adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+@article{mousavi2020earthquake,
+  title={Earthquake transformer: an attentive deep-learning model for simultaneous earthquake detection and phase picking},
+  author={Mousavi, S Mostafa and Ellsworth, William L and Zhu, Weiqiang and Chuang, Lindsay Y and Beroza, Gregory C},
+  journal={Nature communications},
+  volume={11},
+  number={1},
+  pages={1--12},
+  year={2020},
+  publisher={Nature Publishing Group}
 }
