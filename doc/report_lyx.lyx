@@ -483,8 +483,8 @@ My internship at Toulouse Environmental Geosciences (GET) takes place from
 
 \begin_layout Standard
 GET is a fundamental and applied research laboratory with more than 165
- permanent staffs (around 250 peoples with students, PhD students and postdocs,
- etc.).
+ permanent staffs (around 250 peoples including students, PhD students and
+ postdocs, etc.).
  The laboratory is a member of the Midi-Pyrénées Observatory (OMP) and affiliate
 d to 5 different research organisms (CNRS, IRD, Toulouse III University,
  CNAP and CNES).
@@ -506,9 +506,9 @@ The internship was proposed for the monitoring of basement structures and
  underground imaging tools in high resolution to detect and estimate groundwater
  content at regional scales.
  This involves, in particular, the inversion of massive seismic data.
- To limit computational times, it is crucial to identify and select the
- relevant portions of the recorded seismic signals, so as to reduce the
- size and complexity of the data when it is inverted.
+ To limit computation times, it is crucial to identify and select the relevant
+ portions of the recorded seismic signals, so as to reduce the size and
+ complexity of the data when it is inverted.
  The main goal of this internship is to make use of recent AI techniques
  in order to simplify and help solve the seismic inversion problem.
 \end_layout
@@ -6478,10 +6478,10 @@ Deep learning methods for seismic inversion problem are being improved rapidly.
  By generating a data set that is close to our real data with SPECFEM2D,
  we tested many transfer learning strategies on the simulated data set and
  selected the best one to help the labeling of our real data.
- Moreover, the robust regression methods and SVM are employed in order to
- enhance the quality of pseudo-labels.
- The models trained on the simulated and real data finally showcased the
- very high scores for the detection of P and S wave.
+ Moreover, robust regression methods and SVM are employed in order to enhance
+ the quality of pseudo-labels.
+ The models trained on the simulated and real data finally showcased very
+ high scores for the detection of P and S wave.
  This can demonstrate the efficiency of automatic time picking by deep learning
  in helping resolve the seismic inversion problem.
  
@@ -6490,8 +6490,8 @@ Deep learning methods for seismic inversion problem are being improved rapidly.
 \begin_layout Standard
 In the future, if we collect more diverse data (for instance, collecting
  data from different regions or laboratory experiments, etc.), we can improve
- the neural network with these diverse data and adjust some parameters such
- as the depth, regularization, optimizer type, etc.
+ the neural network by using these diverse data and by adjusting some parameters
+ such as the depth, regularization, optimizer type, etc.
  of the network.
  Furthermore, we can try to make use of other approaches to resolve or help
  to resolve the seismic inversion problem by deep learning, that are mentioned
@@ -6519,9 +6519,8 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-To conclude on this internship, I highly appreciate the professionalism
- in the workplace where I definitely enjoy my job and get along with my
- coworkers.
+To conclude, I highly appreciate the professionalism in the workplace where
+ I definitely enjoy my job and get along with my coworkers.
  Through the project, I improved my hard skills such as programming, machine
  learning and deep learning, but also my soft skills such as communication
  and teamwork.
