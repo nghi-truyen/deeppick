@@ -12,7 +12,7 @@ conda activate venv
 conda install scikit-learn=0.24 tensorflow=2.5 pandas=1.3 matplotlib=3.4
 ```
 
-## 1. Data preprocessing
+## 1. Preprocessing
 In the terminal command, go to the `dataset` directory:
 ```
 cd dataset
@@ -83,6 +83,6 @@ python prediction_model.py --test --model_dir=model/210716-150459 --data_dir=dat
 conda activate venv
 python prediction_model.py --model_dir=model/210716-150459 --data_dir=dataset/pred/data --data_list=dataset/pred/fname.csv --batch_size=100 --save_result --plot_figure
 ```
-## 5. Correcting picks (optional)
+## 5. Post-processing (correcting picks)
 
 This part allows to improve the quality of pseudo labels for semi-supervised learning. In order to correct picks after predicting, go to the [`correct_label`](https://github.com/nghitruyen/PhaseNet_keras_version/tree/main/correct_label) directory.
