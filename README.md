@@ -4,12 +4,6 @@ This code is a Keras implementation of [PhaseNet](https://github.com/wayneweiqia
 
 The model stored in `model/210716-150459` has been trained with 36,864 seismograms from 4 labeled datasets (non-filtered set, filtered sets at 50Hz, 110Hz and 200Hz) using transfer learning with the pretrained model from NCEDC. The data in `dataset/raw/data` is an extraction from the dataset filtered at 50Hz.
 
-The following table sums up the results for our models on training-validation and test datasets, with 27,648 and 9,216 samples respectively:
-|                          | Phase | F1-score  |
-| ------------------------ | ----- | --------- |
-| Training from scratch    |P<br>S | 99.94%<br>82.81% |
-| Using transfer learning  |P<br>S | 99.95%<br>83.01% |
-
 ## 0. Installing packages
 Setting up a virtual environment using Anaconda:
 ```
