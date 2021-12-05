@@ -12,7 +12,7 @@ conda activate venv
 conda install scikit-learn=0.24 tensorflow=2.5 pandas=1.3 matplotlib=3.4
 ```
 
-## 1. Preprocessing
+## 1. Pre-processing
 In the terminal command, go to the `dataset` directory:
 ```
 cd dataset
