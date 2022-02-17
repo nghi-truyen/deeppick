@@ -1,8 +1,8 @@
-# Automatic arrival time picking for seismic inversion with unlabeled data
+# Near-surface arrival time picking with transfer and semi-supervised learning
 
-This code is a Keras implementation of [PhaseNet](https://github.com/wayneweiqiang/PhaseNet), dedicated to *"Automatic arrival time picking for seismic inversion with unlabeled data"*. This version allows to deal with new datasets having different sizes and number of channels, especially, to implement transfer learning using a pretrained model from [NCEDC](https://ncedc.org/) data (Northern California Earthquake Data Center) and deal with small labeled datasets or unlabeled datasets using semi-supervised learning. Robust linear regression methods and SVR (Support Vector Regression) are used to correct labels in the pseudo-labeling (see `correct_label` directory), that helps significantly enhance the quality of pseudo labels.
+This code is a Keras implementation of [PhaseNet](https://github.com/wayneweiqiang/PhaseNet), dedicated to *"Automatic arrival time picking for seismic inversion with unlabeled data"*. This version allows to deal with new datasets having different sizes and number of channels, especially, to implement transfer learning using the pretrained model from [NCEDC](https://ncedc.org/) data (Northern California Earthquake Data Center) and deal with small labeled datasets or unlabeled datasets using semi-supervised learning. Robust linear regression methods and SVR (Support Vector Regression) are used to correct labels in the pseudo-labeling (see `correct_label` directory), that helps significantly enhance the quality of pseudo labels.
 
-The model stored in `model/210716-150459` has been trained with 36,864 seismograms from 4 labeled datasets (non-filtered set, filtered sets at 50Hz, 110Hz and 200Hz) using transfer learning with the pretrained model from NCEDC. The data in `dataset/raw/data` is an extraction from the dataset filtered at 50Hz.
+The model stored in `model/220217-182847` has been trained with 9,216 seismograms labeled using transfer and semi-supervised learning. The data in `dataset/raw/data` is an extraction from this dataset.
 
 ## 0. Installing packages
 Setting up a virtual environment using Anaconda:
