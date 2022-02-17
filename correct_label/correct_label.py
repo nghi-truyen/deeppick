@@ -174,11 +174,11 @@ def correct_label(args):
     list_p_int = []
     list_s_int = []
     list_source = range(1,num_source+1)  #list_source = [1,2,50,51,52,92,93]
-    for source in list_source:
+    for j,source in enumerate(list_source):
         i=source-1
         labeltime = pd.read_csv(label_file)
-        tp = np.copy(labeltime['itp_pred'][num_receiver*i:num_receiver*i+num_receiver])
-        ts = np.copy(labeltime['its_pred'][num_receiver*i:num_receiver*i+num_receiver])
+        tp = np.copy(labeltime['itp_pred'][num_receiver*j:num_receiver*j+num_receiver])
+        ts = np.copy(labeltime['its_pred'][num_receiver*j:num_receiver*j+num_receiver])
 
         r_p,list_p = pick_time(tp,1,p_pick_min,p_pick_max)
         r_s,list_s = pick_time(ts,1,s_pick_min,s_pick_max)
