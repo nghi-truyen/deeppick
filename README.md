@@ -74,14 +74,14 @@ Notes:
 - Testing the performance of the model on the test set:
 ```
 conda activate venv
-python prediction_model.py --test --model_dir=model/210716-150459 --data_dir=dataset/test/data --data_list=dataset/test/fname.csv --batch_size=100 --save_result --plot_figure
+python prediction_model.py --test --model_dir=model/220217-182847 --data_dir=dataset/test/data --data_list=dataset/test/fname.csv --batch_size=100 --save_result --plot_figure
 ```
 ## 4. Prediction
 
 - Predicting arrival times for the prediction set using a trained model:
 ```
 conda activate venv
-python prediction_model.py --model_dir=model/210716-150459 --data_dir=dataset/pred/data --data_list=dataset/pred/fname.csv --batch_size=100 --save_result --plot_figure
+python prediction_model.py --model_dir=model/220217-182847 --data_dir=dataset/pred/data --data_list=dataset/pred/fname.csv --batch_size=100 --save_result --plot_figure
 ```
 ## 5. Post-processing (correcting picks)
 
