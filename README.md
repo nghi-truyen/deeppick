@@ -4,7 +4,7 @@ This code is a Keras implementation of [PhaseNet](https://github.com/wayneweiqia
 
 The model stored in `model/220217-182847` has been trained with 9,216 seismograms labeled using transfer and semi-supervised learning. The data in `dataset/raw/data` is an extraction from this dataset.
 
-This Git repository contains the code related to the paper available at `<https://doi.org/10.1007/s10712-023-09783-y>`.
+This Git repository contains the code related to the paper available at [https://doi.org/10.1007/s10712-023-09783-y].
 
 ## 0. Installing packages
 Setting up a virtual environment using Anaconda:
